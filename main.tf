@@ -6,10 +6,14 @@ terraform {
       version = ">= 3.0.2"
     }
   }
-  cloud {
-    organization = "CloudLabM"
+
+  backend "remote" {
+    # The name of your Terraform Cloud organization.
+    organization = "example-organization"
+
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
     workspaces {
-      name = "tf-state"
+        name = "example-workspace"
     }
   }
 }
