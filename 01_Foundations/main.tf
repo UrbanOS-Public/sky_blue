@@ -14,11 +14,7 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-module "naming" {
-  source  = "Azure/naming/azurerm"
-  version = "0.2.0"
-  suffix  = [var.suffix]
-}
+
 
 
 

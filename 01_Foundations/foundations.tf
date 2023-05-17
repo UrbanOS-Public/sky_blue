@@ -1,29 +1,30 @@
 ### Data Sources ###
 data "azurerm_client_config" "current" {}
 
+
 #Create a Resource Group
 resource "azurerm_resource_group" "foundations" {
-  name     = module.naming.resource_group.name
+  name     = module.nameconvention.resource_group.name
   location = var.location
   tags     = var.tags
 }
 
 #Create a Resource Group 
 resource "azurerm_resource_group" "urbanos" {
-  name     = module.naming.resource_group.name
+  name     = module.nameconvention.resource_group.name
   location = var.location
   tags     = var.tags
 }
 
 ##Create Networking Resource Group for hub-spoke vnet
 resource "azurerm_resource_group" "vnet-hub-rg" {
-  name     = module.naming.resource_group.name
+  name     = module.nameconvention.resource_group.name
   location = var.location
   tags     = var.tags
 }
 
 resource "azurerm_resource_group" "vnet-dev-rg" {
-  name     = module.naming.resource_group.name
+  name     = module.nameconvention.resource_group.name
   location = var.location
   tags     = var.tags
 }
