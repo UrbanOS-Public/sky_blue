@@ -19,7 +19,7 @@ on:
           required: true
 jobs:
   Plan:
-    uses: risticmarko/cloudlabm/.github/workflows/az_tf_plan.yml@main
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
     with:
       path: 01_Foundations                               ## Path to terraform root module (Required)
       tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
@@ -36,7 +36,7 @@ jobs:
   Deploy:
         if: ${{ github.event.inputs.deploy == 'apply' }}
         needs: Plan
-        uses: risticmarko/cloudlabm/.github/workflows/az_tf_apply.yml@main
+        uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
         with:
           path: 01_Foundation                ## Path to terraform root module (Required)
           tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
