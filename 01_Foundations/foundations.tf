@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "foundations" {
 }
 
 #Create a Resource Group 
-resource "azurerm_resource_group" "foundations" {
+resource "azurerm_resource_group" "urbanos" {
   name     = module.naming.resource_group.name
   location = var.location
   tags     = var.tags
@@ -46,11 +46,5 @@ resource "azurerm_virtual_network" "dev-vnet" {
   resource_group_name = azurerm_resource_group.vnet-dev-rg.name
   address_space       = ["10.2.0.0/20"]
   dns_servers         = ["10.5.0.4","168.63.129.16"]
-  tags = {
-    "Critical"    = "Yes"
-    "Solution"    = "Vnet"
-    "Costcenter"  = "It"
-    "Environment" = "Dev"
-    "Location"    = "Weu"
-  }
+  tags                = var.tags
 }
