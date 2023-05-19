@@ -210,7 +210,7 @@ variable "default_node_pool_name" {
 
 variable "default_node_pool_vm_size" {
   description = "Specifies the vm size of the default node pool"
-  default     = "Standard_B4ms"
+  default     = "Standard_B2ms"
   type        = string
 }
 
@@ -277,7 +277,7 @@ variable "default_node_pool_node_count" {
 variable "default_node_pool_os_disk_type" {
   description = "(Optional) The type of disk which should be used for the Operating System. Possible values are Ephemeral and Managed. Defaults to Managed. Changing this forces a new resource to be created."
   type          = string
-  default       = "Ephemeral"
+  default       = "Managed"
 } 
 
 variable "network_dns_service_ip" {
