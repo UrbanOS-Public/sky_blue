@@ -75,7 +75,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.arm_client_secret }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.arm_subscription_id }}
       ARM_TENANT_ID: ${{ secrets.arm_tenant_id }}
-      GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
+  
     steps:
       - name: Checkout
         uses: actions/checkout@v3.5.2
@@ -96,8 +96,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2.0.3
         with:
           terraform_version: ${{ inputs.tf_version }}
-          terraform_wrapper: true
-          
+
       - name: Terraform Format
         id: fmt
         run: terraform fmt --check
@@ -107,29 +106,15 @@ jobs:
         id: init
         run: terraform init --backend-config="storage_account_name=$STORAGE_ACCOUNT" --backend-config="container_name=$CONTAINER_NAME" --backend-config="resource_group_name=$RESOURCE_GROUP" --backend-config="key=$TF_KEY"
       
-      - name: PR Terraform Init
-        uses: robburger/terraform-pr-commenter@v1.5.0
-        with:
-          commenter_type: init
-          commenter_input: ${{ format('{0}{1}', steps.init.outputs.stdout, steps.init.outputs.stderr) }}
-          commenter_exitcode: ${{ steps.init.outputs.exitcode }}
-
       - name: Terraform Validate
         id: validate
         run: terraform validate
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan --var-file=$TF_VARS --out=plan.tfplan
+        run: terraform plan --destroy --var-file=$TF_VARS --out=plan_destroy.tfplan
         continue-on-error: true
-      
-      - name: PR Plan Deploy
-        uses: robburger/terraform-pr-commenter@v1.5.0
-        with:
-          commenter_type: plan
-          commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
-          commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
-      
+
       - name: Terraform Show
         id: show
         run: terraform show -no-color

@@ -14,7 +14,12 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
+locals {
+  route_table_name       = "DefaultRouteTable"
+  route_name             = "RouteToAzureFirewall"
+}
 
+data "azurerm_client_config" "current" {}
 
 
 

@@ -1,10 +1,10 @@
-name: "01_Foundation"
+name: "01_Foundation_DESTROY"
 on:
   workflow_dispatch:
     inputs:
       environment:
         type: choice
-        description: Choose the environment used to deploy urbanos.
+        description: Choose the environment used to destroy urbanos.
         options:
           - dev
           - uat
@@ -15,11 +15,11 @@ on:
           description: Deploy?
           options:
             - plan
-            - apply
+            - destroy
           required: true
 jobs:
   Plan:
-    uses: risticmarko/cloudlabm/.github/workflows/az_tf_plan.yml@main
+    uses: risticmarko/cloudlabm/.github/workflows/az_tf_plan_destroy.yml@main
     with:
       path: 01_Foundations                               ## Path to terraform root module (Required)
       tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
@@ -33,10 +33,10 @@ jobs:
       arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
       arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
   
-  Deploy:
-      if: ${{ github.event.inputs.deploy == 'apply' }}
+  Destroy:
+      if: ${{ github.event.inputs.deploy == 'destroy' }}
       needs: Plan
-      uses: risticmarko/cloudlabm/.github/workflows/az_tf_apply.yml@main
+      uses: risticmarko/cloudlabm/.github/workflows/az_tf_destroy.yml@main
       with:
         path: 01_Foundations                               ## Path to terraform root module (Required)
         tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
