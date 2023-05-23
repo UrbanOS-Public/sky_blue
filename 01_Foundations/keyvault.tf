@@ -22,7 +22,7 @@ module "key_vault" {
 resource "azurerm_key_vault_access_policy" "agent" {
   key_vault_id = module.key_vault.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = "9863e455-912b-49b6-a143-4fb3c35918f1"
+  object_id    = data.azurerm_client_config.current.client_id # "9863e455-912b-49b6-a143-4fb3c35918f1"
 
   key_permissions = [
     "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
