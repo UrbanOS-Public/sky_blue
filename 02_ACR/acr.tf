@@ -25,7 +25,7 @@ resource "azurerm_key_vault_key" "cmk" {
 
 
 module "container_registry" {
-  source                       = "../modules//container_registry"
+  source                       = "..//modules//container_registry"
   name                         = module.namespoke.container_registry.name
   resource_group_name          = module.namespoke.resource_group.name
   location                     = var.location
