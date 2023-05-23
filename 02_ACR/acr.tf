@@ -32,7 +32,7 @@ module "container_registry" {
   sku                          = var.acr_sku
   admin_enabled                = var.acr_admin_enabled
   georeplication_locations     = var.acr_georeplication_locations
-  log_analytics_workspace_id   = data.azurerm_resources.log_analytics_workspace.resources[0].id
+  log_analytics_workspace_id   = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days = var.log_analytics_retention_days
   key_vault_id                 = data.azurerm_resources.key_vault.resources[0].id
   key_vault_key_id             = azurerm_key_vault_key.cmk.versionless_id
