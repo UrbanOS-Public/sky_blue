@@ -15,6 +15,7 @@ variable "location" {
 variable "loc" {
   type = string
   default = "eus"
+  description = "Aberbation of location/region where Azure resource will be created."
 }
 
 variable "tags" {
