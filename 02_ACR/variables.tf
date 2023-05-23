@@ -29,7 +29,7 @@ variable "log_analytics_retention_days" {
 }
 
 variable "acr_sku" {
-  description = "Specifies the name of the container registry"
+  description = "Specifies the SKU of the container registry"
   type        = string
   default     = "Premium"
 
