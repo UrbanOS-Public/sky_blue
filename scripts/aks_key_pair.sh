@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VAULT_NAME=kv-lab01-spoke-dev-eus
+VAULT_NAME=kv-urbanos-spoke-dev-eus
 KEY_PREFIX=aks
 TMP_DIR=./temp
 
@@ -14,11 +14,11 @@ function generate {
 }
 function send {
   echo "send..."
-  az keyvault secret set --vault-name "kv-lab01-spoke-${envCurrent}-eus" \
-    -n "aks-${envCurrent}-ssh-priv" \
+  az keyvault secret set --vault-name "${VAULT_NAME}" \
+    -n "aks-private-sshkey" \
     -f "${TMP_DIR}/${KEY_PREFIX}-${envCurrent}.rsa"
-  az keyvault secret set --vault-name "kv-lab01-spoke-${envCurrent}-eus" \
-    -n "aks-${envCurrent}-ssh-pub" \
+  az keyvault secret set --vault-name "${VAULT_NAME}" \
+    -n "aks-public-sshkey" \
     -f "${TMP_DIR}/${KEY_PREFIX}-${envCurrent}.rsa.pub"
 }
 function clean {

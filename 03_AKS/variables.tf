@@ -28,41 +28,6 @@ variable "log_analytics_retention_days" {
   default     = 30
 }
 
-variable "solution_plan_map" {
-  description = "Specifies solutions to deploy to log analytics workspace"
-  default     = {
-    ContainerInsights= {
-      product   = "OMSGallery/ContainerInsights"
-      publisher = "Microsoft"
-    }
-  }
-  type = map(any)
-}
-
-variable "hub_address_space" {
-  description = "Specifies the address space of the hub virtual virtual network"
-  #default     = ["10.1.0.0/16"]
-  type        = list(string)
-}
-
-variable "hub_firewall_subnet_address_prefix" {
-  description = "Specifies the address prefix of the firewall subnet"
-  #default     = ["10.1.0.0/24"]
-  type        = list(string)
-}
-
-variable "hub_bastion_subnet_address_prefix" {
-  description = "Specifies the address prefix of the firewall subnet"
-  #default     = ["10.1.1.0/24"]
-  type        = list(string)
-}
-
-variable "aks_vnet_address_space" {
-  description = "Specifies the address prefix of the AKS subnet"
-  #default     =  ["10.0.0.0/16"]
-  type        = list(string)
-}
-
 variable "default_node_pool_subnet_name" {
   description = "Specifies the name of the subnet that hosts the default node pool"
   default     =  "SystemSubnet"
@@ -571,50 +536,4 @@ variable "additional_node_pool_node_count" {
   description = "(Optional) The initial number of nodes which should exist within this Node Pool. Valid values are between 0 and 1000 and must be a value in the range min_count - max_count."
   type          = number
   default       = 3
-}
-
-variable "vm_name" {
-  description = "Specifies the name of the jumpbox virtual machine"
-  default     = "TestVm"
-  type        = string
-}
-
-variable "vm_public_ip" {
-  description = "(Optional) Specifies whether create a public IP for the virtual machine"
-  type = bool
-  default = false
-}
-
-variable "vm_size" {
-  description = "Specifies the size of the jumpbox virtual machine"
-  default     = "Standard_DS1_v2"
-  type        = string
-}
-
-variable "vm_os_disk_storage_account_type" {
-  description = "Specifies the storage account type of the os disk of the jumpbox virtual machine"
-  default     = "Premium_LRS"
-  type        = string
-
-  validation {
-    condition = contains(["Premium_LRS", "Premium_ZRS", "StandardSSD_LRS", "StandardSSD_ZRS",  "Standard_LRS"], var.vm_os_disk_storage_account_type)
-    error_message = "The storage account type of the OS disk is invalid."
-  }
-}
-
-variable "vm_os_disk_image" {
-  type        = map(string)
-  description = "Specifies the os disk image of the virtual machine"
-  default     = {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS" 
-    version   = "latest"
-  }
-}
-
-variable "domain_name_label" {
-  description = "Specifies the domain name for the jumbox virtual machine"
-  default     = "jumpbox"
-  type        = string
 }

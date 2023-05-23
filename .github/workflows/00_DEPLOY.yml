@@ -1,0 +1,175 @@
+name: "00_DEPLOY"
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Choose the environment used to deploy urbanos.
+        options:
+          - dev
+          - uat
+          - prd
+        required: true
+      deploy:
+          type: choice
+          description: Deploy?
+          options:
+            - plan
+            - apply
+          required: true
+jobs:
+  Plan-01:
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
+    with:
+      path: 01_Foundations                               
+      tf_version: latest                                 
+      tf_key: "foundation-${{ github.event.inputs.environment }}"
+      tf_vars_file:  ./variables/config-${{ github.event.inputs.environment }}.tfvars
+      #enable_TFSEC: true                                
+      gh_environment: ${{ github.event.inputs.environment }}
+    secrets:
+      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}        
+      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
+  Deploy-01:
+      if: ${{ github.event.inputs.deploy == 'apply' }}
+      needs: [Plan-01]
+      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
+      with:
+        path: 01_Foundations
+        tf_version: latest
+        tf_key: "foundation-${{ github.event.inputs.environment }}"
+        #enable_TFSEC: true
+        gh_environment: ${{ github.event.inputs.environment }}
+      secrets:
+        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             
+        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}    
+        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             
+  Plan-02:
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
+    needs: [Deploy-01]
+    with:
+      path: 02_ACR                               
+      tf_version: latest                                 
+      tf_key: "acr-${{ github.event.inputs.environment }}"
+      tf_vars_file:  ./variables/config-${{ github.event.inputs.environment }}.tfvars
+      #enable_TFSEC: true                                
+      gh_environment: ${{ github.event.inputs.environment }}
+    secrets:
+      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}        
+      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
+  Deploy-02:
+      if: ${{ github.event.inputs.deploy == 'apply' }}
+      needs: [Deploy-01, Plan-02]
+      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
+      with:
+        path: 02_ACR
+        tf_version: latest
+        tf_key: "acr-${{ github.event.inputs.environment }}"
+        #enable_TFSEC: true
+        gh_environment: ${{ github.event.inputs.environment }}
+      secrets:
+        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             
+        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}    
+        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             
+
+  Plan-03:
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
+    needs: [Deploy-02]
+    with:
+      path: 03_AKS                               
+      tf_version: latest                                 
+      tf_key: "aks-${{ github.event.inputs.environment }}"
+      tf_vars_file:  ./variables/config-${{ github.event.inputs.environment }}.tfvars
+      #enable_TFSEC: true                                
+      gh_environment: ${{ github.event.inputs.environment }}
+    secrets:
+      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}        
+      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
+  
+  Deploy-03:
+      if: ${{ github.event.inputs.deploy == 'apply' }}
+      needs: [Deploy-02, Plan-03]
+      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
+      with:
+        path: 03_AKS
+        tf_version: latest
+        tf_key: "aks-${{ github.event.inputs.environment }}"
+        #enable_TFSEC: true
+        gh_environment: ${{ github.event.inputs.environment }}
+      secrets:
+        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             
+        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}    
+        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             
+
+  Plan-04:
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
+    needs: [Deploy-03]
+    with:
+      path: 04_Jumpbox                               
+      tf_version: latest                                 
+      tf_key: "jumpbox-${{ github.event.inputs.environment }}"
+      tf_vars_file:  ./variables/config-${{ github.event.inputs.environment }}.tfvars
+      #enable_TFSEC: true                                
+      gh_environment: ${{ github.event.inputs.environment }}
+    secrets:
+      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}        
+      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
+  
+  Deploy-04:
+      if: ${{ github.event.inputs.deploy == 'apply' }}
+      needs: [Deploy-03, Plan-04]
+      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
+      with:
+        path: 04_Jumpbox
+        tf_version: latest
+        tf_key: "jumpbox-${{ github.event.inputs.environment }}"
+        #enable_TFSEC: true
+        gh_environment: ${{ github.event.inputs.environment }}
+      secrets:
+        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             
+        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}    
+        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             
+
+  Plan-05:
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
+    needs: [Deploy-04]
+    with:
+      path: 05_DNS_PE                               
+      tf_version: latest                                 
+      tf_key: "dns_pe-${{ github.event.inputs.environment }}"
+      tf_vars_file:  ./variables/config-${{ github.event.inputs.environment }}.tfvars
+      #enable_TFSEC: true                                
+      gh_environment: ${{ github.event.inputs.environment }}
+    secrets:
+      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}        
+      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
+      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
+  
+  Deploy-05:
+      if: ${{ github.event.inputs.deploy == 'apply' }}
+      needs: [Deploy-04, Plan-05]
+      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
+      with:
+        path: 04_DNS_PE
+        tf_version: latest
+        tf_key: "dns_pe-${{ github.event.inputs.environment }}"
+        #enable_TFSEC: true
+        gh_environment: ${{ github.event.inputs.environment }}
+      secrets:
+        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             
+        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}    
+        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             

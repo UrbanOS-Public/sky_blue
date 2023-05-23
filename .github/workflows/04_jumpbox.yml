@@ -1,4 +1,4 @@
-name: "01_Foundation"
+name: "04_Jumpbox"
 on:
   workflow_dispatch:
     inputs:
@@ -21,9 +21,9 @@ jobs:
   Plan:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
     with:
-      path: 01_Foundations                               ## Path to terraform root module (Required)
+      path: 04_Jumpbox                               ## Path to terraform root module (Required)
       tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
-      tf_key: "foundation-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+      tf_key: "jumpbox-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
       tf_vars_file: ./variables/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
       #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
       gh_environment: ${{ github.event.inputs.environment }}
@@ -38,13 +38,13 @@ jobs:
       needs: Plan
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
       with:
-        path: 01_Foundations                               ## Path to terraform root module (Required)
+        path: 04_Jumpbox                               ## Path to terraform root module (Required)
         tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
-        tf_key: "foundation-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+        tf_key: "jumpbox-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
         #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
         gh_environment: ${{ github.event.inputs.environment }}                       ## GH Environment. Default=null - (Optional)
       secrets:
         arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
         arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
         arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
-        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID  

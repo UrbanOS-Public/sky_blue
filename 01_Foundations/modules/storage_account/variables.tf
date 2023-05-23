@@ -79,3 +79,18 @@ variable "tags" {
   description = "(Optional) Specifies the tags of the storage account"
   default     = {}
 }
+
+variable "key_vault_key_name" {
+  description = "Specifies name of key vault key used for CMK encryption"
+  type        = string
+}
+
+variable "key_vault_id" {
+  description = "Specifies id of key vault"
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "(Required) The tenant id of the system assigned identity which is used by master components."
+  type        = string
+}
