@@ -29,7 +29,7 @@ module "aks_cluster" {
   network_plugin                           = var.network_plugin
   outbound_type                            = "userDefinedRouting"
   network_service_cidr                     = var.network_service_cidr
-  log_analytics_workspace_id               = data.azurerm_resources.log_analytics_workspace.resources[0].id
+  log_analytics_workspace_id               = data.azurerm_log_analytics_workspace.law.id
   role_based_access_control_enabled        = var.role_based_access_control_enabled
   tenant_id                                = data.azurerm_client_config.current.tenant_id
   admin_group_object_ids                   = var.admin_group_object_ids
