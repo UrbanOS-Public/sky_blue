@@ -114,7 +114,7 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
 }
 
 resource "azurerm_virtual_machine_extension" "custom_script" {
-  name                    = "${var.name}CustomScript"
+  name                    = "${var.name}-CustomScript"
   virtual_machine_id      = azurerm_linux_virtual_machine.virtual_machine.id
   publisher               = "Microsoft.Azure.Extensions"
   type                    = "CustomScript"
@@ -137,7 +137,7 @@ resource "azurerm_virtual_machine_extension" "custom_script" {
 }
 
 resource "azurerm_virtual_machine_extension" "monitor_agent" {
-  name                       = "${var.name}MonitoringAgent"
+  name                       = "${var.name}-MonitoringAgent"
   virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
   publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
   type                       = "OmsAgentForLinux"
@@ -165,7 +165,7 @@ resource "azurerm_virtual_machine_extension" "monitor_agent" {
 }
 
 resource "azurerm_virtual_machine_extension" "dependency_agent" {
-  name                       = "${var.name}DependencyAgent"
+  name                       = "${var.name}-DependencyAgent"
   virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
   publisher                  = "Microsoft.Azure.Monitoring.DependencyAgent"
   type                       = "DependencyAgentLinux"
@@ -218,9 +218,20 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
   }
 }
 
-resource "azurerm_role_assignment" "assign-vm-role" {
+
+
+resource "azurerm_virtual_machine_extension" "aad" {
+  name                       = "${var.name}-AADLoginForLinux"
+  virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
+  publisher                  = "Microsoft.Azure.ActiveDirectory.LinuxSSH"
+  type                       = "AADLoginForLinux"
+  type_handler_version       = "1.0"
+  auto_upgrade_minor_version = true
+}
+
+/* resource "azurerm_role_assignment" "assign-vm-role" {
   count = length(var.admin_group_object_ids)
     scope                = azurerm_linux_virtual_machine.virtual_machine.id
     role_definition_name = "Virtual Machine Administrator Login"
     principal_id         = var.admin_group_object_ids[count.index]
-}
+} */
