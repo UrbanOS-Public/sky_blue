@@ -97,6 +97,10 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     storage_account_uri = var.boot_diagnostics_storage_account == "" ? null : var.boot_diagnostics_storage_account
   }
 
+  identity {
+    type = "SystemAssigned"    
+  }
+
   lifecycle {
     ignore_changes = [
         tags
@@ -212,4 +216,10 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
       days    = var.log_analytics_retention_days
     }
   }
+}
+
+resource "azurerm_role_assignment" "assign-vm-role" {
+  scope                = azurerm_linux_virtual_machine.dev.id
+  role_definition_name = "Virtual Machine Administrator Login"
+  principal_id         = var.admin_group_object_ids
 }
