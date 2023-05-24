@@ -219,7 +219,8 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
 }
 
 resource "azurerm_role_assignment" "assign-vm-role" {
-  scope                = azurerm_linux_virtual_machine.virtual_machine.id
-  role_definition_name = "Virtual Machine Administrator Login"
-  principal_id         = var.admin_group_object_ids
+  for_each =  try(var.admin_group_object_ids,[])
+    scope                = azurerm_linux_virtual_machine.virtual_machine.id
+    role_definition_name = "Virtual Machine Administrator Login"
+    principal_id         = each.value
 }
