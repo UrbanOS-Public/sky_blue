@@ -5,11 +5,11 @@ resource "azurerm_user_assigned_identity" "aks_identity" {
 
   name = "${var.name}-uai"
 
-  lifecycle {
-    ignore_changes = [
-      tags
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     tags
+  #   ]
+  # }
 }
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
@@ -27,7 +27,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   image_cleaner_enabled            = var.image_cleaner_enabled
   azure_policy_enabled             = var.azure_policy_enabled
   http_application_routing_enabled = var.http_application_routing_enabled
-  
+  tags                    = var.tags
 
   default_node_pool {
     name                    = var.default_node_pool_name
