@@ -1,13 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-    }
-  }
-
-  required_version = ">= 0.14.9"
-}
-
 resource "azurerm_container_registry" "acr" {
   name                     = var.name
   resource_group_name      = var.resource_group_name

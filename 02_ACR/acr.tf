@@ -37,6 +37,7 @@ module "container_registry" {
   key_vault_id                 = data.azurerm_resources.key_vault.resources[0].id
   key_vault_key_id             = azurerm_key_vault_key.cmk.versionless_id
   tenant_id                    = data.azurerm_client_config.current.tenant_id
+  tags                         = var.tags
 }
 
 

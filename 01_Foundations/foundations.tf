@@ -113,6 +113,7 @@ module "firewall" {
   subnet_id                    = module.hub_network.subnet_ids["AzureFirewallSubnet"]
   log_analytics_workspace_id   = module.log_analytics_workspace.id
   log_analytics_retention_days = var.log_analytics_retention_days
+  tags                         = var.tags
 }
 
 module "routetable" {
@@ -122,6 +123,7 @@ module "routetable" {
   route_table_name     = local.route_table_name
   route_name           = local.route_name
   firewall_private_ip  = module.firewall.private_ip_address
+  tags                 = var.tags
   subnets_to_associate = {
     (var.default_node_pool_subnet_name) = {
       subscription_id      = data.azurerm_client_config.current.subscription_id

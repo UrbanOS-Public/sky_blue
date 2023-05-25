@@ -41,4 +41,5 @@ module "storage_account" {
   key_vault_id                = module.key_vault.id
   key_vault_key_name          = azurerm_key_vault_key.cmk_storage.name
   tenant_id                   = data.azurerm_client_config.current.tenant_id
+  tags                        = var.tags
 }
