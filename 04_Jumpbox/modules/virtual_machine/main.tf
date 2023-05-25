@@ -78,7 +78,6 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   patch_assessment_mode = "AutomaticByPlatform"
   provision_vm_agent = true
   patch_mode = "AutomaticByPlatform"
-  secure_boot_enabled = true
 
   os_disk {
     name                 = "${var.name}-os"

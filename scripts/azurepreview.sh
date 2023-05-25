@@ -26,8 +26,8 @@
 #When the status reflects Registered, refresh the registration of the Microsoft.ContainerService resource provider by using the az provider register command:
 #az provider register --namespace Microsoft.ContainerService
 
-
-
+az feature register --namespace Microsoft.Compute --name EncryptionAtHost
+az provider register -n Microsoft.Compute
 
 # Subscription id, subscription name, and tenant id of the current subscription
 subscriptionId=$(az account show --query id --output tsv)
