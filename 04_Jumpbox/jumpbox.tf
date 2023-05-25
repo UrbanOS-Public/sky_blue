@@ -21,4 +21,5 @@ module "virtual_machine" {
   container_name                      = "" #var.container_name
   script_name                         = var.script_name
   admin_group_object_ids              = var.admin_group_object_ids
+  tags = var.tags
 }

@@ -6,4 +6,5 @@ module "bastion_host" {
    subnet_id                    = data.azurerm_subnet.spoke_bastion_subnet.id #module.hub_network.subnet_ids["AzureBastionSubnet"]
    log_analytics_workspace_id   = data.azurerm_log_analytics_workspace.law.id
    log_analytics_retention_days = var.log_analytics_retention_days
+   tags = var.tags
 }
