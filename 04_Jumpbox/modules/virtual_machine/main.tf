@@ -83,6 +83,7 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     name                 = "${var.name}-os"
     caching              = "ReadWrite"
     storage_account_type = var.os_disk_storage_account_type
+    tags = var.tags
   }
 
   admin_ssh_key {
