@@ -1,13 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-    }
-  }
-
-  required_version = ">= 0.14.9"
-}
-
 resource "azurerm_private_endpoint" "private_endpoint" {
   name                = var.name
   location            = var.location
@@ -28,9 +18,9 @@ resource "azurerm_private_endpoint" "private_endpoint" {
     private_dns_zone_ids = var.private_dns_zone_group_ids
   }
 
-  lifecycle {
-    ignore_changes = [
-      tags
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     tags
+  #   ]
+  # }
 }
