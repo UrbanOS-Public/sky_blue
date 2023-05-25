@@ -23,4 +23,4 @@ admin_group_object_ids = ["63babf21-108e-40c9-9851-be3434d5cdfb"]
 log_analytics_retention_days = 30
 default_node_pool_vm_size = "Standard_B2ms"
 additional_node_pool_vm_size = "Standard_B2ms"
-acr_georeplication_locations = ["EastUS", "WestUS"]
+acr_georeplication_locations = ["WestUS"]

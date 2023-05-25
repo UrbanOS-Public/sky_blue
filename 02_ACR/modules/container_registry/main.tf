@@ -24,6 +24,7 @@ resource "azurerm_container_registry" "acr" {
 
     content {
       location = georeplications.value
+      zone_redundancy_enabled = true
       tags     = var.tags
     }
   }
