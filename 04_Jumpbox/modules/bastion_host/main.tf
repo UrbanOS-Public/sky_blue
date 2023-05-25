@@ -15,11 +15,11 @@ resource "azurerm_public_ip" "public_ip" {
   allocation_method   = "Static"
   sku                 = "Standard"
 
-  lifecycle {
-      ignore_changes = [
-          tags
-      ]
-  }
+  # lifecycle {
+  #     ignore_changes = [
+  #         tags
+  #     ]
+  # }
 }
 
 resource "azurerm_bastion_host" "bastion_host" {
@@ -35,11 +35,11 @@ resource "azurerm_bastion_host" "bastion_host" {
     public_ip_address_id = azurerm_public_ip.public_ip.id
   }
 
-  lifecycle {
-      ignore_changes = [
-          tags
-      ]
-  }
+  # lifecycle {
+  #     ignore_changes = [
+  #         tags
+  #     ]
+  # }
 }
 
 resource "azurerm_monitor_diagnostic_setting" "settings" {
