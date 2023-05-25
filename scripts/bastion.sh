@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #az login
 #az account set --subscription "962dc63d-463c-48c1-a588-20b22134bbd1"
 
