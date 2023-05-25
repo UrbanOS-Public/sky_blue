@@ -74,6 +74,11 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   computer_name                 = var.name
   admin_username                = var.vm_user
   tags                          = var.tags
+  encryption_at_host_enabled = true
+  patch_assessment_mode = "AutomaticByPlatform"
+  provision_vm_agent = true
+  patch_mode = "AutomaticByPlatform"
+  secure_boot_enabled = true
 
   os_disk {
     name                 = "${var.name}-os"
