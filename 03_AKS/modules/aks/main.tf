@@ -97,8 +97,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
   lifecycle {
     ignore_changes = [
-      kubernetes_version,
-      tags
+      kubernetes_version
+      #tags
     ]
   }
 }
