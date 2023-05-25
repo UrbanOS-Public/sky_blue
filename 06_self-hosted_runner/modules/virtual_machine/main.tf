@@ -7,11 +7,11 @@ resource "azurerm_public_ip" "public_ip" {
   count               = var.public_ip ? 1 : 0
   tags                = var.tags
 
-  lifecycle {
-    ignore_changes = [
-        tags
-    ]
-  }
+#  lifecycle {
+#   ignore_changes = [
+#        tags
+#    ]
+#  }
 }
 
 resource "azurerm_network_security_group" "nsg" {
@@ -32,11 +32,11 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
 
-  lifecycle {
-    ignore_changes = [
-        tags
-    ]
-  }
+#  lifecycle {
+#   ignore_changes = [
+#        tags
+#    ]
+#  }
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -97,11 +97,11 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     storage_account_uri = var.boot_diagnostics_storage_account == "" ? null : var.boot_diagnostics_storage_account
   }
 
-  lifecycle {
-    ignore_changes = [
-        tags
-    ]
-  }
+#  lifecycle {
+#   ignore_changes = [
+#        tags
+#    ]
+#  }
 
   depends_on = [
     azurerm_network_interface.nic,

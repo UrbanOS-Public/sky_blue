@@ -35,11 +35,11 @@ resource "azurerm_network_security_group" "nsg" {
     }
   }
 
-  lifecycle {
-    ignore_changes = [
-        tags
-    ]
-  }
+#  lifecycle {
+#   ignore_changes = [
+#        tags
+#    ]
+#  }
 }
 
 resource "azurerm_monitor_diagnostic_setting" "settings" {

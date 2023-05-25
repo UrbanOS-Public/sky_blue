@@ -33,9 +33,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "node_pool" {
   priority                     = var.priority
   tags                         = var.tags
 
-  lifecycle {
-    ignore_changes = [
-        tags
-    ]
-  }
+#  lifecycle {
+#   ignore_changes = [
+#        tags
+#    ]
+#  }
 }
