@@ -1,6 +1,6 @@
 module "runner" {
   source                              = "./modules/virtual_machine"
-  name                                = "${module.namespoke.linux_virtual_machine.name}-runner"
+  name                                = replace(module.namespoke.linux_virtual_machine.name, "spoke", "runner") 
   size                                = var.vm_size
   location                            = var.location
   public_ip                           = var.vm_public_ip
@@ -20,4 +20,5 @@ module "runner" {
   script_storage_account_key          = "" #var.script_storage_account_key
   container_name                      = "" #var.container_name
   script_name                         = var.script_name
+  tags = var.tags
 }

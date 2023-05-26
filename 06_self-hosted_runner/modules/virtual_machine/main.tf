@@ -74,6 +74,10 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   computer_name                 = var.name
   admin_username                = var.vm_user
   tags                          = var.tags
+  encryption_at_host_enabled = true
+  patch_assessment_mode = "AutomaticByPlatform"
+  provision_vm_agent = true
+  patch_mode = "AutomaticByPlatform"
 
   os_disk {
     name                 = "${var.name}-os"
@@ -97,6 +101,10 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     storage_account_uri = var.boot_diagnostics_storage_account == "" ? null : var.boot_diagnostics_storage_account
   }
 
+  identity {
+    type = "SystemAssigned"    
+  }
+
 #  lifecycle {
 #   ignore_changes = [
 #        tags
@@ -109,10 +117,24 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
   ]
 }
 
+resource "azurerm_virtual_machine_extension" "custom_script" {
+  name                    = "CustomScript"
+  virtual_machine_id      = azurerm_linux_virtual_machine.virtual_machine.id
+  publisher               = "Microsoft.Azure.Extensions"
+  type                    = "CustomScript"
+  type_handler_version    = "2.0"
 
+  lifecycle {
+    ignore_changes = [
+     # tags,
+      settings,
+      protected_settings
+    ]
+  }
+}
 
 resource "azurerm_virtual_machine_extension" "monitor_agent" {
-  name                       = "${var.name}MonitoringAgent"
+  name                       = "MonitoringAgent"
   virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
   publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
   type                       = "OmsAgentForLinux"
@@ -140,7 +162,7 @@ resource "azurerm_virtual_machine_extension" "monitor_agent" {
 }
 
 resource "azurerm_virtual_machine_extension" "dependency_agent" {
-  name                       = "${var.name}DependencyAgent"
+  name                       = "DependencyAgent"
   virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
   publisher                  = "Microsoft.Azure.Monitoring.DependencyAgent"
   type                       = "DependencyAgentLinux"
@@ -191,4 +213,22 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
       days    = var.log_analytics_retention_days
     }
   }
+}
+
+
+
+resource "azurerm_virtual_machine_extension" "aad" {
+  name                       = "AADLoginForLinux"
+  virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
+  publisher                  = "Microsoft.Azure.ActiveDirectory.LinuxSSH"
+  type                       = "AADLoginForLinux"
+  type_handler_version       = "1.0"
+  auto_upgrade_minor_version = true
+}
+
+resource "azurerm_role_assignment" "assign-vm-role" {
+  count = length(var.admin_group_object_ids)
+    scope                = azurerm_linux_virtual_machine.virtual_machine.id
+    role_definition_name = "Virtual Machine Administrator Login"
+    principal_id         = var.admin_group_object_ids[count.index]
 }

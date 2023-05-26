@@ -118,3 +118,9 @@ variable "script_name" {
   description = "(Required) Specifies the name of the custom script."
   type        = string
 }
+
+variable "admin_group_object_ids" {
+  description = "(Optional) A list of Object IDs of Azure Active Directory Groups which should have Admin Role on the jumpbox."
+  #default     = ["6e5de8c1-5a4b-409b-994f-0706e4403b77", "78761057-c58c-44b7-aaa7-ce1639c6c4f5"]
+  type        = list(string)
+}
