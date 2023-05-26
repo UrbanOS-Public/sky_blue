@@ -20,5 +20,6 @@ module "runner" {
   script_storage_account_key          = "" #var.script_storage_account_key
   container_name                      = "" #var.container_name
   script_name                         = var.script_name
+  admin_group_object_ids              = var.admin_group_object_ids
   tags = var.tags
 }
