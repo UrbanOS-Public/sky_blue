@@ -21,6 +21,8 @@ jobs:
       arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
       arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
       arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
+      run : echo $arm_tenant_id 
+      
     steps:
     
     - name: Azure login
