@@ -29,7 +29,7 @@ jobs:
       id: login
       uses: azure/login@v1.4.3
       with:
-        creds: '{"clientId":"$ARM_CLIENT_ID","clientSecret":"$ARM_CLIENT_SECRET","subscriptionId":"$ARM_SUBSCRIPTION_ID","tenantId":"$ARM_TENANT_ID"}'
+        creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
     
     - name: Set AKS context
       id: set-context
