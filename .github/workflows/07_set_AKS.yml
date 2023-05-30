@@ -13,7 +13,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: ${{ github.event.inputs.environment }}
      
     steps:
@@ -34,3 +34,11 @@ jobs:
     - name: Setup kubectl
       id: install-kubectl
       uses: azure/setup-kubectl@v3
+
+    - name: az logout 
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az logout
+          az cache purge
+          az account clear
