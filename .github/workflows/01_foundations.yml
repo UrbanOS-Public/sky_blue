@@ -27,12 +27,7 @@ jobs:
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
       #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
       gh_environment: ${{ github.event.inputs.environment }}
-    secrets:
-      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
-      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
-      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
-      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
-  
+
   Deploy:
       if: ${{ github.event.inputs.deploy == 'apply' }}
       needs: Plan
