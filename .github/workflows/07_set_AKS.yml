@@ -15,14 +15,7 @@ jobs:
   build:
     runs-on: self-hosted
     environment: ${{ github.event.inputs.environment }}
-    env:
-      secrets:
-      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
-      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
-      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
-      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
-      run : echo $arm_tenant_id 
-      
+     
     steps:
     
     - name: Azure login
@@ -35,8 +28,8 @@ jobs:
       id: set-context
       uses: azure/aks-set-context@v3
       with:
-        resource-group: '${{ secrets.RESOURCE_GROUP }}' 
-        cluster-name: '${{ secrets.CLUSTER_NAME }}'
+        resource-group: '${{ var.RESOURCE_GROUP }}' 
+        cluster-name: '${{ var.CLUSTER_NAME }}'
     
     - name: Setup kubectl
       id: install-kubectl
