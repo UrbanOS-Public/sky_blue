@@ -39,6 +39,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_admin_group_object_ids"></a> [admin\_group\_object\_ids](#input\_admin\_group\_object\_ids) | (Optional) A list of Object IDs of Azure Active Directory Groups which should have Admin Role on the jumpbox. | `list(string)` | n/a | yes |
 | <a name="input_admin_username"></a> [admin\_username](#input\_admin\_username) | (Required) Specifies the admin username of the jumpbox virtual machine and AKS worker nodes. | `string` | `"azadmin"` | no |
 | <a name="input_domain_name_label"></a> [domain\_name\_label](#input\_domain\_name\_label) | Specifies the domain name for the jumbox virtual machine | `string` | `"jumpbox"` | no |
 | <a name="input_loc"></a> [loc](#input\_loc) | n/a | `string` | `"eus"` | no |
