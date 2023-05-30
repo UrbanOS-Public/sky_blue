@@ -1,0 +1,31 @@
+name: "07_set_AKS"
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Choose the environment used to deploy urbanos.
+        options:
+          - dev
+          - uat
+          - prd
+        required: true
+      
+  jobs:
+  runs-on: self-hosted
+  environment: ${{ inputs.gh_environment }}
+  Build:
+      - name: Azure login
+        id: login
+        uses: azure/login@v1.4.3
+        with:
+          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
+      - name: Set AKS context
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: '${{ secrets.RESOURCE_GROUP }}' 
+          cluster-name: '${{ secrets.CLUSTER_NAME }}'
+      - name: Setup kubectl
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
