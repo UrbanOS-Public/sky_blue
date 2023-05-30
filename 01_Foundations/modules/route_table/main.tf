@@ -26,7 +26,7 @@ resource "azurerm_route_table" "rt" {
 
   lifecycle {
     ignore_changes = [
-     # tags,
+      tags,
       route
     ]
   }

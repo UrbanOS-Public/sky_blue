@@ -5,11 +5,11 @@ resource "azurerm_user_assigned_identity" "aks_identity" {
 
   name = "${var.name}-uai"
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+   lifecycle {
+     ignore_changes = [
+       tags
+     ]
+   }
 }
 
 resource "azurerm_kubernetes_cluster" "aks_cluster" {

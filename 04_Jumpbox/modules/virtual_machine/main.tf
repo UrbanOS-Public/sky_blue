@@ -52,11 +52,11 @@ resource "azurerm_network_interface" "nic" {
     public_ip_address_id          = try(azurerm_public_ip.public_ip[0].id, null)
   }
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+   lifecycle {
+     ignore_changes = [
+       tags
+     ]
+   }
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg_association" {
@@ -105,11 +105,11 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     type = "SystemAssigned"    
   }
 
-#  lifecycle {
-#   ignore_changes = [
-#        tags
-#    ]
-#  }
+  lifecycle {
+   ignore_changes = [
+        tags
+    ]
+  }
 
   depends_on = [
     azurerm_network_interface.nic,
@@ -160,11 +160,11 @@ resource "azurerm_virtual_machine_extension" "monitor_agent" {
     }
   PROTECTED_SETTINGS
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+   lifecycle {
+     ignore_changes = [
+       tags
+     ]
+   }
   depends_on = [azurerm_virtual_machine_extension.custom_script]
 }
 
@@ -188,11 +188,11 @@ resource "azurerm_virtual_machine_extension" "dependency_agent" {
     }
   PROTECTED_SETTINGS
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+   lifecycle {
+     ignore_changes = [
+       tags
+     ]
+   }
   depends_on = [azurerm_virtual_machine_extension.monitor_agent]
 }
 
