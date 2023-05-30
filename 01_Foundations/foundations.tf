@@ -35,7 +35,7 @@ module "hub_network" {
 
   subnets = [
     {
-      name : "AzureFirewallSubnet"
+      name : "AzureFirewallSubnet" #DO NOT CHANGE FWSUBNET_NAME - This is currently a requirement for Azure Firewall
       address_prefixes : var.hub_firewall_subnet_address_prefix
       enforce_private_link_endpoint_network_policies : true
       enforce_private_link_service_network_policies : false

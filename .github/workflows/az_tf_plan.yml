@@ -107,13 +107,6 @@ jobs:
         id: init
         run: terraform init --backend-config="storage_account_name=$STORAGE_ACCOUNT" --backend-config="container_name=$CONTAINER_NAME" --backend-config="resource_group_name=$RESOURCE_GROUP" --backend-config="key=$TF_KEY"
       
-      - name: PR Terraform Init
-        uses: robburger/terraform-pr-commenter@v1.5.0
-        with:
-          commenter_type: init
-          commenter_input: ${{ format('{0}{1}', steps.init.outputs.stdout, steps.init.outputs.stderr) }}
-          commenter_exitcode: ${{ steps.init.outputs.exitcode }}
-
       - name: Terraform Validate
         id: validate
         run: terraform validate
@@ -122,13 +115,6 @@ jobs:
         id: plan
         run: terraform plan --var-file=$TF_VARS --out=plan.tfplan
         continue-on-error: true
-      
-      - name: PR Plan Deploy
-        uses: robburger/terraform-pr-commenter@v1.5.0
-        with:
-          commenter_type: plan
-          commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
-          commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
       
       - name: Terraform Show
         id: show

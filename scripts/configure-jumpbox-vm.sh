@@ -21,3 +21,5 @@ sudo curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/maste
 
 # Install Azure CLI (latest)
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+sudo az aks install-cli
