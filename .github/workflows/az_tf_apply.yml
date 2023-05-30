@@ -33,19 +33,19 @@ on:
         required: false
         type: string
         default: null
-    secrets:
-      arm_client_id:
-        description: 'Specifies the Azure ARM CLIENT ID.'
-        required: true
-      arm_client_secret:
-        description: 'Specifies the Azure ARM CLIENT SECRET.'
-        required: true
-      arm_subscription_id:
-        description: 'Specifies the Azure ARM SUBSCRIPTION ID.'
-        required: true
-      arm_tenant_id:
-        description: 'Specifies the Azure ARM TENANT ID.'
-        required: true
+    # secrets:
+    #   arm_client_id:
+    #     description: 'Specifies the Azure ARM CLIENT ID.'
+    #     required: true
+    #   arm_client_secret:
+    #     description: 'Specifies the Azure ARM CLIENT SECRET.'
+    #     required: true
+    #   arm_subscription_id:
+    #     description: 'Specifies the Azure ARM SUBSCRIPTION ID.'
+    #     required: true
+    #   arm_tenant_id:
+    #     description: 'Specifies the Azure ARM TENANT ID.'
+    #     required: true
 
 jobs:
   apply-plan:
