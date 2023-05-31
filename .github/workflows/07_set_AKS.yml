@@ -17,9 +17,9 @@ jobs:
     environment: ${{ github.event.inputs.environment }}
      
     steps:
-    - name: Install Azure CLI
-      id: install
-      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    # - name: Install Azure CLI
+    #   id: install
+    #   run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
     # - name: Checkout source code 
     #   id: checkout
@@ -62,7 +62,7 @@ jobs:
       with:
         namespace: 'default'
         manifests: |
-           azure-vote-all-in-one-redis.yaml
+          https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
         images: 'acrurbanosspokedeveus.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
         pull-images: false 
 
