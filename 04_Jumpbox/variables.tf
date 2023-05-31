@@ -57,7 +57,7 @@ variable "vm_os_disk_image" {
   default     = {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "22.04-LTS" 
+    sku       = "20.04-LTS" 
     version   = "latest"
   }
 }
