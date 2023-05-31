@@ -33,11 +33,11 @@ resource "azurerm_key_vault" "key_vault" {
     virtual_network_subnet_ids = var.virtual_network_subnet_ids
   }
 
-  # lifecycle {
-  #     ignore_changes = [
-  #         tags
-  #     ]
-  # }
+   lifecycle {
+       ignore_changes = [
+           tags
+       ]
+   }
 }
 
 resource "azurerm_monitor_diagnostic_setting" "settings" {

@@ -33,11 +33,11 @@ resource "azurerm_container_registry" "acr" {
     azurerm_user_assigned_identity.acr_identity,
     azurerm_key_vault_access_policy.acr_identity
   ]
-  # lifecycle {
-  #     ignore_changes = [
-  #         tags
-  #     ]
-  # }
+  lifecycle {
+      ignore_changes = [
+          tags
+      ]
+  }
 }
 
 resource "azurerm_user_assigned_identity" "acr_identity" {
@@ -47,11 +47,11 @@ resource "azurerm_user_assigned_identity" "acr_identity" {
 
   name = "${var.name}-uai"
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
 }
 
 resource "azurerm_key_vault_access_policy" "acr_identity" {

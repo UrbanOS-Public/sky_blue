@@ -7,11 +7,11 @@ resource "azurerm_public_ip" "public_ip" {
   count               = var.public_ip ? 1 : 0
   tags                = var.tags
 
-#  lifecycle {
-#   ignore_changes = [
-#        tags
-#    ]
-#  }
+ lifecycle {
+   ignore_changes = [
+        tags
+    ]
+  }
 }
 
 resource "azurerm_network_security_group" "nsg" {
@@ -20,23 +20,23 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group_name
   tags                = var.tags
 
-  security_rule {
-    name                       = "SSH"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+  # security_rule {
+  #   name                       = "SSH"
+  #   priority                   = 1001
+  #   direction                  = "Inbound"
+  #   access                     = "Allow"
+  #   protocol                   = "Tcp"
+  #   source_port_range          = "*"
+  #   destination_port_range     = "22"
+  #   source_address_prefix      = "*"
+  #   destination_address_prefix = "*"
+  # }
 
-#  lifecycle {
-#   ignore_changes = [
-#        tags
-#    ]
-#  }
+  lifecycle {
+   ignore_changes = [
+        tags
+    ]
+  }
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -52,11 +52,11 @@ resource "azurerm_network_interface" "nic" {
     public_ip_address_id          = try(azurerm_public_ip.public_ip[0].id, null)
   }
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+   lifecycle {
+     ignore_changes = [
+       tags
+     ]
+   }
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg_association" {
@@ -105,11 +105,11 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     type = "SystemAssigned"    
   }
 
-#  lifecycle {
-#   ignore_changes = [
-#        tags
-#    ]
-#  }
+ lifecycle {
+  ignore_changes = [
+       tags
+   ]
+ }
 
   depends_on = [
     azurerm_network_interface.nic,
@@ -153,11 +153,11 @@ resource "azurerm_virtual_machine_extension" "monitor_agent" {
     }
   PROTECTED_SETTINGS
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
   depends_on = [azurerm_virtual_machine_extension.custom_script]
 }
 
@@ -181,11 +181,11 @@ resource "azurerm_virtual_machine_extension" "dependency_agent" {
     }
   PROTECTED_SETTINGS
 
-  # lifecycle {
-  #   ignore_changes = [
-  #     tags
-  #   ]
-  # }
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
   depends_on = [azurerm_virtual_machine_extension.monitor_agent]
 }
 

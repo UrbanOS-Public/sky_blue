@@ -24,11 +24,11 @@ resource "azurerm_storage_account" "storage_account" {
     type = "SystemAssigned"
   }
 
-#  lifecycle {
-#   ignore_changes = [
-#        tags
-#    ]
-#  }
+ lifecycle {
+  ignore_changes = [
+       tags
+   ]
+ }
 }
 
 resource "azurerm_key_vault_access_policy" "storage" {
