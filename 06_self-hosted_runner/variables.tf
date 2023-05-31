@@ -56,8 +56,8 @@ variable "vm_os_disk_image" {
   description = "Specifies the os disk image of the virtual machine"
   default     = {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-focal"
-    sku       = "20.04-LTS" 
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts" 
     version   = "latest"
   }
 }
