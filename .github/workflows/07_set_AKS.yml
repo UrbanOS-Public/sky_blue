@@ -32,11 +32,11 @@ jobs:
         service_principal: ${{ secrets.ARM_CLIENT_ID }}
         service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
         tenant: ${{ secrets.ARM_TENANT_ID }}
-        registry: acrurbanosspokedeveus
+        registry: acrurbanosspokedeveusacrurbanosspokedeveus.azurecr.io
         repository: azuredocs
         image:  azure-vote-front
         folder: azure-vote
-        branch: master
+        branch: main
         tag: ${{ github.sha }}
 
     - name: Azure login
