@@ -21,23 +21,23 @@ jobs:
       id: install
       run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-    - name: Checkout source code 
-      id: checkout
-      uses: actions/checkout@v3
+    # - name: Checkout source code 
+    #   id: checkout
+    #   uses: actions/checkout@v3
 
-    - name: ACR build
-      id: build-push-acr
-      uses: azure/acr-build@v1
-      with:
-        service_principal: ${{ secrets.ARM_CLIENT_ID }}
-        service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
-        tenant: ${{ secrets.ARM_TENANT_ID }}
-        registry: acrurbanosspokedeveus.azurecr.io
-        repository: azuredocs
-        image:  azure-vote-front
-        folder: azure-vote
-        branch: main
-        tag: ${{ github.sha }}
+    # - name: ACR build
+    #   id: build-push-acr
+    #   uses: azure/acr-build@v1
+    #   with:
+    #     service_principal: ${{ secrets.ARM_CLIENT_ID }}
+    #     service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
+    #     tenant: ${{ secrets.ARM_TENANT_ID }}
+    #     registry: acrurbanosspokedeveus.azurecr.io
+    #     repository: azuredocs
+    #     image:  azure-vote-front
+    #     folder: azure-vote
+    #     branch: main
+    #     tag: ${{ github.sha }}
 
     - name: Azure login
       id: login
