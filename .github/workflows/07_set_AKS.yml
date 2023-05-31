@@ -13,7 +13,7 @@ on:
   
 jobs:
   build:
-    runs-on: self-hosted # ubuntu-latest 
+    runs-on: ubuntu-latest # self-hosted 
     environment: ${{ github.event.inputs.environment }}
      
     steps:
