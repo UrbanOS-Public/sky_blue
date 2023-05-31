@@ -13,7 +13,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest #self-hosted
+    runs-on: self-hosted # ubuntu-latest 
     environment: ${{ github.event.inputs.environment }}
      
     steps:
@@ -55,6 +55,16 @@ jobs:
     - name: Setup kubectl
       id: install-kubectl
       uses: azure/setup-kubectl@v3
+
+    - name: Deploy to AKS
+      id: deploy-aks
+      uses: Azure/k8s-deploy@v4
+      with:
+        namespace: 'default'
+        manifests: |
+           azure-vote-all-in-one-redis.yaml
+        images: 'acrurbanosspokedeveus.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
+        pull-images: false 
 
     - name: az logout 
       uses: azure/CLI@v1
