@@ -22,4 +22,17 @@ module "virtual_machine" {
   script_name                         = var.script_name
   admin_group_object_ids              = var.admin_group_object_ids
   tags = var.tags
+  security_rules = [
+    {
+     name                       : "Deny_All_Outbound"
+     priority                   : 4096
+     direction                  : "Outbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    }
+  ]
 }
