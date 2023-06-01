@@ -20,17 +20,17 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = var.resource_group_name
   tags                = var.tags
 
-  # security_rule {
-  #   name                       = "SSH"
-  #   priority                   = 1001
-  #   direction                  = "Inbound"
-  #   access                     = "Allow"
-  #   protocol                   = "Tcp"
-  #   source_port_range          = "*"
-  #   destination_port_range     = "22"
-  #   source_address_prefix      = "*"
-  #   destination_address_prefix = "*"
-  # }
+  security_rule {
+     name                       = "Deny_All_Outbound"
+     priority                   = 4096
+     direction                  = "Outbound"
+     access                     = "Deny"
+     protocol                   = "*"
+     source_port_range          = "*"
+     destination_port_range     = "*"
+     source_address_prefix      = "*"
+     destination_address_prefix = "*"
+  }
 
   lifecycle {
    ignore_changes = [
