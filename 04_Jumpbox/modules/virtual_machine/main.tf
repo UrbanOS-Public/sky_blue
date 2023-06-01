@@ -22,7 +22,6 @@ resource "azurerm_network_security_group" "nsg" {
 
   dynamic "security_rule" {
     for_each = { for sg in var.security_rules : sg.name => sg } 
-    content {
       name                       = each.key
       priority                   = each.value.priority
       direction                  = each.value.direction
@@ -32,7 +31,6 @@ resource "azurerm_network_security_group" "nsg" {
       destination_port_range     = each.value.destination_port_range
       source_address_prefix      = each.value.source_address_prefix
       destination_address_prefix = each.value.destination_address_prefix
-    }
   }
 
   lifecycle {
