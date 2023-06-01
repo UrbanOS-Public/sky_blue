@@ -44,6 +44,39 @@ module "virtual_machine" {
      destination_port_range     : "*"
      source_address_prefix      : "VirtualNetwork"
      destination_address_prefix : "VirtualNetwork"
-    }    
+    }, 
+    {
+     name                       : "Deny_All_InBound"
+     priority                   : 4096
+     direction                  : "Inbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_InBound"
+     priority                   : 100
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    },
+    {
+     name                       : "Allow_Vnet_AzureLoadBalancerInBound"
+     priority                   : 100
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "AzureLoadBalancer"
+     destination_address_prefix : "*"
+    }   
   ]
 }
