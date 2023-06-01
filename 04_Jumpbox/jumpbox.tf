@@ -50,7 +50,7 @@ module "virtual_machine" {
      priority                   : 110
      direction                  : "Outbound"
      access                     : "Allow"
-     protocol                   : "*"
+     protocol                   : "TCP"
      source_port_range          : "*"
      destination_port_range     : "443"
      source_address_prefix      : "*"
