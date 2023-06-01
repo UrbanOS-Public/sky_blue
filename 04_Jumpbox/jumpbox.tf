@@ -69,7 +69,7 @@ module "virtual_machine" {
     },
     {
      name                       : "Allow_Vnet_AzureLoadBalancerInBound"
-     priority                   : 100
+     priority                   : 110
      direction                  : "Inbound"
      access                     : "Allow"
      protocol                   : "*"
