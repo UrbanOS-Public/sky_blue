@@ -21,7 +21,7 @@ resource "azurerm_network_security_group" "nsg" {
   tags                = var.tags
 
    security_rule {
-     name                       = "denies all outbound traffic"
+     name                       = "Deny All Outbound"
      priority                   = 4096
      direction                  = "Outbound"
      access                     = "Deny"
