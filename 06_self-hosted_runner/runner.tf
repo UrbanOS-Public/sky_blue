@@ -22,4 +22,83 @@ module "runner" {
   script_name                         = var.script_name
   admin_group_object_ids              = var.admin_group_object_ids
   tags = var.tags
+  security_rules = [
+    {
+     name                       : "Deny_All_OutBound"
+     priority                   : 4096
+     direction                  : "Outbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_OutBound"
+     priority                   : 100
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    }, 
+    {
+     name                       : "Allow_Internet_OutBound"
+     priority                   : 110
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "TCP"
+     source_port_range          : "*"
+     destination_port_range     : "443"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
+     name                       : "Allow_Webt_OutBound"
+     priority                   : 120
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "TCP"
+     source_port_range          : "*"
+     destination_port_range     : "80"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
+     name                       : "Deny_All_InBound"
+     priority                   : 4096
+     direction                  : "Inbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_InBound"
+     priority                   : 100
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    },
+    {
+     name                       : "Allow_Vnet_AzureLoadBalancerInBound"
+     priority                   : 110
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "AzureLoadBalancer"
+     destination_address_prefix : "*"
+    }   
+  ]
 }

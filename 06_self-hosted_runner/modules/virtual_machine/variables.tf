@@ -124,3 +124,18 @@ variable "admin_group_object_ids" {
   #default     = ["6e5de8c1-5a4b-409b-994f-0706e4403b77", "78761057-c58c-44b7-aaa7-ce1639c6c4f5"]
   type        = list(string)
 }
+
+variable "security_rules" {
+  description = "A list of security rules to be created."
+  type = list(object({
+    name      = string
+    priority  = number
+    direction = string 
+    access    = string
+    protocol  = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  }))
+}
