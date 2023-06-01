@@ -57,6 +57,17 @@ module "virtual_machine" {
      destination_address_prefix : "Internet"
     },
     {
+     name                       : "Allow_Webt_OutBound"
+     priority                   : 120
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "TCP"
+     source_port_range          : "*"
+     destination_port_range     : "80"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
      name                       : "Deny_All_InBound"
      priority                   : 4096
      direction                  : "Inbound"
