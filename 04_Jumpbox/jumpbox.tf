@@ -46,6 +46,17 @@ module "virtual_machine" {
      destination_address_prefix : "VirtualNetwork"
     }, 
     {
+     name                       : "Allow_Internet_OutBound"
+     priority                   : 110
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "80, 443"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
      name                       : "Deny_All_InBound"
      priority                   : 4096
      direction                  : "Inbound"
