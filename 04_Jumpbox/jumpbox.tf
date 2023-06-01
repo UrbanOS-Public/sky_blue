@@ -24,7 +24,7 @@ module "virtual_machine" {
   tags = var.tags
   security_rules = [
     {
-     name                       : "Deny_All_Outbound"
+     name                       : "Deny_All_OutBound"
      priority                   : 4096
      direction                  : "Outbound"
      access                     : "Deny"
@@ -33,6 +33,17 @@ module "virtual_machine" {
      destination_port_range     : "*"
      source_address_prefix      : "*"
      destination_address_prefix : "*"
-    }
+    },
+    {
+     name                       : "Allow_Vnet_OutBound"
+     priority                   : 100
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    }    
   ]
 }
