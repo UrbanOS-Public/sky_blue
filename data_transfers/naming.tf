@@ -3,3 +3,9 @@ module "namedata" {
   version = "0.2.0"
   suffix  = [var.prefix, "data", var.suffix, var.loc]
 }
+
+module "namelaw" {
+  source  = "Azure/naming/azurerm"
+  version = "0.2.0"
+  suffix  = [var.prefix, "logs", var.suffix, var.loc]
+}
