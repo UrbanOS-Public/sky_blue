@@ -43,3 +43,12 @@ module "storage_account" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   tags                        = var.tags
 }
+
+resource "azurerm_storage_container" "example" {
+  name                  = "wejo"
+  storage_account_name  = module.namedata.storage_account.name
+  container_access_type = "private"
+  depends_on = [
+    module.storage_account
+  ]
+}
