@@ -1,6 +1,6 @@
 #Log into Azure
 #az login
-#az account set --subscription xxxxxx
+#az account set --subscription "c26f81cf-321b-4132-8526-3f97a01e19d2"
 # Setup Variables.
 $randomInt = Get-Random -Maximum 9999
 #$randomInt = 4474 #you can reuse same code if you know randomInt
@@ -251,7 +251,7 @@ $null = az keyvault secret set --vault-name $kvName --name "ARM-SUBSCRIPTION-ID"
 # Assign additional RBAC role to Terraform Service Principal Subscription as Contributor and access to backend storage
 az ad sp list --display-name $appName --query [].appId -o tsv | ForEach-Object {
     az role assignment create --assignee "$_" `
-        --role "Contributor" `
+        --role "Owner" `
         --subscription $subscriptionId `
         --scope "/subscriptions/$subscriptionId" 
     az role assignment create --assignee "$_" `

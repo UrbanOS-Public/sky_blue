@@ -17,3 +17,7 @@ sudo az aks install-cli
 
 kubectl get nodes -o wide
 kbectl get services
+
+az aks stop --name juno-dev1-0531-cluster --resource-group urbanos-team
+az aks show --name juno-dev1-0531-cluster --resource-group urbanos-team
+az aks start --name juno-dev1-0531-cluster --resource-group urbanos-team
