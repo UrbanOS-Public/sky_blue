@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "law" {
   name     = module.namelaw.resource_group.name
   location = var.location
   tags     = var.tags
-  depends_on = [ module.namespoke ]
+  depends_on = [ module.namelaw ]
 }
 
 
