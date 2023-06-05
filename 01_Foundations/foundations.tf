@@ -14,15 +14,6 @@ resource "azurerm_resource_group" "hub" {
   depends_on = [ module.namehub ]
 }
 
-module "log_analytics_workspace" {
-  source                           = "./modules/log_analytics"
-  name                             = module.namehub.log_analytics_workspace.name
-  location                         = var.location
-  resource_group_name              = azurerm_resource_group.hub.name
-  solution_plan_map                = var.solution_plan_map
-}
-
-
 module "hub_network" {
   source                       = "./modules/virtual_network"
   resource_group_name          = azurerm_resource_group.hub.name
@@ -30,7 +21,7 @@ module "hub_network" {
   vnet_name                    = module.namehub.virtual_network.name
   address_space                = var.hub_address_space
   tags                         = var.tags
-  log_analytics_workspace_id   = module.log_analytics_workspace.id
+  log_analytics_workspace_id   = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days = var.log_analytics_retention_days
 
   subnets = [
@@ -56,7 +47,7 @@ module "spoke_network" {
   location                     = var.location
   vnet_name                    = module.namespoke.virtual_network.name #var.aks_vnet_name
   address_space                = var.aks_vnet_address_space
-  log_analytics_workspace_id   = module.log_analytics_workspace.id
+  log_analytics_workspace_id   = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days = var.log_analytics_retention_days
   tags                         = var.tags
   subnets = [
@@ -111,7 +102,7 @@ module "firewall" {
   sku_tier                     = var.firewall_sku_tier
   pip_name                     = module.namehub.public_ip.name #"${module.namehub.firewall.name}PublicIp"
   subnet_id                    = module.hub_network.subnet_ids["AzureFirewallSubnet"]
-  log_analytics_workspace_id   = module.log_analytics_workspace.id
+  log_analytics_workspace_id   = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days = var.log_analytics_retention_days
   tags                         = var.tags
 }

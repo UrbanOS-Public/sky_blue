@@ -14,7 +14,7 @@ module "key_vault" {
   soft_delete_retention_days      = var.key_vault_soft_delete_retention_days
   bypass                          = var.key_vault_bypass
   default_action                  = var.key_vault_default_action
-  log_analytics_workspace_id      = module.log_analytics_workspace.id
+  log_analytics_workspace_id      = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days    = var.log_analytics_retention_days
 }
 
