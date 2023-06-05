@@ -1,7 +1,7 @@
 module "namespoke" {
   source  = "Azure/naming/azurerm"
   version = "0.2.0"
-  suffix  = [var.prefix, "spoke", var.suffix, var.loc]
+  suffix  = [var.prefix, "spk", var.suffix, var.loc]
 }
 
 module "namehub" {
