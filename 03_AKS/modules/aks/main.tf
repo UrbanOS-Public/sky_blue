@@ -29,6 +29,10 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   http_application_routing_enabled = var.http_application_routing_enabled
   tags                    = var.tags
 
+  microsoft_defender {
+    log_analytics_workspace_id      = coalesce(var.oms_agent.log_analytics_workspace_id, var.log_analytics_workspace_id)
+  }
+
   default_node_pool {
     name                    = var.default_node_pool_name
     vm_size                 = var.default_node_pool_vm_size
@@ -72,6 +76,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     msi_auth_for_monitoring_enabled = true
     log_analytics_workspace_id      = coalesce(var.oms_agent.log_analytics_workspace_id, var.log_analytics_workspace_id)
   }
+
 
   dynamic "ingress_application_gateway" {
     for_each = try(var.ingress_application_gateway.gateway_id, null) == null ? [] : [1]

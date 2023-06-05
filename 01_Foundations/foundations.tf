@@ -127,4 +127,9 @@ module "routetable" {
       virtual_network_name = module.spoke_network.name
     }
   }
+  depends_on = [ 
+    module.spoke_network,
+    module.hub_network,
+    module.firewall
+  ]
 }

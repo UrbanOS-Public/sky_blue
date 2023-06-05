@@ -1,16 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-    }
-  }
-
-  required_version = ">= 0.14.9"
-}
-
-data "azurerm_client_config" "current" {
-}
-
 resource "azurerm_route_table" "rt" {
   name                = var.route_table_name
   location            = var.location
