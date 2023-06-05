@@ -21,7 +21,7 @@ jobs:
   Plan-06:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
     with:
-      path: 06_self_hosted_runner                        
+      path: 06_self-hosted_runner                        
       tf_version: latest                                 
       tf_key: "runner-${{ github.event.inputs.environment }}"
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
@@ -38,7 +38,7 @@ jobs:
       needs: Plan-06
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
-        path: 06_self_hosted_runner
+        path: 06_self-hosted_runner
         tf_version: latest
         tf_key: "runner-${{ github.event.inputs.environment }}"
         #enable_TFSEC: true
