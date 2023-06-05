@@ -3,7 +3,7 @@
 #az account set --subscription "c26f81cf-321b-4132-8526-3f97a01e19d2"
 # Setup Variables.
 $randomInt = Get-Random -Maximum 9999
-#$randomInt = 4474 #you can reuse same code if you know randomInt
+#$randomInt = 4140 #you can reuse same code if you know randomInt
 
 $subscriptionId=$(az account show --query id -o tsv)
 $resourceGroupName = "rg-tf-core"
@@ -152,6 +152,7 @@ az storage account create `
     --kind "StorageV2" `
     --https-only true `
     --min-tls-version "TLS1_2" `
+    --allow-blob-public-access false  `
     --require-infrastructure-encryption true  `
     --identity-type SystemAssigned,UserAssigned `
     --user-identity-id $identityResourceIdDEV `
@@ -228,6 +229,54 @@ az storage container create `
     --account-name "$storageNamePRD" `
     --name "tfstate" `
     --auth-mode login
+
+#set soft delete, retention and verzioning
+az storage account blob-service-properties update --account-name "$storageNameDEV" `
+    --resource-group $resourceGroupName `
+    --enable-change-feed true `
+    --enable-delete-retention true `
+    --enable-container-delete-retention true  `
+    --enable-versioning true `
+    --enable-restore-policy true `
+    --restore-days 6 `
+    --container-delete-retention-days 7  `
+    --delete-retention-days 7
+az storage account blob-service-properties update --account-name "$storageNameUAT" `
+    --resource-group $resourceGroupName `
+    --enable-change-feed true  `
+    --enable-delete-retention true `
+    --enable-container-delete-retention true  `
+    --enable-versioning true `
+    --enable-restore-policy true `
+    --restore-days 6 `
+    --container-delete-retention-days 7  `
+    --delete-retention-days 7
+az storage account blob-service-properties update --account-name "$storageNamePRD" `
+    --resource-group $resourceGroupName `
+    --enable-change-feed true `
+    --enable-delete-retention true `
+    --enable-container-delete-retention true  `
+    --enable-versioning true `
+    --enable-restore-policy true `
+    --restore-days 6 `
+    --container-delete-retention-days 7  `
+    --delete-retention-days 7
+
+
+az storage account management-policy create  `
+    --account-name "$storageNameDEV"  `
+    --resource-group $resourceGroupName  `
+    --policy '@policyblob.json'
+az storage account management-policy create  `
+    --account-name "$storageNameUAT"  `
+    --resource-group $resourceGroupName  `
+    --policy '@policyblob.json'
+az storage account management-policy create  `
+    --account-name "$storageNamePRD"  `
+    --resource-group $resourceGroupName  `
+    --policy '@policyblob.json'
+
+
 # Create Terraform Service Principal and assign RBAC Role on Key Vault 
 $spnJSON = az ad sp create-for-rbac --name $appName `
     --role "Key Vault Secrets Officer" `
@@ -264,3 +313,9 @@ az ad sp list --display-name $appName --query [].appId -o tsv | ForEach-Object {
         --role "Storage Blob Data Contributor" `
         --scope "/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$storageNamePRD" `
 }
+
+#lock rg delete
+az group lock create --lock-type CanNotDelete `
+    --name "DoNotDelete" `
+    --resource-group $resourceGroupName `
+    --notes "Protect tf state rg"
