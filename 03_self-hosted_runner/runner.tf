@@ -1,6 +1,6 @@
 module "runner" {
   source                              = "./modules/virtual_machine"
-  name                                = replace(module.namespoke.linux_virtual_machine.name, "spoke", "runner") 
+  name                                = replace(module.namespoke.linux_virtual_machine.name, "spk", "runner") 
   size                                = var.vm_size
   location                            = var.location
   public_ip                           = var.vm_public_ip
