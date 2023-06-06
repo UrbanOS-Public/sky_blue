@@ -62,7 +62,7 @@ module "acr_private_endpoint" {
   name                           = "${module.namespoke.container_registry.name}-pe"
   location                       = var.location
   resource_group_name            = module.namespoke.resource_group.name
-  subnet_id                      = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name]
+  subnet_id                      = module.spoke_network.subnet_ids[var.vm_subnet_name] #data.azurerm_subnet.spoke_vm_subnet.id
   tags                           = var.tags
   private_connection_resource_id = module.container_registry.id #data.azurerm_container_registry.container_registry.id #
   is_manual_connection           = false
