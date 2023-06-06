@@ -1,4 +1,4 @@
-name: "03_Jumpbox"
+name: "03 Jumpbox"
 on:
   workflow_dispatch:
     inputs:

@@ -1,4 +1,4 @@
-name: "04_ACR"
+name: "04 ACR"
 on:
   workflow_dispatch:
     inputs:

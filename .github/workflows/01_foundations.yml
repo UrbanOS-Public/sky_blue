@@ -1,4 +1,4 @@
-name: "01_Foundation"
+name: "01 Foundation"
 on:
   workflow_dispatch:
     inputs:

@@ -1,4 +1,4 @@
-name: "05_AKS"
+name: "05 AKS"
 on:
   workflow_dispatch:
     inputs:
