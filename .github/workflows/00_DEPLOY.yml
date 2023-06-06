@@ -1,4 +1,4 @@
-name: "00_DEPLOY"
+name: "00 DEPLOY"
 on:
   workflow_dispatch:
     inputs:
