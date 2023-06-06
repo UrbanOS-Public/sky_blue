@@ -16,6 +16,7 @@ on:
           options:
             - plan
             - apply
+            - destory
           required: true
 jobs:
   Plan:

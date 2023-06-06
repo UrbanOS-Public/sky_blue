@@ -116,7 +116,7 @@ jobs:
     with:
       path: 02_Jumpbox                               
       tf_version: latest                                 
-      tf_key: "jump-${{ github.event.inputs.environment }}"
+      tf_key: "jumpbox-${{ github.event.inputs.environment }}"
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
@@ -133,7 +133,7 @@ jobs:
       with:
         path: 02_Jumpbox
         tf_version: latest
-        tf_key: "jump-${{ github.event.inputs.environment }}"
+        tf_key: "jumpbox-${{ github.event.inputs.environment }}"
         #enable_TFSEC: true
         gh_environment: ${{ github.event.inputs.environment }}
       secrets:

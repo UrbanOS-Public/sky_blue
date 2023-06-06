@@ -1,4 +1,4 @@
-name: "02 GitHub Runner"
+name: "03 GitHub Runner"
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +22,7 @@ jobs:
   Plan:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
     with:
-      path: 02_self-hosted_runner                               ## Path to terraform root module (Required)
+      path: 03_self-hosted_runner                               ## Path to terraform root module (Required)
       tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
       tf_key: "runner-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
@@ -38,7 +38,7 @@ jobs:
         if: ${{ github.event.inputs.deploy == 'destroy' }}
         uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
         with:
-          path: 02_self-hosted_runner                               ## Path to terraform root module (Required)
+          path: 03_self-hosted_runner                               ## Path to terraform root module (Required)
           tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
           tf_key: "runner-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
           tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
