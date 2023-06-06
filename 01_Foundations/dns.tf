@@ -1,5 +1,3 @@
-
-
 module "key_vault_private_dns_zone" {
   source                       = "./modules/private_dns_zone"
   name                         = "privatelink.vaultcore.azure.net"
