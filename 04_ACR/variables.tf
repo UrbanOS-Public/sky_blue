@@ -50,3 +50,9 @@ variable "acr_georeplication_locations" {
   type        = list(string)
   default     = []
 }
+
+variable "vm_subnet_name" {
+  description = "Specifies the name of the jumpbox subnet"
+  default     = "VmSubnet"
+  type        = string
+}
