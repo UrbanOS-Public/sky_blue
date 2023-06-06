@@ -20,6 +20,7 @@ on:
           required: true
 jobs:
   Plan:
+    if: ${{ github.event.inputs.deploy != 'destroy' }}
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
     with:
       path: 03_self-hosted_runner                               ## Path to terraform root module (Required)
