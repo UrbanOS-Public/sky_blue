@@ -36,7 +36,7 @@ jobs:
   
   Plan-Destory:
         if: ${{ github.event.inputs.deploy == 'destroy' }}
-        uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
+        uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
         with:
           path: 02_self-hosted_runner                               ## Path to terraform root module (Required)
           tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
