@@ -1,4 +1,4 @@
-name: "99_DESTROY"
+name: "99 DESTROY"
 on:
   workflow_dispatch:
     inputs:
@@ -21,9 +21,9 @@ jobs:
   Plan-06:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
     with:
-      path: 06_self-hosted_runner                        
+      path: 05_AKS                        
       tf_version: latest                                 
-      tf_key: "runner-${{ github.event.inputs.environment }}"
+      tf_key: "aks-${{ github.event.inputs.environment }}"
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
@@ -38,9 +38,9 @@ jobs:
       needs: Plan-06
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
-        path: 06_self-hosted_runner
+        path: 05_AKS
         tf_version: latest
-        tf_key: "runner-${{ github.event.inputs.environment }}"
+        tf_key: "aks-${{ github.event.inputs.environment }}"
         #enable_TFSEC: true
         gh_environment: ${{ github.event.inputs.environment }}
       secrets:
@@ -52,9 +52,9 @@ jobs:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
     needs: [Plan-06]
     with:
-      path: 05_DNS_PE                               
+      path: 04_ACR                              
       tf_version: latest                                 
-      tf_key: "dns_pe-${{ github.event.inputs.environment }}"
+      tf_key: "acr-${{ github.event.inputs.environment }}"
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
@@ -69,9 +69,9 @@ jobs:
       needs: Plan-05
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
-        path: 04_DNS_PE
+        path: 04_ACR
         tf_version: latest
-        tf_key: "dns_pe-${{ github.event.inputs.environment }}"
+        tf_key: "acr-${{ github.event.inputs.environment }}"
         #enable_TFSEC: true
         gh_environment: ${{ github.event.inputs.environment }}
       secrets:
@@ -83,9 +83,9 @@ jobs:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
     needs: [Plan-05]
     with:
-      path: 04_Jumpbox                               
+      path: 03_self-hosted_runner                               
       tf_version: latest                                 
-      tf_key: "jumpbox-${{ github.event.inputs.environment }}"
+      tf_key: "runner-${{ github.event.inputs.environment }}"
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
@@ -100,9 +100,9 @@ jobs:
       needs: [Destroy-05 , Plan-04]
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
-        path: 04_Jumpbox
+        path: 03_self-hosted_runner
         tf_version: latest
-        tf_key: "jumpbox-${{ github.event.inputs.environment }}"
+        tf_key: "runner-${{ github.event.inputs.environment }}"
         #enable_TFSEC: true
         gh_environment: ${{ github.event.inputs.environment }}
       secrets:
@@ -114,9 +114,9 @@ jobs:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
     needs: [Plan-04]
     with:
-      path: 03_AKS                               
+      path: 02_Jumpbox                               
       tf_version: latest                                 
-      tf_key: "aks-${{ github.event.inputs.environment }}"
+      tf_key: "jump-${{ github.event.inputs.environment }}"
       tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
@@ -128,42 +128,12 @@ jobs:
   
   Destroy-03:
       if: ${{ github.event.inputs.deploy == 'destroy' }}
-      needs: [Destroy-04 ,Plan-03]
+      needs: [Destroy-04, Plan-03]
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
-        path: 03_AKS
+        path: 02_Jumpbox
         tf_version: latest
-        tf_key: "aks-${{ github.event.inputs.environment }}"
-        #enable_TFSEC: true
-        gh_environment: ${{ github.event.inputs.environment }}
-      secrets:
-        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             
-        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}    
-        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} 
-        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             
-  Plan-02:
-    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
-    needs: [Plan-03]
-    with:
-      path: 02_ACR                               
-      tf_version: latest                                 
-      tf_key: "acr-${{ github.event.inputs.environment }}"
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
-      #enable_TFSEC: true                                
-      gh_environment: ${{ github.event.inputs.environment }}
-    secrets:
-      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}        
-      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
-      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
-  Destroy-02:
-      if: ${{ github.event.inputs.deploy == 'destroy' }}
-      needs: [Destroy-03 ,Plan-02]
-      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
-      with:
-        path: 02_ACR
-        tf_version: latest
-        tf_key: "acr-${{ github.event.inputs.environment }}"
+        tf_key: "jump-${{ github.event.inputs.environment }}"
         #enable_TFSEC: true
         gh_environment: ${{ github.event.inputs.environment }}
       secrets:
@@ -173,7 +143,7 @@ jobs:
         arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             
   Plan-01:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
-    needs: [Plan-02]
+    needs: [Plan-03]
     with:
       path: 01_Foundations                               
       tf_version: latest                                 
@@ -188,7 +158,7 @@ jobs:
       arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}            
   Destroy-01:
       if: ${{ github.event.inputs.deploy == 'destroy' }}
-      needs: [Destroy-02 ,Plan-01]
+      needs: [Destroy-03 ,Plan-01]
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
         path: 01_Foundations
