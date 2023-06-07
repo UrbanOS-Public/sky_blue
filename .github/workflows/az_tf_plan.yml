@@ -118,7 +118,13 @@ jobs:
       
       - name: Terraform Show
         id: show
-        run: terraform show -no-color
+        run: terraform show -no-color -json tfplan.plan > tfplan.json
+
+      - name: Terraform PR
+        uses: liatrio/terraform-change-pr-commenter@v1.4.0
+        with:
+          json-file: tfplan.json
+          expand-comment: 'true' 
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
