@@ -284,9 +284,9 @@ resource "azurerm_monitor_diagnostic_setting" "pip_settings" {
   target_resource_id         = azurerm_public_ip.pip.id
   log_analytics_workspace_id = var.log_analytics_workspace_id
 
-  log {
+  enabled_log {
     category = "DDoSProtectionNotifications"
-    enabled  = true
+    #enabled  = true
 
     retention_policy {
       enabled = true
@@ -294,9 +294,9 @@ resource "azurerm_monitor_diagnostic_setting" "pip_settings" {
     }
   }
 
-  log {
+  enabled_log {
     category = "DDoSMitigationFlowLogs"
-    enabled  = true
+    #enabled  = true
 
     retention_policy {
       enabled = true
@@ -304,9 +304,9 @@ resource "azurerm_monitor_diagnostic_setting" "pip_settings" {
     }
   }
 
-  log {
+  enabled_log {
     category = "DDoSMitigationReports"
-    enabled  = true
+    #enabled  = true
 
     retention_policy {
       enabled = true
