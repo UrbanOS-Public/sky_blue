@@ -134,7 +134,7 @@ jobs:
       
       - name: Terraform Show
         id: show
-        run: terraform show -json plan.tfplan | tf-summarize
+        run: terraform show -json plan.tfplan | tf-summarize -tree
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
