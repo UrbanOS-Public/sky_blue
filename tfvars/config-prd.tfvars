@@ -2,6 +2,10 @@ prefix   = "urbanos"
 suffix   = "prd"
 loc      = "eus"
 
+spoke_name = "spk"
+hub_name = "hub"
+logs_name = "logs"
+
 location = "EastUS"
 tags = {
   terraform     = "true",
