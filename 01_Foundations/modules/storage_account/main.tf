@@ -26,7 +26,8 @@ resource "azurerm_storage_account" "storage_account" {
 
  lifecycle {
   ignore_changes = [
-       tags
+       tags,
+       customer_managed_key 
    ]
  }
 }
@@ -53,9 +54,5 @@ resource "azurerm_storage_account_customer_managed_key" "cmk" {
   depends_on = [ 
     azurerm_key_vault_access_policy.storage 
   ]
-  lifecycle {
-  ignore_changes = [
-       key_vault_id
-   ]
- }
+
 }
