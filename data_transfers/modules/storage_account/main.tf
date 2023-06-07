@@ -9,10 +9,10 @@ resource "azurerm_storage_account" "storage_account" {
   is_hns_enabled           = var.is_hns_enabled
   tags                     = var.tags
  
-  enable_https_traffic_only = true
-  min_tls_version           = "TLS1_2"
-
-  infrastructure_encryption_enabled  = true
+  enable_https_traffic_only         = true
+  min_tls_version                   = "TLS1_2"
+  allow_nested_items_to_be_public   = false
+  infrastructure_encryption_enabled = true
 
   network_rules {
     default_action             = (length(var.ip_rules) + length(var.virtual_network_subnet_ids)) > 0 ? "Deny" : var.default_action
