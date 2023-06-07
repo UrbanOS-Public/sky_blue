@@ -51,10 +51,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     os_disk_type            = var.default_node_pool_os_disk_type
     tags                    = var.tags
     only_critical_addons_enabled     = var.only_critical_addons_enabled
-    
-    lifecycle {
-      ignore_changes = [node_count]
-    }
   }
 
   linux_profile {
@@ -107,7 +103,8 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   lifecycle {
     ignore_changes = [
       kubernetes_version,
-      tags
+      tags,
+      default_node_pool.0.node_count
     ]
   }
 }
