@@ -121,10 +121,12 @@ jobs:
         run: terraform show -no-color -json plan.tfplan > tfplan.json
 
       - name: Terraform PR
-        uses: liatrio/terraform-change-pr-commenter@v1.4.0
+        uses: GetTerminus/terraform-pr-commenter@v2
         with:
-          json-file: tfplan.json
-          expand-comment: 'true' 
+          commenter_type: plan
+          commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
+          
 
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
