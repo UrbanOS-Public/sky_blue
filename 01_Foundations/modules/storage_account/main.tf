@@ -53,4 +53,9 @@ resource "azurerm_storage_account_customer_managed_key" "cmk" {
   depends_on = [ 
     azurerm_key_vault_access_policy.storage 
   ]
+  lifecycle {
+  ignore_changes = [
+       key_vault_id
+   ]
+ }
 }
