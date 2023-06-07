@@ -96,7 +96,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2.0.3
         with:
           terraform_version: ${{ inputs.tf_version }}
-          terraform_wrapper: true
+          terraform_wrapper: false
           
       - name: Terraform Format
         id: fmt
@@ -113,20 +113,19 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan --var-file=$TF_VARS --out=plan.tfplan | tee terraform_plan_output.txt
+        run: terraform plan --var-file=$TF_VARS --out=plan.tfplan
         continue-on-error: true
       
       - name: Terraform Show
         id: show
-        run: terraform show -no-color
+        run: terraform show -no-color -json plan.tfplan > tfplan.json
 
-      - name: Terraform PR
-        uses: sgametrio/terraform-summary-action@main
+      - name: Changes?
+        uses: liatrio/terraform-change-pr-commenter@v1.4.0
         with:
-          log-file: terraform_plan_output.txt
-          title: Plan Summary
+          json-file: tfplan.json
+          expand-comment: 'true'
           
-
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
