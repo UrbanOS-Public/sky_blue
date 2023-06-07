@@ -134,7 +134,7 @@ jobs:
       
       - name: Terraform Show
         id: show
-        run: terraform show -no-color -json plan.tfplan > tfplan.json
+        run: terraform show -json plan.tfplan | tf-summarize
 
       - name: Changes?
         uses: liatrio/terraform-change-pr-commenter@v1.4.0
