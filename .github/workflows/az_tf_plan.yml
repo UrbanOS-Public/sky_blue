@@ -136,12 +136,6 @@ jobs:
         id: show
         run: terraform show -json plan.tfplan | tf-summarize
 
-      - name: Changes?
-        uses: liatrio/terraform-change-pr-commenter@v1.4.0
-        with:
-          json-file: tfplan.json
-          expand-comment: 'true'
-          
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
