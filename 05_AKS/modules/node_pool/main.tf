@@ -25,7 +25,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "node_pool" {
 
   lifecycle {
    ignore_changes = [
-        tags
+        tags,
+        node_count
     ]
   }
 }
