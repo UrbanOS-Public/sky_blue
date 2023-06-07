@@ -22,6 +22,7 @@ No modules.
 | [azurerm_network_interface.nic](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface) | resource |
 | [azurerm_network_interface_security_group_association.nsg_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface_security_group_association) | resource |
 | [azurerm_network_security_group.nsg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_group) | resource |
+| [azurerm_network_security_rule.rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_security_rule) | resource |
 | [azurerm_public_ip.public_ip](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip) | resource |
 | [azurerm_role_assignment.assign-vm-role](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_virtual_machine_extension.aad](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_machine_extension) | resource |
@@ -51,6 +52,7 @@ No modules.
 | <a name="input_script_name"></a> [script\_name](#input\_script\_name) | (Required) Specifies the name of the custom script. | `string` | n/a | yes |
 | <a name="input_script_storage_account_key"></a> [script\_storage\_account\_key](#input\_script\_storage\_account\_key) | (Required) Specifies the name of the storage account that contains the custom script. | `string` | n/a | yes |
 | <a name="input_script_storage_account_name"></a> [script\_storage\_account\_name](#input\_script\_storage\_account\_name) | (Required) Specifies the name of the storage account that contains the custom script. | `string` | n/a | yes |
+| <a name="input_security_rules"></a> [security\_rules](#input\_security\_rules) | A list of security rules to be created. | <pre>list(object({<br>    name      = string<br>    priority  = number<br>    direction = string <br>    access    = string<br>    protocol  = string<br>    source_port_range          = string<br>    destination_port_range     = string<br>    source_address_prefix      = string<br>    destination_address_prefix = string<br>  }))</pre> | n/a | yes |
 | <a name="input_size"></a> [size](#input\_size) | (Required) Specifies the size of the virtual machine | `string` | n/a | yes |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | (Required) Specifies the resource id of the subnet hosting the virtual machine | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) Specifies the tags of the storage account | `map` | `{}` | no |

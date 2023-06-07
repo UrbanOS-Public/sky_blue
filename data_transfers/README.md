@@ -11,22 +11,15 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.55.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_firewall"></a> [firewall](#module\_firewall) | ./modules/firewall | n/a |
-| <a name="module_hub_network"></a> [hub\_network](#module\_hub\_network) | ./modules/virtual_network | n/a |
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ./modules/key_vault | n/a |
-| <a name="module_log_analytics_workspace"></a> [log\_analytics\_workspace](#module\_log\_analytics\_workspace) | ./modules/log_analytics | n/a |
-| <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_namedata"></a> [namedata](#module\_namedata) | Azure/naming/azurerm | 0.2.0 |
-| <a name="module_routetable"></a> [routetable](#module\_routetable) | ./modules/route_table | n/a |
-| <a name="module_data_network"></a> [data\_network](#module\_data\_network) | ./modules/virtual_network | n/a |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_storage_account"></a> [storage\_account](#module\_storage\_account) | ./modules/storage_account | n/a |
-| <a name="module_vnet_peering"></a> [vnet\_peering](#module\_vnet\_peering) | ./modules/virtual_network_peering | n/a |
 
 ## Resources
 
@@ -35,12 +28,10 @@
 | [azurerm_key_vault_access_policy.admin](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
 | [azurerm_key_vault_access_policy.agent](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
 | [azurerm_key_vault_key.cmk_storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_key) | resource |
-| [azurerm_key_vault_secret.privatekey](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) | resource |
-| [azurerm_key_vault_secret.publickey](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret) | resource |
-| [azurerm_resource_group.hub](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 | [azurerm_resource_group.data](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
-| [tls_private_key.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
+| [azurerm_storage_container.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
+| [azurerm_log_analytics_workspace.law](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/log_analytics_workspace) | data source |
 
 ## Inputs
 

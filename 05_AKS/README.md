@@ -18,6 +18,7 @@
 |------|--------|---------|
 | <a name="module_aks_cluster"></a> [aks\_cluster](#module\_aks\_cluster) | ./modules/aks | n/a |
 | <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_node_pool"></a> [node\_pool](#module\_node\_pool) | ./modules/node_pool | n/a |
 

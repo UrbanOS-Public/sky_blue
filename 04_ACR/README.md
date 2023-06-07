@@ -16,8 +16,11 @@
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_acr_private_dns_zone"></a> [acr\_private\_dns\_zone](#module\_acr\_private\_dns\_zone) | ./modules/private_dns_zone | n/a |
+| <a name="module_acr_private_endpoint"></a> [acr\_private\_endpoint](#module\_acr\_private\_endpoint) | ./modules/private_endpoint | n/a |
 | <a name="module_container_registry"></a> [container\_registry](#module\_container\_registry) | ./modules/container_registry | n/a |
 | <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.2.0 |
 
 ## Resources
@@ -28,6 +31,7 @@
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
 | [azurerm_log_analytics_workspace.law](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/log_analytics_workspace) | data source |
 | [azurerm_resources.key_vault](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resources) | data source |
+| [azurerm_subnet.spoke_vm_subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
 
 ## Inputs
 
@@ -42,6 +46,7 @@
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | n/a | yes |
 | <a name="input_suffix"></a> [suffix](#input\_suffix) | n/a | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Specifies a map of tags to be applied to the resources created. | `map(any)` | n/a | yes |
+| <a name="input_vm_subnet_name"></a> [vm\_subnet\_name](#input\_vm\_subnet\_name) | Specifies the name of the jumpbox subnet | `string` | `"VmSubnet"` | no |
 
 ## Outputs
 

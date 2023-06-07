@@ -17,11 +17,15 @@
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_blob_private_dns_zone"></a> [blob\_private\_dns\_zone](#module\_blob\_private\_dns\_zone) | ./modules/private_dns_zone | n/a |
+| <a name="module_blob_private_endpoint"></a> [blob\_private\_endpoint](#module\_blob\_private\_endpoint) | ./modules/private_endpoint | n/a |
 | <a name="module_firewall"></a> [firewall](#module\_firewall) | ./modules/firewall | n/a |
 | <a name="module_hub_network"></a> [hub\_network](#module\_hub\_network) | ./modules/virtual_network | n/a |
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ./modules/key_vault | n/a |
-| <a name="module_log_analytics_workspace"></a> [log\_analytics\_workspace](#module\_log\_analytics\_workspace) | ./modules/log_analytics | n/a |
+| <a name="module_key_vault_private_dns_zone"></a> [key\_vault\_private\_dns\_zone](#module\_key\_vault\_private\_dns\_zone) | ./modules/private_dns_zone | n/a |
+| <a name="module_key_vault_private_endpoint"></a> [key\_vault\_private\_endpoint](#module\_key\_vault\_private\_endpoint) | ./modules/private_endpoint | n/a |
 | <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_routetable"></a> [routetable](#module\_routetable) | ./modules/route_table | n/a |
 | <a name="module_spoke_network"></a> [spoke\_network](#module\_spoke\_network) | ./modules/virtual_network | n/a |
@@ -41,6 +45,7 @@
 | [azurerm_resource_group.spoke](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
 | [tls_private_key.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
+| [azurerm_log_analytics_workspace.law](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/log_analytics_workspace) | data source |
 
 ## Inputs
 

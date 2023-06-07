@@ -17,6 +17,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.2.0 |
 | <a name="module_runner"></a> [runner](#module\_runner) | ./modules/virtual_machine | n/a |
 
@@ -49,7 +50,7 @@
 | <a name="input_script_storage_account_name"></a> [script\_storage\_account\_name](#input\_script\_storage\_account\_name) | (Required) Specifies the name of the storage account that contains the custom script. | `string` | `"https://raw.githubusercontent.com/risticmarko/scripts/main"` | no |
 | <a name="input_suffix"></a> [suffix](#input\_suffix) | n/a | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | Specifies a map of tags to be applied to the resources created. | `map(any)` | n/a | yes |
-| <a name="input_vm_os_disk_image"></a> [vm\_os\_disk\_image](#input\_vm\_os\_disk\_image) | Specifies the os disk image of the virtual machine | `map(string)` | <pre>{<br>  "offer": "UbuntuServer",<br>  "publisher": "Canonical",<br>  "sku": "18.04-LTS",<br>  "version": "latest"<br>}</pre> | no |
+| <a name="input_vm_os_disk_image"></a> [vm\_os\_disk\_image](#input\_vm\_os\_disk\_image) | Specifies the os disk image of the virtual machine | `map(string)` | <pre>{<br>  "offer": "0001-com-ubuntu-server-focal",<br>  "publisher": "Canonical",<br>  "sku": "20_04-lts-gen2",<br>  "version": "latest"<br>}</pre> | no |
 | <a name="input_vm_os_disk_storage_account_type"></a> [vm\_os\_disk\_storage\_account\_type](#input\_vm\_os\_disk\_storage\_account\_type) | Specifies the storage account type of the os disk of the jumpbox virtual machine | `string` | `"Premium_LRS"` | no |
 | <a name="input_vm_public_ip"></a> [vm\_public\_ip](#input\_vm\_public\_ip) | (Optional) Specifies whether create a public IP for the virtual machine | `bool` | `false` | no |
 | <a name="input_vm_size"></a> [vm\_size](#input\_vm\_size) | Specifies the size of the jumpbox virtual machine | `string` | `"Standard_DS1_v2"` | no |
