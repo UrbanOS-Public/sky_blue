@@ -60,7 +60,7 @@ variable "default_action" {
 
 variable "ip_rules" {
     description = "Specifies IP rules for the storage account"
-    default     = ["47.203.195.3"]
+    default     = []
     type        = list(string)  
 }
 
