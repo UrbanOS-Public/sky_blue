@@ -68,4 +68,4 @@ jobs:
     #     pull-images: false 
       - name: Cleanup
         if: ${{ always() }}
-        run: docker ps -q | xargs -n 1 -P 8 -I {} docker stop {}
+        run: sudo docker ps -q | xargs -n 1 -P 8 -I {} docker stop {}
