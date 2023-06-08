@@ -57,15 +57,16 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
-    # - name: Deploy to AKS
-    #   id: deploy-aks
-    #   uses: Azure/k8s-deploy@v4
-    #   with:
-    #     namespace: 'default'
-    #     manifests: |
-    #       https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
-    #     images: 'acrurbanosspokedeveus.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
-    #     pull-images: false 
+      - name: Deploy to AKS
+        id: deploy-aks
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: 'default'
+          manifests: |
+            https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
+          images: 'acrurbanosspkdeveus.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
+          pull-images: false 
+
       - name: Cleanup
         if: ${{ always() }}
         run: sudo docker ps -q | xargs -n 1 -P 8 -I {} docker stop {}

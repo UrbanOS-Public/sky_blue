@@ -51,6 +51,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     os_disk_type            = var.default_node_pool_os_disk_type
     tags                    = var.tags
     only_critical_addons_enabled     = var.only_critical_addons_enabled
+    temporary_name_for_rotation = "tmp-rotation"
   }
 
   linux_profile {
