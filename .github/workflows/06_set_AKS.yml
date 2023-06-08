@@ -57,6 +57,10 @@ jobs:
         id: install-kubectl
         uses: azure/setup-kubectl@v3
 
+      - name: Install Azure kubelogin
+        id: install-kubelogin
+        run: sudo snap install kubelogin
+
       - name: Deploy to AKS
         id: deploy-aks
         uses: Azure/k8s-deploy@v4
