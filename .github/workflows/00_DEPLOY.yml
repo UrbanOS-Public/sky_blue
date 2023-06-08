@@ -14,7 +14,7 @@ on:
           type: choice
           description: Deploy?
           options:
-            #- plan 
+            - plan 
             - apply
           required: true
 jobs:
