@@ -54,7 +54,7 @@ resource "azurerm_user_assigned_identity" "acr_identity" {
   }
 }
 
-resource "azurerm_container_registry_agent_pool" "dedicated " {
+resource "azurerm_container_registry_agent_pool" "dedicated" {
   name                    = "agentpool"
   resource_group_name     = var.resource_group_name
   location                = var.location
