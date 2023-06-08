@@ -33,7 +33,7 @@ jobs:
           service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
           tenant: ${{ secrets.ARM_TENANT_ID }}
           git_access_token: ${{ secrets.git_access_token }}
-          registry: acrurbanosspokedeveus.azurecr.io
+          registry: acrurbanosspkdeveus.azurecr.io
           repository: azuredocs
           image:  azure-vote-front
           folder: azure-vote
