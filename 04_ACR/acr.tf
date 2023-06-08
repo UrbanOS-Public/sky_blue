@@ -38,6 +38,7 @@ module "container_registry" {
   key_vault_key_id             = azurerm_key_vault_key.cmk.versionless_id
   tenant_id                    = data.azurerm_client_config.current.tenant_id
   tags                         = var.tags
+  subnet_id = var.subnet_id
 }
 
 module "acr_private_dns_zone" {
@@ -69,6 +70,7 @@ module "acr_private_endpoint" {
   subresource_name               = "registry"
   private_dns_zone_group_name    = "AcrPrivateDnsZoneGroup"
   private_dns_zone_group_ids     = [module.acr_private_dns_zone.id]
+  
 }
 
 

@@ -67,3 +67,8 @@ variable "tenant_id" {
   description = "(Required) The tenant id of the system assigned identity which is used by master components."
   type        = string
 }
+
+variable "subnet_id" {
+  description = "(Required) Specifies the resource id of the subnet"
+  type        = string
+}
