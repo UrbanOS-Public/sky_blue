@@ -33,7 +33,7 @@ jobs:
           service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
           tenant: ${{ secrets.ARM_TENANT_ID }}
           git_access_token: ${{ secrets.git_access_token }}
-          registry: acrurbanosspkdeveus.azurecr.io
+          registry: acrurbanosspkdeveus.privatelink.azurecr.io
           repository: azuredocs
           image:  azure-vote-front
           folder: azure-vote
@@ -68,7 +68,7 @@ jobs:
           namespace: 'default'
           manifests: |
             https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
-          images: 'acrurbanosspkdeveus.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
+          images: 'acrurbanosspkdeveus.privatelink.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
           pull-images: false 
           #private-cluster: true
 
