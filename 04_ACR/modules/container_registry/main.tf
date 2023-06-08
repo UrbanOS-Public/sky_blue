@@ -5,7 +5,8 @@ resource "azurerm_container_registry" "acr" {
   sku                      = var.sku  
   admin_enabled            = var.admin_enabled
   tags                     = var.tags
-
+  public_network_access_enabled = false
+  network_rule_bypass_option = "AzureServices"
   identity {
     type = "UserAssigned"
     identity_ids = [
