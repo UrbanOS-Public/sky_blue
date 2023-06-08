@@ -59,7 +59,7 @@ resource "azurerm_container_registry_agent_pool" "dedicated" {
   name                    = "agentpool"
   resource_group_name     = var.resource_group_name
   location                = var.location
-  container_registry_name = azurerm_container_registry.acr.id
+  container_registry_name = azurerm_container_registry.acr.name
   instance_count = 1
   tier = "S1"
   virtual_network_subnet_id = var.subnet_id
