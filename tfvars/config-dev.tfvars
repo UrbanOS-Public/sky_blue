@@ -25,6 +25,6 @@ network_dns_service_ip = "10.2.0.10"
 network_service_cidr = "10.2.0.0/24"
 admin_group_object_ids = ["592308cb-ed13-4076-b3f5-d420a56748ad"]
 log_analytics_retention_days = 30
-default_node_pool_vm_size = "Standard_B2ms"
+default_node_pool_vm_size = "Standard_B4ms"
 additional_node_pool_vm_size = "Standard_B2ms"
 acr_georeplication_locations = ["WestUS2"]
