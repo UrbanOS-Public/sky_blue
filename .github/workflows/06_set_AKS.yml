@@ -65,7 +65,10 @@ jobs:
     #       https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
     #     images: 'acrurbanosspokedeveus.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
     #     pull-images: false 
-
+      - name: Cleanup
+        if: ${{ always() }}
+        run: docker ps -q | xargs -n 1 -P 8 -I {} docker stop {}
+        
       - name: az logout 
         uses: azure/CLI@v1
         with:
