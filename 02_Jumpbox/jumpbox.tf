@@ -7,7 +7,7 @@ module "virtual_machine" {
   vm_user                             = var.admin_username
   admin_ssh_public_key                = data.azurerm_key_vault_secret.ssh_public_key.value #tls_private_key.this.public_key_openssh
   os_disk_image                       = var.vm_os_disk_image
-  domain_name_label                   = var.domain_name_label
+  domain_name_label                   = "test change" #var.domain_name_label
   resource_group_name                 = module.namespoke.resource_group.name
   subnet_id                           = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name]
   os_disk_storage_account_type        = var.vm_os_disk_storage_account_type

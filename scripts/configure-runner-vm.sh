@@ -20,3 +20,10 @@ newgrp docker
 # Add current user to sudoer file
 # https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
 echo "${USER}  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/${USER}"
+
+# sudo usermod -a -G docker $USER
+
+#cd into your self-hosted runners' directory first)
+cd actions-runner
+sudo ./svc.sh stop
+sudo ./svc.sh start
