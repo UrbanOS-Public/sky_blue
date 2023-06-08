@@ -50,7 +50,7 @@ jobs:
 
   Plan-02:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
-    needs: [Deploy-02]
+    needs: [Deploy-01]
     with:
       path: 02_Jumpbox                               
       tf_version: latest                                 
