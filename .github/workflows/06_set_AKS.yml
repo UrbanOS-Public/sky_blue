@@ -10,10 +10,6 @@ on:
           - uat
           - prd
         required: true
-        variables:
-          - group: global-variables
-          - name: INPUT_REPOSITORY
-            value: acrurbanosspkdeveus  
 jobs:
   build:
     runs-on: self-hosted 
@@ -28,26 +24,28 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
 
-      # - name: ACR build
-      #   id: build-push-acr
-      #   run: |
-      #     echo "Building Docker image azuredocs azure-vote-front:${github.sha} from ${GITHUB_REPOSITORY} on main and using context azure-vote ; and pushing it to acrurbanosspkdeveus Azure Container Registry"
-      #     az acr build -r acrurbanosspkdeveus ${BUILD_ARGS} -f ${INPUT_DOCKERFILE} -t ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} https://${GIT_ACCESS_TOKEN_FLAG}github.com/${GITHUB_REPOSITORY}.git#main:azure-vote
-
       - name: ACR build
         id: build-push-acr
-        uses: azure/acr-build@v1
-        with:
-          service_principal: ${{ secrets.ARM_CLIENT_ID }}
-          service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
-          tenant: ${{ secrets.ARM_TENANT_ID }}
-          git_access_token: ${{ secrets.git_access_token }}
-          registry: acrurbanosspkdeveus
-          repository: azuredocs
-          image:  azure-vote-front
-          folder: azure-vote
-          branch: main
-          tag: ${{ github.sha }}
+        run: |
+           echo "Building Docker image azuredocs/azure-vote-front:7be57526f74efd4e59af3ef27d517842bc0a2c1e from UrbanOS-Public/sky_blue on main and using context azure-vote ; and pushing it to acrurbanosspkdeveus Azure Container Registry"
+           az acr build -r acrurbanosspkdeveus -agent-pool agentpool -t 'azuredocs/azure-vote-front:7be57526f74efd4e59af3ef27d517842bc0a2c1e' https://${git_access_token}.github.com/${GITHUB_REPOSITORY}.git#main:azure-vote
+        #  echo "Building Docker image ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} from ${GITHUB_REPOSITORY} on ${INPUT_BRANCH} and using context ${INPUT_FOLDER} ; and pushing it to ${INPUT_REGISTRY} Azure Container Registry"
+        #  az acr build -r ${INPUT_REGISTRY} ${BUILD_ARGS} -f ${INPUT_DOCKERFILE} -t ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} https://${GIT_ACCESS_TOKEN_FLAG}github.com/${GITHUB_REPOSITORY}.git#${INPUT_BRANCH}:${INPUT_FOLDER}
+
+      # - name: ACR build
+      #   id: build-push-acr
+      #   uses: azure/acr-build@v1
+      #   with:
+      #     service_principal: ${{ secrets.ARM_CLIENT_ID }}
+      #     service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
+      #     tenant: ${{ secrets.ARM_TENANT_ID }}
+      #     git_access_token: ${{ secrets.git_access_token }}
+      #     registry: acrurbanosspkdeveus
+      #     repository: azuredocs
+      #     image:  azure-vote-front
+      #     folder: azure-vote
+      #     branch: main
+      #     tag: ${{ github.sha }}
 
       - name: Azure login
         id: login
