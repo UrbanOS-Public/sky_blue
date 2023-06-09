@@ -25,6 +25,12 @@ jobs:
         id: checkout
         uses: actions/checkout@v3
 
+      - name: Azure login
+        id: login
+        uses: azure/login@v1.4.3
+        with:
+          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
+
       - name: ACR build
         id: build-push-acr
         run: |
@@ -33,27 +39,6 @@ jobs:
         #  echo "Building Docker image ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} from ${GITHUB_REPOSITORY} on ${INPUT_BRANCH} and using context ${INPUT_FOLDER} ; and pushing it to ${INPUT_REGISTRY} Azure Container Registry"
         #  az acr build -r ${INPUT_REGISTRY} ${BUILD_ARGS} -f ${INPUT_DOCKERFILE} -t ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} https://${GIT_ACCESS_TOKEN_FLAG}github.com/${GITHUB_REPOSITORY}.git#${INPUT_BRANCH}:${INPUT_FOLDER}
 
-      # - name: ACR build
-      #   id: build-push-acr
-      #   uses: azure/acr-build@v1
-      #   with:
-      #     service_principal: ${{ secrets.ARM_CLIENT_ID }}
-      #     service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
-      #     tenant: ${{ secrets.ARM_TENANT_ID }}
-      #     git_access_token: ${{ secrets.git_access_token }}
-      #     registry: acrurbanosspkdeveus
-      #     repository: azuredocs
-      #     image:  azure-vote-front
-      #     folder: azure-vote
-      #     branch: main
-      #     tag: ${{ github.sha }}
-
-      - name: Azure login
-        id: login
-        uses: azure/login@v1.4.3
-        with:
-          creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
-    
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
