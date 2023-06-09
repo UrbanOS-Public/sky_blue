@@ -27,18 +27,22 @@ jobs:
 
       - name: ACR build
         id: build-push-acr
-        uses: azure/acr-build@v1
-        with:
-          service_principal: ${{ secrets.ARM_CLIENT_ID }}
-          service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
-          tenant: ${{ secrets.ARM_TENANT_ID }}
-          git_access_token: ${{ secrets.git_access_token }}
-          registry: acrurbanosspkdeveus
-          repository: azuredocs
-          image:  azure-vote-front
-          folder: azure-vote
-          branch: main
-          tag: ${{ github.sha }}
+        run: echo "Building Docker image ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} from ${GITHUB_REPOSITORY} on ${INPUT_BRANCH} and using context ${INPUT_FOLDER} ; and pushing it to ${INPUT_REGISTRY} Azure Container Registry"
+
+      # - name: ACR build
+      #   id: build-push-acr
+      #   uses: azure/acr-build@v1
+      #   with:
+      #     service_principal: ${{ secrets.ARM_CLIENT_ID }}
+      #     service_principal_password: ${{ secrets.ARM_CLIENT_SECRET }}
+      #     tenant: ${{ secrets.ARM_TENANT_ID }}
+      #     git_access_token: ${{ secrets.git_access_token }}
+      #     registry: acrurbanosspkdeveus
+      #     repository: azuredocs
+      #     image:  azure-vote-front
+      #     folder: azure-vote
+      #     branch: main
+      #     tag: ${{ github.sha }}
 
       - name: Azure login
         id: login
@@ -63,16 +67,13 @@ jobs:
 
       - name: Deploy to AKS
         id: deploy-aks
-        run:  | 
-          echo "Building Docker image ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} from ${GITHUB_REPOSITORY} on ${INPUT_BRANCH} and using context ${INPUT_FOLDER} ; and pushing it to ${INPUT_REGISTRY} Azure Container Registry"
-        #az acr build -r ${INPUT_REGISTRY} ${BUILD_ARGS} -f ${INPUT_DOCKERFILE} -t ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} https://${GIT_ACCESS_TOKEN_FLAG}github.com/${GITHUB_REPOSITORY}.git#${INPUT_BRANCH}:${INPUT_FOLDER}
-        #uses: Azure/k8s-deploy@v4
-        #with:
-        #  namespace: 'default'
-        #  manifests: |
-        #    https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
-        #  images: 'acrurbanosspkdeveus.privatelink.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
-        #  pull-images: false 
+        uses: Azure/k8s-deploy@v4
+        with:
+          namespace: 'default'
+          manifests: |
+            https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
+          images: 'acrurbanosspkdeveus.privatelink.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
+          pull-images: false 
           #private-cluster: true
 
       - name: Cleanup
