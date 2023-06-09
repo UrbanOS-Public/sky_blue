@@ -10,7 +10,10 @@ on:
           - uat
           - prd
         required: true
-  
+        variables:
+          - group: global-variables
+          - name: INPUT_REPOSITORY
+            value: acrurbanosspkdeveus  
 jobs:
   build:
     runs-on: self-hosted 
