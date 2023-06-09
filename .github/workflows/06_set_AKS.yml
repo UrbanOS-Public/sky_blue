@@ -14,7 +14,8 @@ jobs:
   build:
     runs-on: self-hosted 
     environment: ${{ github.event.inputs.environment }}
-     
+    env:
+      GIT_ACCESS_TOKEN_FLAG: "${{ secrets.git_access_token }}" 
     steps:
       - name: Install Azure CLI
         id: install
