@@ -78,7 +78,7 @@ jobs:
             https://raw.githubusercontent.com/UrbanOS-Public/sky_blue/main/azure-vote-all-in-one-redis.yaml
           images: 'acrurbanosspkdeveus.privatelink.azurecr.io/azuredocs/azure-vote-front:${{ github.sha }}'
           pull-images: false 
-          #private-cluster: true
+          private-cluster: false
 
       - name: Cleanup
         if: ${{ always() }}
