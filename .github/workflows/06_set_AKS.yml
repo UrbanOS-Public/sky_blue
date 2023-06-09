@@ -29,7 +29,7 @@ jobs:
         id: build-push-acr
         run: |
            echo "Building Docker image azuredocs/azure-vote-front:7be57526f74efd4e59af3ef27d517842bc0a2c1e from UrbanOS-Public/sky_blue on main and using context azure-vote ; and pushing it to acrurbanosspkdeveus Azure Container Registry"
-           az acr build -r acrurbanosspkdeveus --agent-pool agentpool -t 'azuredocs/azure-vote-front:7be57526f74efd4e59af3ef27d517842bc0a2c1e' https://${{ secrets.git_access_token }}.github.com/${GITHUB_REPOSITORY}.git#main:azure-vote
+           az acr build -r acrurbanosspkdeveus --agent-pool agentpool -t 'azuredocs/azure-vote-front:7be57526f74efd4e59af3ef27d517842bc0a2c1e' https://github.com/${GITHUB_REPOSITORY}.git#main:azure-vote
         #  echo "Building Docker image ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} from ${GITHUB_REPOSITORY} on ${INPUT_BRANCH} and using context ${INPUT_FOLDER} ; and pushing it to ${INPUT_REGISTRY} Azure Container Registry"
         #  az acr build -r ${INPUT_REGISTRY} ${BUILD_ARGS} -f ${INPUT_DOCKERFILE} -t ${INPUT_REPOSITORY}${IMAGE_PART}:${INPUT_TAG} https://${GIT_ACCESS_TOKEN_FLAG}github.com/${GITHUB_REPOSITORY}.git#${INPUT_BRANCH}:${INPUT_FOLDER}
 
