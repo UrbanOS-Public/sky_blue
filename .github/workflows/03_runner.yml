@@ -81,9 +81,11 @@ jobs:
          run: echo "Install AzCLI" | curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
        - name: Download Action Runner
          id: downloadrunner 
-         run: sudo mkdir actions-runner | cd actions-runner |
-              curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz | ls
-              #tar xzf ./actions-runner-linux-x64-2.304.0.tar.gz
+         run: mkdir /actions-runner 
+       - run: cd /actions-runner 
+       - run: ls
+       - run: curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz
+       - run: tar xzf ./actions-runner-linux-x64-2.304.0.tar.gz
        - run: sudo ./svc.sh status 
 
   Destroy:
