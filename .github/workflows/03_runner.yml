@@ -72,9 +72,16 @@ jobs:
       needs: Deploy
       runs-on: ubuntu-latest
       steps:
-       - run: sudo apt-get update -y
-       - run: sudo apt-get upgrade -y
-       - run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+       - run: echo "Update" | sudo apt-get update -y
+       - run: echo "Upgrade" | sudo apt-get upgrade -y
+       - run: echo "install AzCLI" | curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+       - run: mkdir actions-runner && cd actions-runner 
+       - run: echo "Download the latest runner package" |
+              curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz |
+              echo "Validate the hash" |
+              echo "292e8770bdeafca135c2c06cd5426f9dda49a775568f45fcc25cc2b576afc12f  actions-runner-linux-x64-2.304.0.tar.gz" | shasum -a 256 -c 
+       - run: echo "Extract the installer" | tar xzf ./actions-runner-linux-x64-2.304.0.tar.gz
+       - run: sudo ./svc.sh status
 
   Destroy:
           if: ${{ github.event.inputs.deploy == 'destroy' }}
