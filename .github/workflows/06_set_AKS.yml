@@ -48,12 +48,12 @@ jobs:
     
       - name: Setup kubectl
         id: install-kubectl
-        run: sudo snap install kubectl
-        #uses: azure/setup-kubectl@v3
+        #run: sudo snap install kubectl
+        uses: azure/setup-kubectl@v3
 
       - name: Install Azure kubelogin
         id: install-kubelogin
-        run: sudo snap install kubelogin
+        #run: sudo snap install kubelogin
 
       - name: Deploy to AKS
         id: deploy-aks
