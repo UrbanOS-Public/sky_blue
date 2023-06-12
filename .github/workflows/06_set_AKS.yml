@@ -48,7 +48,8 @@ jobs:
     
       - name: Setup kubectl
         id: install-kubectl
-        uses: azure/setup-kubectl@v3
+        run: sudo snap install kubectl
+        #uses: azure/setup-kubectl@v3
 
       - name: Install Azure kubelogin
         id: install-kubelogin
