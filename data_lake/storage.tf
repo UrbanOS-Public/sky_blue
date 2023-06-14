@@ -32,7 +32,7 @@ resource "azurerm_key_vault_key" "cmk_storage" {
 
 module "storage_account" {
   source                      = "./modules/storage_account"
-  name                        = module.namedatalake.storage_account.name #_unique
+  name                        = module.namedatalake.data_lake_store.name #_unique
   location                    = var.location
   resource_group_name         = azurerm_resource_group.data.name
   account_kind                = var.storage_account_kind
@@ -48,10 +48,10 @@ module "storage_account" {
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "rawdata" {
   storage_account_id = module.storage_account.id
-  name               = module.namedatalake.data_lake_store.name
+  name               = "DataStory"
 }
 
-resource "azurerm_storage_data_lake_gen2_path" "example" {
+resource "azurerm_storage_data_lake_gen2_path" "rawdata" {
   path               = "rawdata"
   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.rawdata.name
   storage_account_id =  module.storage_account.id
