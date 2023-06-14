@@ -8,7 +8,7 @@ module "adf_endpoint" {
   tags                           = var.tags
   private_connection_resource_id = azurerm_data_factory.adf.id
   is_manual_connection           = false
-  subresource_name               = "vault"
-  private_dns_zone_group_name    = "KeyVaultPrivateDnsZoneGroup"
+  subresource_name               = "dataFactory"
+  private_dns_zone_group_name    = "ADFPrivateDnsZoneGroup"
   private_dns_zone_group_ids     = [module.adf_dns_zone.id]
 }

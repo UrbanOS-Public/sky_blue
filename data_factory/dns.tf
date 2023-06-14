@@ -1,6 +1,6 @@
 module "adf_dns_zone" {
   source                       = "./modules/private_dns_zone"
-  name                         = "privatelink.vaultcore.azure.net"
+  name                         = "privatelink.datafactory.azure.net"
   resource_group_name          = module.namespoke.resource_group.name
   tags = var.tags
   virtual_networks_to_link     = {
