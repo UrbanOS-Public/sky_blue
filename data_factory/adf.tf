@@ -66,6 +66,13 @@ resource "azurerm_data_factory" "adf" {
   }
 }
 
+resource "azurerm_data_factory_managed_private_endpoint" "example" {
+  name               = "${(module.namedatalake.data_factory.name)}-mpe"
+  data_factory_id    = azurerm_data_factory.adf.id
+  target_resource_id = data.azurerm_storage_account.lake.id
+  subresource_name   = "blob"
+}
+
 resource "azurerm_data_factory_pipeline" "example" {
   name            = "example"
   data_factory_id = azurerm_data_factory.adf.id
