@@ -28,7 +28,7 @@ resource "azurerm_user_assigned_identity" "adf_identity" {
   location            = var.location
   tags                = var.tags
 
-  name = "${module.namedata.data_factory.name}-uai"
+  name = "${module.namedatalake.data_factory.name}-uai"
 
   lifecycle {
     ignore_changes = [
@@ -52,9 +52,9 @@ resource "azurerm_key_vault_access_policy" "adf_identity" {
 
 
 resource "azurerm_data_factory" "adf" {
-  name                = module.namedata.data_factory.name
+  name                = module.namedatalake.data_factory.name
   location            = var.location
-  resource_group_name = module.namedata.resource_group.name
+  resource_group_name = module.namedatalake.resource_group.name
   public_network_enabled = false
   customer_managed_key_id  = azurerm_key_vault_key.cmk.id
   customer_managed_key_identity_id = azurerm_user_assigned_identity.adf_identity.id
