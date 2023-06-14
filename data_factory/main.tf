@@ -16,15 +16,6 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-#Create Resource Group for solution
-resource "azurerm_resource_group" "data" {
-  name     = module.namedatalake.resource_group.name
-  location = var.location
-  tags     = var.tags
-  depends_on = [ module.namedatalake ]
-}
-
-
 
 
 

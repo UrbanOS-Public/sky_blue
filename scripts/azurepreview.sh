@@ -5,6 +5,16 @@ subscriptionId=$(az account show --query id --output tsv)
 subscriptionName=$(az account show --query name --output tsv)
 tenantId=$(az account show --query tenantId --output tsv)
 
+#Enable Azure Data Factory
+echo "Checking if [Azure Data Factory] provider is already installed..."
+extension=$(az provider list -o table --query "[?namespace=='Microsoft.DataFactory' && registrationState=='Registered'].{Provider:namespace, Status:registrationState}" --output tsv)
+if [[ -z $extension ]]; then
+  echo "[Azure Data Factory] extension is not installed. Installing..."
+  az provider register --namespace Microsoft.DataFactory
+else
+  echo "[Azure Data Factory] extension is already registered."
+fi
+
 
 
 # Install EncryptionAtHost Azure extension
