@@ -92,5 +92,5 @@ variable "tenant_id" {
 variable "is_hns_enabled" {
   type        = bool
   description = "Enable or disable hierarchical namespace. This is required for Azure Data Lake Storage Gen 2."
-  default     = false
+  default     = true
 }
