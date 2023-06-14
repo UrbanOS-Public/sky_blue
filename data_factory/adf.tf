@@ -24,7 +24,7 @@ resource "azurerm_key_vault_key" "cmk" {
 }
 
 resource "azurerm_user_assigned_identity" "adf_identity" {
-  resource_group_name = var.resource_group_name
+  resource_group_name = module.namedatalake.resource_group.name
   location            = var.location
   tags                = var.tags
 
@@ -38,8 +38,8 @@ resource "azurerm_user_assigned_identity" "adf_identity" {
 }
 
 resource "azurerm_key_vault_access_policy" "adf_identity" {
-  key_vault_id = var.key_vault_id
-  tenant_id    = var.tenant_id
+  key_vault_id = data.azurerm_resources.key_vault.resources[0].id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = azurerm_user_assigned_identity.adf_identity.principal_id 
 
   key_permissions = [
