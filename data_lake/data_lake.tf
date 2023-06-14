@@ -48,7 +48,7 @@ module "storage_account" {
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "rawdata" {
   storage_account_id = module.storage_account.id
-  name               = "DataStory"
+  name               = "datastory"
 }
 
 resource "azurerm_storage_data_lake_gen2_path" "rawdata" {
