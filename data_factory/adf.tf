@@ -87,24 +87,37 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
   data_factory_id       = azurerm_data_factory.adf.id
   use_managed_identity  = true
-  url                   = "https://${(data.azurerm_storage_account.lake.name)}"
+  url                   = "https://${(data.azurerm_storage_account.lake.name)}.dfs.core.windows.net"
   description           = "Link with Data Lake storage"
   depends_on = [ 
     azurerm_role_assignment.blob_contributor 
   ]
 }
 
-resource "azurerm_data_factory_linked_service_web" "intersection" {
-  name                = "intersection"
+resource "azurerm_data_factory_linked_custom_service" "arcgis" {
+  name                = "arcgis"
   data_factory_id     = azurerm_data_factory.adf.id
-  authentication_type = "Anonymous"
-  url                 = "https://services1.arcgis.com/O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
+  type                = "HttpServer"
+   type_properties_json = <<JSON
+    {
+      "url": "https://services1.arcgis.com/",
+      "enableServerCertificateValidation": true,
+      "authenticationType": "Anonymous"
+    }
+    JSON
 }
 
 resource "azurerm_data_factory_dataset_json" "intersectiondata" {
   name                = "intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
-  linked_service_name = azurerm_data_factory_linked_service_web.intersection.name
+  linked_service_name = azurerm_data_factory_linked_service_web.arcgis.name
+  
+
+  http_server_location {
+    relative_url = "/O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
+   # path         = "foo/bar/"
+   # filename     = "foo.txt"
+  }
 }
 
 
