@@ -139,7 +139,7 @@ resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
 resource "azurerm_data_factory_custom_dataset" "datastore" {
   name                = "adl_intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
-  type                = "Microsoft.DataFactory/factories/dataset"
+  type                = "Json"
 
   linked_service {
     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
