@@ -59,7 +59,7 @@ resource "azurerm_data_factory" "adf" {
   customer_managed_key_id  = azurerm_key_vault_key.cmk.id
   customer_managed_key_identity_id = azurerm_user_assigned_identity.adf_identity.id
   identity {
-    type = "UserAssigned"
+    type = "SystemAssigned, UserAssigned"
     identity_ids = [
       azurerm_user_assigned_identity.adf_identity.id
     ]
