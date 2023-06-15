@@ -116,6 +116,7 @@ resource "azurerm_data_factory_linked_custom_service" "arcgis" {
     JSON
 }
 
+
 resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
   name                = "intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
@@ -134,6 +135,28 @@ resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
     }
   JSON
 }
+
+resource "azurerm_data_factory_custom_dataset" "datastore" {
+  name                = "adl_intersection_data_json"
+  data_factory_id     = azurerm_data_factory.adf.id
+  type                = "Microsoft.DataFactory/factories/dataset"
+
+  linked_service {
+    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
+  }
+  
+  type_properties_json = <<JSON
+    {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "1.json",
+        "folderPath": "rawdata",
+        "fileSystem": "datastory"
+      }
+    }
+  JSON
+}
+
 
 
 resource "azurerm_data_factory_pipeline" "example" {
