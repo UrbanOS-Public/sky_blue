@@ -107,17 +107,23 @@ resource "azurerm_data_factory_linked_custom_service" "arcgis" {
     JSON
 }
 
-resource "azurerm_data_factory_dataset_json" "intersectiondata" {
+resource "azurerm_data_factory_linked_custom_service" "intersectiondata" {
   name                = "intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
-  linked_service_name = azurerm_data_factory_linked_custom_service.arcgis.name
-  
+  type                = "Json"
 
-  http_server_location {
-    relative_url = "/O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
-   # path         = "foo/bar/"
-   # filename     = "foo.txt"
+  linked_service {
+    name = azurerm_data_factory_linked_custom_service.arcgis.name
   }
+  
+  type_properties_json = <<JSON
+    {
+      "location": {
+        "type": "HttpServerLocation",
+        "relativeUrl": "O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
+      }
+    }
+  JSON
 }
 
 
