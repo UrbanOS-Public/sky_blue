@@ -101,15 +101,10 @@ resource "azurerm_data_factory_linked_service_web" "intersection" {
   url                 = "https://services1.arcgis.com/O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
 }
 
-resource "azurerm_data_factory_dataset_http" "intersectiondata" {
+resource "azurerm_data_factory_dataset_json" "intersectiondata" {
   name                = "intersection_data"
   data_factory_id     = azurerm_data_factory.adf.id
   linked_service_name = azurerm_data_factory_linked_service_web.intersection.name
-
-  relative_url   = "https://services1.arcgis.com/O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
-  #request_body   = "foo=bar"
-  request_method = "GET"
-
 }
 
 
