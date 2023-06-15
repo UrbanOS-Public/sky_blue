@@ -102,7 +102,7 @@ resource "azurerm_data_factory_linked_service_web" "intersection" {
 }
 
 resource "azurerm_data_factory_dataset_json" "intersectiondata" {
-  name                = "intersection_data"
+  name                = "intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
   linked_service_name = azurerm_data_factory_linked_service_web.intersection.name
 }
