@@ -76,7 +76,7 @@ resource "azurerm_data_factory" "adf" {
 resource "azurerm_role_assignment" "blob_contributor" {
   scope                = data.azurerm_storage_account.lake.id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_user_assigned_identity.adf_identity.id
+  principal_id         = azurerm_user_assigned_identity.adf_identity.principal_id
   depends_on = [ 
     azurerm_user_assigned_identity.adf_identity
   ]
