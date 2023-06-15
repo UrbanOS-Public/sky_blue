@@ -110,7 +110,7 @@ resource "azurerm_data_factory_linked_custom_service" "arcgis" {
 resource "azurerm_data_factory_dataset_json" "intersectiondata" {
   name                = "intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
-  linked_service_name = azurerm_data_factory_linked_service_web.arcgis.name
+  linked_service_name = azurerm_data_factory_linked_custom_service.arcgis.name
   
 
   http_server_location {
