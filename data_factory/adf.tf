@@ -163,7 +163,7 @@ resource "azurerm_data_factory_pipeline" "data_transfer" {
   name            = "data_transfer_01"
   data_factory_id = azurerm_data_factory.adf.id
   activities_json = <<JSON
-  {
+  [{
                 "name": "GetData",
                 "type": "Copy",
                 "dependsOn": [],
@@ -210,5 +210,6 @@ resource "azurerm_data_factory_pipeline" "data_transfer" {
                     }
                 ]
             }
+  ]          
   JSON
 }
