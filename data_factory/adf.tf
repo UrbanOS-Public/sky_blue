@@ -73,6 +73,22 @@ resource "azurerm_data_factory" "adf" {
 #   subresource_name   = "blob"
 # }
 
+resource "azurerm_role_assignment" "network_contributor" {
+  scope                = data.azurerm_storage_account.lake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_user_assigned_identity.adf_identity.id
+}
+
+
+resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "example" {
+  name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
+  data_factory_id       = azurerm_data_factory.adf.id
+  use_managed_identity  = true
+  url                   = "https://${(module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name)}.blob.core.windows.net/datastory"
+  description           = "Link with Data Lake storage"
+}
+
+
 resource "azurerm_data_factory_pipeline" "example" {
   name            = "example"
   data_factory_id = azurerm_data_factory.adf.id
