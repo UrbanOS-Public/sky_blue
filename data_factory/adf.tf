@@ -88,10 +88,17 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   data_factory_id       = azurerm_data_factory.adf.id
   use_managed_identity  = true
   url                   = "https://${(data.azurerm_storage_account.lake.name)}"
-  description           = "Link with Data Lake storage "
+  description           = "Link with Data Lake storage"
   depends_on = [ 
     azurerm_role_assignment.blob_contributor 
   ]
+}
+
+resource "azurerm_data_factory_linked_service_web" "intersection" {
+  name                = "Intersection data"
+  data_factory_id     = azurerm_data_factory.adf.id
+  authentication_type = "Anonymous"
+  url                 = "https://services1.arcgis.com/O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
 }
 
 
