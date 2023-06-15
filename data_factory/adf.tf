@@ -107,7 +107,7 @@ resource "azurerm_data_factory_linked_custom_service" "arcgis" {
     JSON
 }
 
-resource "azurerm_data_factory_linked_custom_service" "intersectiondata" {
+resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
   name                = "intersection_data_json"
   data_factory_id     = azurerm_data_factory.adf.id
   type                = "Json"
