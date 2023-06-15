@@ -87,8 +87,8 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
   data_factory_id       = azurerm_data_factory.adf.id
   use_managed_identity  = true
-  url                   = "https://${(data.azurerm_storage_account.lake.name)}.blob.core.windows.net"
-  description           = "Link with Data Lake storage"
+  url                   = "https://${(data.azurerm_storage_account.lake.name)}"
+  description           = "Link with Data Lake storage "
   depends_on = [ 
     azurerm_role_assignment.blob_contributor 
   ]
