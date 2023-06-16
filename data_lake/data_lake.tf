@@ -57,14 +57,14 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "enricheddata" {
   name               = "enriched"
 }
 
-resource "azurerm_storage_data_lake_gen2_path" "rawdata" {
+resource "azurerm_storage_data_lake_gen2_path" "fdos" {
   path               = "fdos"
   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.rawdata.name
   storage_account_id =  module.storage_account.id
   resource           = "directory"
 }
 
-resource "azurerm_storage_data_lake_gen2_path" "rawdata" {
+resource "azurerm_storage_data_lake_gen2_path" "standardized" {
   path               = "standardized"
   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.enricheddata.name
   storage_account_id =  module.storage_account.id
