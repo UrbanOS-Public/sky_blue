@@ -212,8 +212,8 @@ resource "azurerm_data_factory_custom_dataset" "crashdatastore" {
   JSON
 }
 
-resource "azurerm_data_factory_pipeline" "data_transfer" {
-  name            = "data_transfer_01"
+resource "azurerm_data_factory_pipeline" "data_transfer_intersections" {
+  name            = "data_transfer_intersections"
   data_factory_id = azurerm_data_factory.adf.id
   activities_json = <<JSON
   [{
@@ -259,6 +259,62 @@ resource "azurerm_data_factory_pipeline" "data_transfer" {
                 "outputs": [
                     {
                         "referenceName": "adl_intersection_data_json",
+                        "type": "DatasetReference"
+                    }
+                ]
+            }
+  ]          
+  JSON
+}
+
+
+resource "azurerm_data_factory_pipeline" "data_transfer_crash" {
+  name            = "data_transfer_crash"
+  data_factory_id = azurerm_data_factory.adf.id
+  activities_json = <<JSON
+  [{
+                "name": "GetData",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "HttpReadSettings",
+                            "requestMethod": "GET"
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "JsonSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "JsonWriteSettings"
+                        }
+                    },
+                    "enableStaging": false
+                },
+                "inputs": [
+                    {
+                        "referenceName": "crash_data_json",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "adl_crash_data_json",
                         "type": "DatasetReference"
                     }
                 ]
