@@ -191,7 +191,26 @@ resource "azurerm_data_factory_custom_dataset" "datastore" {
   JSON
 }
 
+resource "azurerm_data_factory_custom_dataset" "crashdatastore" {
+  name                = "adl_crash_data_json"
+  data_factory_id     = azurerm_data_factory.adf.id
+  type                = "Json"
 
+  linked_service {
+    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
+  }
+  
+  type_properties_json = <<JSON
+    {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "crash.json",
+        "folderPath": "fdos",
+        "fileSystem": "raw"
+      }
+    }
+  JSON
+}
 
 resource "azurerm_data_factory_pipeline" "data_transfer" {
   name            = "data_transfer_01"
