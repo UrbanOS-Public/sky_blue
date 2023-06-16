@@ -48,12 +48,25 @@ module "storage_account" {
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "rawdata" {
   storage_account_id = module.storage_account.id
-  name               = "datastory"
+  name               = "raw"
+}
+
+
+resource "azurerm_storage_data_lake_gen2_filesystem" "enricheddata" {
+  storage_account_id = module.storage_account.id
+  name               = "enriched"
 }
 
 resource "azurerm_storage_data_lake_gen2_path" "rawdata" {
-  path               = "rawdata"
+  path               = "fdos"
   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.rawdata.name
+  storage_account_id =  module.storage_account.id
+  resource           = "directory"
+}
+
+resource "azurerm_storage_data_lake_gen2_path" "rawdata" {
+  path               = "standardized"
+  filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.enricheddata.name
   storage_account_id =  module.storage_account.id
   resource           = "directory"
 }
