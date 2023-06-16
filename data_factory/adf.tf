@@ -217,7 +217,7 @@ resource "azurerm_data_factory_pipeline" "data_transfer_intersections" {
   data_factory_id = azurerm_data_factory.adf.id
   activities_json = <<JSON
   [{
-                "name": "GetData",
+                "name": "GetIntersectionData",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {
@@ -273,7 +273,7 @@ resource "azurerm_data_factory_pipeline" "data_transfer_crash" {
   data_factory_id = azurerm_data_factory.adf.id
   activities_json = <<JSON
   [{
-                "name": "GetData",
+                "name": "GetCrashData",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {
