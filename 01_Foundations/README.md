@@ -24,9 +24,9 @@
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ./modules/key_vault | n/a |
 | <a name="module_key_vault_private_dns_zone"></a> [key\_vault\_private\_dns\_zone](#module\_key\_vault\_private\_dns\_zone) | ./modules/private_dns_zone | n/a |
 | <a name="module_key_vault_private_endpoint"></a> [key\_vault\_private\_endpoint](#module\_key\_vault\_private\_endpoint) | ./modules/private_endpoint | n/a |
-| <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
-| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
-| <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.3.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.3.0 |
+| <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.3.0 |
 | <a name="module_routetable"></a> [routetable](#module\_routetable) | ./modules/route_table | n/a |
 | <a name="module_spoke_network"></a> [spoke\_network](#module\_spoke\_network) | ./modules/virtual_network | n/a |
 | <a name="module_storage_account"></a> [storage\_account](#module\_storage\_account) | ./modules/storage_account | n/a |

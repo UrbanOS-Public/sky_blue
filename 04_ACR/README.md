@@ -3,7 +3,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.5.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.55.0 |
 
 ## Providers
@@ -19,9 +19,9 @@
 | <a name="module_acr_private_dns_zone"></a> [acr\_private\_dns\_zone](#module\_acr\_private\_dns\_zone) | ./modules/private_dns_zone | n/a |
 | <a name="module_acr_private_endpoint"></a> [acr\_private\_endpoint](#module\_acr\_private\_endpoint) | ./modules/private_endpoint | n/a |
 | <a name="module_container_registry"></a> [container\_registry](#module\_container\_registry) | ./modules/container_registry | n/a |
-| <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.2.0 |
-| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
-| <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namehub"></a> [namehub](#module\_namehub) | Azure/naming/azurerm | 0.3.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.3.0 |
+| <a name="module_namespoke"></a> [namespoke](#module\_namespoke) | Azure/naming/azurerm | 0.3.0 |
 
 ## Resources
 
