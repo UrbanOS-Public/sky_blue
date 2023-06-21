@@ -16,7 +16,6 @@ on:
           options:
             - plan
             - apply
-            - destroy
           required: true
 jobs:
   Plan:
