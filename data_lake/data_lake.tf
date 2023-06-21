@@ -1,3 +1,11 @@
+#Create Resource Group for solution
+resource "azurerm_resource_group" "data" {
+  name     = module.namedatalake.resource_group.name
+  location = var.location
+  tags     = var.tags
+  depends_on = [ module.namedatalake ]
+}
+
 resource "azurerm_key_vault_key" "cmk_storage" {
   name         = "cmk-storage"
   key_vault_id = module.key_vault.id
