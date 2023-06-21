@@ -1,0 +1,1526 @@
+{
+    "name": "data_transfer_crash",
+    "properties": {
+        "activities": [
+            {
+                "name": "GetCrashData",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "HttpReadSettings",
+                            "requestMethod": "GET"
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "JsonSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "JsonWriteSettings"
+                        }
+                    },
+                    "enableStaging": false
+                },
+                "inputs": [
+                    {
+                        "referenceName": "crash_data_json",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "adl_crash_data_json",
+                        "type": "DatasetReference"
+                    }
+                ]
+            },
+            {
+                "name": "Save as CSV",
+                "type": "Copy",
+                "dependsOn": [
+                    {
+                        "activity": "GetCrashData",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "JsonSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "JsonReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['OBJECTID']"
+                                },
+                                "sink": {
+                                    "name": "OBJECTID",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['XID']"
+                                },
+                                "sink": {
+                                    "name": "XID",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CALENDAR_YEAR']"
+                                },
+                                "sink": {
+                                    "name": "CALENDAR_YEAR",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRASH_NUMBER']"
+                                },
+                                "sink": {
+                                    "name": "CRASH_NUMBER",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CASE_NUMBER']"
+                                },
+                                "sink": {
+                                    "name": "CASE_NUMBER",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['INVSTGT_AGCY_CD']"
+                                },
+                                "sink": {
+                                    "name": "INVSTGT_AGCY_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGENCY_TYPE_TXT']"
+                                },
+                                "sink": {
+                                    "name": "AGENCY_TYPE_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DOT_GEOG_DIST_CD']"
+                                },
+                                "sink": {
+                                    "name": "DOT_GEOG_DIST_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DOT_CNTY_CD']"
+                                },
+                                "sink": {
+                                    "name": "DOT_CNTY_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['COUNTY_TXT']"
+                                },
+                                "sink": {
+                                    "name": "COUNTY_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRASH_DATE']"
+                                },
+                                "sink": {
+                                    "name": "CRASH_DATE"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRASH_TIME']"
+                                },
+                                "sink": {
+                                    "name": "CRASH_TIME"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DAYOWEEK']"
+                                },
+                                "sink": {
+                                    "name": "DAYOWEEK"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['WEEKDAY_TXT']"
+                                },
+                                "sink": {
+                                    "name": "WEEKDAY_TXT"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DHSMV_CTY_CD']"
+                                },
+                                "sink": {
+                                    "name": "DHSMV_CTY_CD"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DHSCNTYCTY']"
+                                },
+                                "sink": {
+                                    "name": "DHSCNTYCTY"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['IN_TOWN_FLAG']"
+                                },
+                                "sink": {
+                                    "name": "IN_TOWN_FLAG"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ON_ROADWAY_NAME']"
+                                },
+                                "sink": {
+                                    "name": "ON_ROADWAY_NAME"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['INT_ROADWAY_NAME']"
+                                },
+                                "sink": {
+                                    "name": "INT_ROADWAY_NAME"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['REFDISTANCE_MI']"
+                                },
+                                "sink": {
+                                    "name": "REFDISTANCE_MI"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['REFDIRECT']"
+                                },
+                                "sink": {
+                                    "name": "REFDIRECT"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['OFFICER_LATITUDE']"
+                                },
+                                "sink": {
+                                    "name": "OFFICER_LATITUDE"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['OFFICER_LONGITUDE']"
+                                },
+                                "sink": {
+                                    "name": "OFFICER_LONGITUDE"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SAFETYLAT']"
+                                },
+                                "sink": {
+                                    "name": "SAFETYLAT"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SAFETYLON']"
+                                },
+                                "sink": {
+                                    "name": "SAFETYLON"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADWAYID']"
+                                },
+                                "sink": {
+                                    "name": "ROADWAYID"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LOCMP']"
+                                },
+                                "sink": {
+                                    "name": "LOCMP",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NEAREST_NODE_FROM_CRASH']"
+                                },
+                                "sink": {
+                                    "name": "NEAREST_NODE_FROM_CRASH",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['STATE_ROAD_NUMBER']"
+                                },
+                                "sink": {
+                                    "name": "STATE_ROAD_NUMBER",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['US_ROAD_NUMBER']"
+                                },
+                                "sink": {
+                                    "name": "US_ROAD_NUMBER",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ACCSIDRD']"
+                                },
+                                "sink": {
+                                    "name": "ACCSIDRD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ACCLANE']"
+                                },
+                                "sink": {
+                                    "name": "ACCLANE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['TRAVDIR']"
+                                },
+                                "sink": {
+                                    "name": "TRAVDIR",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRRATECD']"
+                                },
+                                "sink": {
+                                    "name": "CRRATECD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DHSRDSYS']"
+                                },
+                                "sink": {
+                                    "name": "DHSRDSYS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['JCT_CD']"
+                                },
+                                "sink": {
+                                    "name": "JCT_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['FRST_HARM_LOC_CD']"
+                                },
+                                "sink": {
+                                    "name": "FRST_HARM_LOC_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['INTCT_TYP_CD']"
+                                },
+                                "sink": {
+                                    "name": "INTCT_TYP_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['TYPESHLD']"
+                                },
+                                "sink": {
+                                    "name": "TYPESHLD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SKID_NUMBER']"
+                                },
+                                "sink": {
+                                    "name": "SKID_NUMBER",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SKID_TEST_DATE']"
+                                },
+                                "sink": {
+                                    "name": "SKID_TEST_DATE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['FUNCLASS']"
+                                },
+                                "sink": {
+                                    "name": "FUNCLASS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SURFACE_WIDTH_FT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SURFACE_WIDTH_FT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_TYPE_1']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_TYPE_1",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_TYPE_1_TXT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_TYPE_1_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_WIDTH_1_FT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_WIDTH_1_FT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_TYPE_2']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_TYPE_2",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_TYPE_2_TXT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_TYPE_2_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_WIDTH_2_FT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_WIDTH_2_FT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_TYPE_3']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_TYPE_3",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_TYPE_3_TXT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_TYPE_3_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_SHOULDER_WIDTH_3_FT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_SHOULDER_WIDTH_3_FT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_MEDIAN_WIDTH_FT']"
+                                },
+                                "sink": {
+                                    "name": "RCI_MEDIAN_WIDTH_FT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AVERAGE_DAILY_TRAFFIC']"
+                                },
+                                "sink": {
+                                    "name": "AVERAGE_DAILY_TRAFFIC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AADT_SOURCE']"
+                                },
+                                "sink": {
+                                    "name": "AADT_SOURCE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_AVG_PERC_TRUCK_TRAFF']"
+                                },
+                                "sink": {
+                                    "name": "RCI_AVG_PERC_TRUCK_TRAFF",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RCI_HORIZ_CURVE_CD']"
+                                },
+                                "sink": {
+                                    "name": "RCI_HORIZ_CURVE_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SPEED_LIMIT']"
+                                },
+                                "sink": {
+                                    "name": "SPEED_LIMIT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['INJSEVER']"
+                                },
+                                "sink": {
+                                    "name": "INJSEVER",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CARSTACD']"
+                                },
+                                "sink": {
+                                    "name": "CARSTACD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ALCINVCD']"
+                                },
+                                "sink": {
+                                    "name": "ALCINVCD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SITELOCA']"
+                                },
+                                "sink": {
+                                    "name": "SITELOCA",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LGHT_COND_CD']"
+                                },
+                                "sink": {
+                                    "name": "LGHT_COND_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['EVNT_WTHR_COND_CD']"
+                                },
+                                "sink": {
+                                    "name": "EVNT_WTHR_COND_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RD_SRFC_COND_CD']"
+                                },
+                                "sink": {
+                                    "name": "RD_SRFC_COND_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RDWY_GRDE_CD']"
+                                },
+                                "sink": {
+                                    "name": "RDWY_GRDE_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['RDWY_ALIGN_CD']"
+                                },
+                                "sink": {
+                                    "name": "RDWY_ALIGN_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['TRAF_WAY_CD']"
+                                },
+                                "sink": {
+                                    "name": "TRAF_WAY_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V1_TRAF_WAY_CD']"
+                                },
+                                "sink": {
+                                    "name": "V1_TRAF_WAY_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V1_TRAF_WAY_CD_TXT']"
+                                },
+                                "sink": {
+                                    "name": "V1_TRAF_WAY_CD_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V2_TRAF_WAY_CD']"
+                                },
+                                "sink": {
+                                    "name": "V2_TRAF_WAY_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V2_TRAF_WAY_CD_TXT']"
+                                },
+                                "sink": {
+                                    "name": "V2_TRAF_WAY_CD_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V1TRAFCTL']"
+                                },
+                                "sink": {
+                                    "name": "V1TRAFCTL",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V1TRAFCTL_TXT']"
+                                },
+                                "sink": {
+                                    "name": "V1TRAFCTL_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V2TRAFCTL']"
+                                },
+                                "sink": {
+                                    "name": "V2TRAFCTL",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['V2TRAFCTL_TXT']"
+                                },
+                                "sink": {
+                                    "name": "V2TRAFCTL_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['TRAFFIC_CONTROL_MC']"
+                                },
+                                "sink": {
+                                    "name": "TRAFFIC_CONTROL_MC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CNTOFLANES']"
+                                },
+                                "sink": {
+                                    "name": "CNTOFLANES",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADCOND1']"
+                                },
+                                "sink": {
+                                    "name": "ROADCOND1",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADCOND1_TXT']"
+                                },
+                                "sink": {
+                                    "name": "ROADCOND1_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADCOND2']"
+                                },
+                                "sink": {
+                                    "name": "ROADCOND2",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADCOND2_TXT']"
+                                },
+                                "sink": {
+                                    "name": "ROADCOND2_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADCOND3']"
+                                },
+                                "sink": {
+                                    "name": "ROADCOND3",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROADCOND3_TXT']"
+                                },
+                                "sink": {
+                                    "name": "ROADCOND3_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ROAD_CONDITION_MC']"
+                                },
+                                "sink": {
+                                    "name": "ROAD_CONDITION_MC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRNMT1']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRNMT1",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRNMT1_TXT']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRNMT1_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRNMT2']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRNMT2",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRNMT2_TXT']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRNMT2_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRNMT3']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRNMT3",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRNMT3_TXT']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRNMT3_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ENVIRONMENT_CONDITION_MC']"
+                                },
+                                "sink": {
+                                    "name": "ENVIRONMENT_CONDITION_MC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['MOST_HARM_EVNT_CD']"
+                                },
+                                "sink": {
+                                    "name": "MOST_HARM_EVNT_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['IMPCT_TYP_CD']"
+                                },
+                                "sink": {
+                                    "name": "IMPCT_TYP_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['VHCL_MOVE_CD']"
+                                },
+                                "sink": {
+                                    "name": "VHCL_MOVE_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['D1_FRST_DR_ACTN_CD']"
+                                },
+                                "sink": {
+                                    "name": "D1_FRST_DR_ACTN_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['D1_FRST_DR_ACTN_CD_TXT']"
+                                },
+                                "sink": {
+                                    "name": "D1_FRST_DR_ACTN_CD_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['D2_FRST_DR_ACTN_CD']"
+                                },
+                                "sink": {
+                                    "name": "D2_FRST_DR_ACTN_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['D2_FRST_DR_ACTN_CD_TXT']"
+                                },
+                                "sink": {
+                                    "name": "D2_FRST_DR_ACTN_CD_TXT",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DRIVER_ACTION_MC']"
+                                },
+                                "sink": {
+                                    "name": "DRIVER_ACTION_MC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LOC_WTHN_ZONE_CD']"
+                                },
+                                "sink": {
+                                    "name": "LOC_WTHN_ZONE_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['WRK_ZONE_TYP_CD']"
+                                },
+                                "sink": {
+                                    "name": "WRK_ZONE_TYP_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['WRK_PRSNT_CD']"
+                                },
+                                "sink": {
+                                    "name": "WRK_PRSNT_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LAW_ENFRC_PRSNT_CD']"
+                                },
+                                "sink": {
+                                    "name": "LAW_ENFRC_PRSNT_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SCHL_BUS_REL_CD']"
+                                },
+                                "sink": {
+                                    "name": "SCHL_BUS_REL_CD",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NUMBER_OF_INJURED']"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_INJURED",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NUMBER_OF_KILLED']"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_KILLED",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NUMBER_OF_SERIOUS_INJURIES']"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_SERIOUS_INJURIES",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NUMBER_OF_PEDESTRIANS']"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_PEDESTRIANS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['TOTAL_DRIVERS']"
+                                },
+                                "sink": {
+                                    "name": "TOTAL_DRIVERS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NUMBER_OF_BICYCLISTS']"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_BICYCLISTS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NUMBER_OF_VEHICLES']"
+                                },
+                                "sink": {
+                                    "name": "NUMBER_OF_VEHICLES",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['TOTAL_PERSONS']"
+                                },
+                                "sink": {
+                                    "name": "TOTAL_PERSONS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['WRONGWAY_IND']"
+                                },
+                                "sink": {
+                                    "name": "WRONGWAY_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['WORKZONE_IND']"
+                                },
+                                "sink": {
+                                    "name": "WORKZONE_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['COMMERCIAL_VEHICLE_IND']"
+                                },
+                                "sink": {
+                                    "name": "COMMERCIAL_VEHICLE_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['INTERSECTION_IND']"
+                                },
+                                "sink": {
+                                    "name": "INTERSECTION_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LANE_DEPARTURE_IND']"
+                                },
+                                "sink": {
+                                    "name": "LANE_DEPARTURE_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRASH_CLASS_IND_MC']"
+                                },
+                                "sink": {
+                                    "name": "CRASH_CLASS_IND_MC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SPEEDING_IND']"
+                                },
+                                "sink": {
+                                    "name": "SPEEDING_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGGRESSIVE_DRIVING_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGGRESSIVE_DRIVING_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['IMPAIRED_DRIVER_IND']"
+                                },
+                                "sink": {
+                                    "name": "IMPAIRED_DRIVER_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['IMPAIRED_PEDESTRIAN_IND']"
+                                },
+                                "sink": {
+                                    "name": "IMPAIRED_PEDESTRIAN_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['IMPAIRED_BICYCLIST_IND']"
+                                },
+                                "sink": {
+                                    "name": "IMPAIRED_BICYCLIST_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DISTRACTED_DRIVER_IND']"
+                                },
+                                "sink": {
+                                    "name": "DISTRACTED_DRIVER_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DRIVER_PEDEST_CONDIT_IND_MC']"
+                                },
+                                "sink": {
+                                    "name": "DRIVER_PEDEST_CONDIT_IND_MC",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['SPEEDING_AGGRESSIVE_IND']"
+                                },
+                                "sink": {
+                                    "name": "SPEEDING_AGGRESSIVE_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['PEDESTRIAN_RELATED_IND']"
+                                },
+                                "sink": {
+                                    "name": "PEDESTRIAN_RELATED_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['BICYCLIST_RELATED_IND']"
+                                },
+                                "sink": {
+                                    "name": "BICYCLIST_RELATED_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['PEDESTRIAN_BICYCLIST_IND']"
+                                },
+                                "sink": {
+                                    "name": "PEDESTRIAN_BICYCLIST_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['MOTORCYCLE_INVOLVED_IND']"
+                                },
+                                "sink": {
+                                    "name": "MOTORCYCLE_INVOLVED_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NO_BELT_IND']"
+                                },
+                                "sink": {
+                                    "name": "NO_BELT_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NO_BELT_AGE_1_4_IND']"
+                                },
+                                "sink": {
+                                    "name": "NO_BELT_AGE_1_4_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NO_BELT_AGE_5_12_IND']"
+                                },
+                                "sink": {
+                                    "name": "NO_BELT_AGE_5_12_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['NO_BELT_AGE_13_17_IND']"
+                                },
+                                "sink": {
+                                    "name": "NO_BELT_AGE_13_17_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGE_TEEN_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGE_TEEN_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGE_65_PLUS_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGE_65_PLUS_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGE_65_69_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGE_65_69_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGE_70_74_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGE_70_74_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGE_75_79_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGE_75_79_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['AGE_80_PLUS_IND']"
+                                },
+                                "sink": {
+                                    "name": "AGE_80_PLUS_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LINK_ID']"
+                                },
+                                "sink": {
+                                    "name": "LINK_ID",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRSH_REF_NODE_ID']"
+                                },
+                                "sink": {
+                                    "name": "CRSH_REF_NODE_ID",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRSH_XTMREF_NOD_ID']"
+                                },
+                                "sink": {
+                                    "name": "CRSH_XTMREF_NOD_ID",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DSTNC_TOXTRNOD_NUM']"
+                                },
+                                "sink": {
+                                    "name": "DSTNC_TOXTRNOD_NUM",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['CRSH_XTRREFNODB_ID']"
+                                },
+                                "sink": {
+                                    "name": "CRSH_XTRREFNODB_ID",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['DST_TOXTRMNODB_NUM']"
+                                },
+                                "sink": {
+                                    "name": "DST_TOXTRMNODB_NUM",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LATITUDE']"
+                                },
+                                "sink": {
+                                    "name": "LATITUDE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['LONGITUDE']"
+                                },
+                                "sink": {
+                                    "name": "LONGITUDE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['X_COORDINATE']"
+                                },
+                                "sink": {
+                                    "name": "X_COORDINATE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['Y_COORDINATE']"
+                                },
+                                "sink": {
+                                    "name": "Y_COORDINATE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ARBM_ROADSIDE']"
+                                },
+                                "sink": {
+                                    "name": "ARBM_ROADSIDE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['GEO_URBAN_RURAL_IND']"
+                                },
+                                "sink": {
+                                    "name": "GEO_URBAN_RURAL_IND",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['MAP_SOURCE']"
+                                },
+                                "sink": {
+                                    "name": "MAP_SOURCE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['EXTRACT_DATE']"
+                                },
+                                "sink": {
+                                    "name": "EXTRACT_DATE",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['attributes']['ARBM_ROAD_STATUS']"
+                                },
+                                "sink": {
+                                    "name": "ARBM_ROAD_STATUS",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['geometry']['x']"
+                                },
+                                "sink": {
+                                    "name": "x",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "$['features'][0]['geometry']['y']"
+                                },
+                                "sink": {
+                                    "name": "y",
+                                    "type": "String"
+                                }
+                            }
+                        ],
+                        "mapComplexValuesToString": true
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "adl_crash_data_json",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "DelimitedText1",
+                        "type": "DatasetReference"
+                    }
+                ]
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2023-06-16T19:01:56Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

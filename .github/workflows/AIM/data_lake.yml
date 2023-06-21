@@ -1,4 +1,4 @@
-name: "01 Foundations"
+name: "Data Lake"
 on:
   workflow_dispatch:
     inputs:
@@ -21,10 +21,10 @@ jobs:
   Plan:
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
     with:
-      path: 01_Foundations                               ## Path to terraform root module (Required)
+      path: data_lake                               ## Path to terraform root module (Required)
       tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
-      tf_key: "foundation-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
+      tf_key: "lake-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
       #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
       gh_environment: ${{ github.event.inputs.environment }}
     secrets:
@@ -38,9 +38,9 @@ jobs:
       needs: Plan
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
       with:
-        path: 01_Foundations                               ## Path to terraform root module (Required)
+        path: data_lake                               ## Path to terraform root module (Required)
         tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
-        tf_key: "foundation-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+        tf_key: "lake-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
         #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
         gh_environment: ${{ github.event.inputs.environment }}                       ## GH Environment. Default=null - (Optional)
       secrets:

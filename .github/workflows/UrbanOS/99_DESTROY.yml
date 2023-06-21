@@ -24,7 +24,7 @@ jobs:
       path: 05_AKS                        
       tf_version: latest                                 
       tf_key: "aks-${{ github.event.inputs.environment }}"
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
     secrets:
@@ -55,7 +55,7 @@ jobs:
       path: 04_ACR                              
       tf_version: latest                                 
       tf_key: "acr-${{ github.event.inputs.environment }}"
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
     secrets:
@@ -86,7 +86,7 @@ jobs:
       path: 03_self-hosted_runner                               
       tf_version: latest                                 
       tf_key: "runner-${{ github.event.inputs.environment }}"
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
     secrets:
@@ -117,7 +117,7 @@ jobs:
       path: 02_Jumpbox                               
       tf_version: latest                                 
       tf_key: "jumpbox-${{ github.event.inputs.environment }}"
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
     secrets:
@@ -148,7 +148,7 @@ jobs:
       path: 01_Foundations                               
       tf_version: latest                                 
       tf_key: "foundation-${{ github.event.inputs.environment }}"
-      tf_vars_file: ../tfvars/config-${{ github.event.inputs.environment }}.tfvars
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars
       #enable_TFSEC: true                                
       gh_environment: ${{ github.event.inputs.environment }}
     secrets:
