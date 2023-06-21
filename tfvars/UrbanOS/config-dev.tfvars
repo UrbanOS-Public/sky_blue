@@ -1,4 +1,4 @@
-prefix   = "aim"
+prefix   = "urbanos"
 suffix   = "dev"
 loc      = "eus"
 
@@ -10,7 +10,7 @@ location = "EastUS"
 tags = {
   terraform     = "true",
   environment   = "DEV",
-  solution      = "AIM"
+  solution      = "UrbanOS"
 }
 kubernetes_version = 1.26
 aks_vnet_address_space = ["10.0.0.0/16"]
