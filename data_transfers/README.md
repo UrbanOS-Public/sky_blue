@@ -3,7 +3,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.5.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.55.0 |
 
 ## Providers
@@ -17,8 +17,8 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | ./modules/key_vault | n/a |
-| <a name="module_namedata"></a> [namedata](#module\_namedata) | Azure/naming/azurerm | 0.2.0 |
-| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.2.0 |
+| <a name="module_namedata"></a> [namedata](#module\_namedata) | Azure/naming/azurerm | 0.3.0 |
+| <a name="module_namelaw"></a> [namelaw](#module\_namelaw) | Azure/naming/azurerm | 0.3.0 |
 | <a name="module_storage_account"></a> [storage\_account](#module\_storage\_account) | ./modules/storage_account | n/a |
 
 ## Resources
@@ -89,6 +89,7 @@
 | <a name="input_hub_bastion_subnet_address_prefix"></a> [hub\_bastion\_subnet\_address\_prefix](#input\_hub\_bastion\_subnet\_address\_prefix) | Specifies the address prefix of the firewall subnet | `list(string)` | n/a | yes |
 | <a name="input_hub_firewall_subnet_address_prefix"></a> [hub\_firewall\_subnet\_address\_prefix](#input\_hub\_firewall\_subnet\_address\_prefix) | Specifies the address prefix of the firewall subnet | `list(string)` | n/a | yes |
 | <a name="input_image_cleaner_enabled"></a> [image\_cleaner\_enabled](#input\_image\_cleaner\_enabled) | (Optional) Specifies whether Image Cleaner is enabled. | `bool` | `true` | no |
+| <a name="input_is_hns_enabled"></a> [is\_hns\_enabled](#input\_is\_hns\_enabled) | Enable or disable hierarchical namespace. This is required for Azure Data Lake Storage Gen 2. | `bool` | `false` | no |
 | <a name="input_keda_enabled"></a> [keda\_enabled](#input\_keda\_enabled) | (Optional) Specifies whether KEDA Autoscaler can be used for workloads. | `bool` | `false` | no |
 | <a name="input_key_vault_bypass"></a> [key\_vault\_bypass](#input\_key\_vault\_bypass) | (Required) Specifies which traffic can bypass the network rules. Possible values are AzureServices and None. | `string` | `"AzureServices"` | no |
 | <a name="input_key_vault_default_action"></a> [key\_vault\_default\_action](#input\_key\_vault\_default\_action) | (Required) The Default Action to use when no rules match from ip\_rules / virtual\_network\_subnet\_ids. Possible values are Allow and Deny. | `string` | `"Allow"` | no |

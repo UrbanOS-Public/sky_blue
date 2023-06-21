@@ -29,7 +29,7 @@ No modules.
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | (Optional) Specifies the account tier of the storage account | `string` | `"Standard"` | no |
 | <a name="input_default_action"></a> [default\_action](#input\_default\_action) | Allow or disallow public access to all blobs or containers in the storage accounts. The default interpretation is true for this property. | `string` | `"Allow"` | no |
 | <a name="input_ip_rules"></a> [ip\_rules](#input\_ip\_rules) | Specifies IP rules for the storage account | `list(string)` | `[]` | no |
-| <a name="input_is_hns_enabled"></a> [is\_hns\_enabled](#input\_is\_hns\_enabled) | (Optional) Specifies the replication type of the storage account | `bool` | `false` | no |
+| <a name="input_is_hns_enabled"></a> [is\_hns\_enabled](#input\_is\_hns\_enabled) | Enable or disable hierarchical namespace. This is required for Azure Data Lake Storage Gen 2. | `bool` | `true` | no |
 | <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | Specifies id of key vault | `string` | n/a | yes |
 | <a name="input_key_vault_key_name"></a> [key\_vault\_key\_name](#input\_key\_vault\_key\_name) | Specifies name of key vault key used for CMK encryption | `string` | n/a | yes |
 | <a name="input_kind"></a> [kind](#input\_kind) | (Optional) Specifies the kind of the storage account | `string` | `""` | no |
