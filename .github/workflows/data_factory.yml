@@ -69,7 +69,7 @@ jobs:
 
   Destroy:
       if: ${{ github.event.inputs.deploy == 'destroy' }}
-      needs: Plan
+      needs: Plan-Destroy
       uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
       with:
         path: data_factory                               ## Path to terraform root module (Required)
