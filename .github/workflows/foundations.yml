@@ -1,4 +1,4 @@
-name: "AIM Foundations"
+name: "AIM 01 Foundations"
 on:
   workflow_dispatch:
     inputs:

@@ -1,4 +1,4 @@
-name: "Log_Analytics_Workspace"
+name: "AIM 00 Log Analytics Workspace"
 on:
   workflow_dispatch:
     inputs:
