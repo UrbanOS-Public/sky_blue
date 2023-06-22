@@ -1,4 +1,4 @@
-name: "Data Transfers"
+name: "04 Data Transfers"
 on:
   workflow_dispatch:
     inputs:
