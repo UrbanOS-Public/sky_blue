@@ -13,7 +13,7 @@ resource "azurerm_user_assigned_identity" "purview_identity" {
   location            = var.location
   tags                = var.tags
 
-  name = "${module.namedatalake.data_factory.name}-uai"
+  name = "${module.namepurview.powerbi_embedded.name}-uai"
 
   lifecycle {
     ignore_changes = [

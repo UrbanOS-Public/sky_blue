@@ -1,4 +1,4 @@
-name: "AIM 04 Data Transfers"
+name: "AIM 09 Data Transfers"
 on:
   workflow_dispatch:
     inputs:
