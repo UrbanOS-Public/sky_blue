@@ -21,7 +21,7 @@ resource "azurerm_data_factory_trigger_schedule" "pipeline_files" {
 
   interval   = 1
   frequency  = "Day"
-  start_time = "03:00"
+  start_time = "03:00:00"
   time_zone  = "EST"
  
   depends_on = [ 
