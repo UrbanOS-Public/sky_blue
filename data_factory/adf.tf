@@ -265,6 +265,9 @@ resource "azurerm_data_factory_pipeline" "data_transfer_intersections" {
             }
   ]          
   JSON
+  depends_on = [ 
+    azurerm_data_factory_custom_dataset.datastore
+  ]
 }
 
 
@@ -321,4 +324,7 @@ resource "azurerm_data_factory_pipeline" "data_transfer_crash" {
             }
   ]          
   JSON
+  depends_on = [ 
+    azurerm_data_factory_custom_dataset.crashdatastore
+  ]
 }

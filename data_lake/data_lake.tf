@@ -75,3 +75,13 @@ resource "azurerm_storage_data_lake_gen2_path" "fdos" {
   storage_account_id =  module.storage_account.id
   resource           = "directory"
 }
+
+resource "azurerm_role_assignment" "blob_contributor_admin" {
+  count = length(var.admin_group_object_ids)
+  scope                = module.storage_account.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.admin_group_object_ids[count.index]
+  depends_on = [ 
+    module.storage_account
+  ]
+}
