@@ -35,7 +35,7 @@ jobs:
       arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
       arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
   Plan-Destroy:
-    if: ${{ github.event.inputs.deploy != 'destroy' }}
+    if: ${{ github.event.inputs.deploy == 'destroy' }}
     uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
     with:
       path: 01_Foundations                               ## Path to terraform root module (Required)
