@@ -103,7 +103,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   ]
 }
 
-resource "azurerm_data_factory_linked_custom_service" "arcgis" {
+/* resource "azurerm_data_factory_linked_custom_service" "arcgis" {
   name                = "arcgis"
   data_factory_id     = azurerm_data_factory.adf.id
   type                = "HttpServer"
@@ -128,7 +128,23 @@ resource "azurerm_data_factory_linked_custom_service" "fdot" {
       "authenticationType": "Anonymous"
     }
     JSON
+} */
+
+
+resource "azurerm_data_factory_linked_custom_service" "adf" {
+  for_each = local.linked_custom_service
+  name                = each.key
+  data_factory_id     = azurerm_data_factory.adf.id
+  type                = "HttpServer"
+   type_properties_json = <<JSON
+    {
+      "url": "${each.value}",
+      "enableServerCertificateValidation": true,
+      "authenticationType": "Anonymous"
+    }
+    JSON
 }
+
 
 
 resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
