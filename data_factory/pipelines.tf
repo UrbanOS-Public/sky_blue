@@ -1,5 +1,5 @@
 locals { 
-  pipelines = { for value in fileset("./adf/pipelines", "*.json") : value => jsondecode(file("./adf/pipelines/${value}")) }
+  pipelines = { for value in fileset("./pipelines", "*.json") : value => jsondecode(file("./pipelines/${value}")) }
 }
 
 resource "azurerm_data_factory_pipeline" "pipeline_files" {
