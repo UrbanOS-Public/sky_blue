@@ -13,3 +13,16 @@ resource "azurerm_data_factory_pipeline" "pipeline_files" {
   ]
 
 }
+
+resource "azurerm_data_factory_trigger_schedule" "pipeline_files" {
+  for_each    = fileset("./pipelines", "*.json")
+  name = "tg-${(replace(each.key, ".json", ""))}"
+  data_factory_id = azurerm_data_factory.adf.id
+  pipeline_name   = replace(each.key, ".json", "")
+
+  interval  = 1
+  frequency = "Day"
+  depends_on = [ 
+    azurerm_data_factory_pipeline.pipeline_files
+  ]
+}
