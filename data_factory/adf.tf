@@ -153,7 +153,7 @@ resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
   type                = "Json"
 
   linked_service {
-    name = azurerm_data_factory_linked_custom_service.arcgis.name
+    name = azurerm_data_factory_linked_custom_service.adf.name
   }
   
   type_properties_json = <<JSON
@@ -172,7 +172,7 @@ resource "azurerm_data_factory_custom_dataset" "crashdata" {
   type                = "Json"
 
   linked_service {
-    name = azurerm_data_factory_linked_custom_service.fdot.name
+    name = azurerm_data_factory_linked_custom_service.adf.name
   }
   
   type_properties_json = <<JSON
