@@ -34,7 +34,7 @@ resource "azurerm_purview_account" "aim" {
   identity {
     type = "UserAssigned"
     identity_ids = [
-      azurerm_user_assigned_identity.purview_identity.id
+      azurerm_user_assigned_identity.purview_identity.principal_id
     ]
   }
   depends_on = [
