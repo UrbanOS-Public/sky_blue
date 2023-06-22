@@ -25,8 +25,8 @@ resource "azurerm_data_factory_trigger_schedule" "pipeline_files" {
   #time_zone  = "EST"
   
   schedule {
-    hours   = 3
-    minutes = 0
+    hours   = [3]
+    minutes = [0]
   }
 
   depends_on = [ 
