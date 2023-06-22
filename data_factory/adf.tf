@@ -210,9 +210,9 @@ resource "azurerm_data_factory_custom_dataset" "data" {
 
 }
 
-
-resource "azurerm_data_factory_custom_dataset" "datastore" {
-  name                = "adl_intersection_data_json"
+resource "azurerm_data_factory_custom_dataset" "rawstore" {
+  for_each = local.custom_data
+  name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
   type                = "Json"
 
@@ -224,34 +224,56 @@ resource "azurerm_data_factory_custom_dataset" "datastore" {
     {
       "location": {
         "type": "AzureBlobFSLocation",
-        "fileName": "intersection.json",
-        "folderPath": "fdos",
-        "fileSystem": "raw"
+        "fileName": "${each.value.fileName}",
+        "folderPath": "${each.value.folderPath}",
+        "fileSystem": "${each.value.fileSystem}"
       }
     }
   JSON
 }
 
-resource "azurerm_data_factory_custom_dataset" "crashdatastore" {
-  name                = "adl_crash_data_json"
-  data_factory_id     = azurerm_data_factory.adf.id
-  type                = "Json"
 
-  linked_service {
-    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
-  }
+# resource "azurerm_data_factory_custom_dataset" "datastore" {
+#   name                = "adl_intersection_data_json"
+#   data_factory_id     = azurerm_data_factory.adf.id
+#   type                = "Json"
+
+#   linked_service {
+#     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
+#   }
   
-  type_properties_json = <<JSON
-    {
-      "location": {
-        "type": "AzureBlobFSLocation",
-        "fileName": "crash.json",
-        "folderPath": "fdos",
-        "fileSystem": "raw"
-      }
-    }
-  JSON
-}
+#   type_properties_json = <<JSON
+#     {
+#       "location": {
+#         "type": "AzureBlobFSLocation",
+#         "fileName": "intersection.json",
+#         "folderPath": "fdos",
+#         "fileSystem": "raw"
+#       }
+#     }
+#   JSON
+# }
+
+# resource "azurerm_data_factory_custom_dataset" "crashdatastore" {
+#   name                = "adl_crash_data_json"
+#   data_factory_id     = azurerm_data_factory.adf.id
+#   type                = "Json"
+
+#   linked_service {
+#     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
+#   }
+  
+#   type_properties_json = <<JSON
+#     {
+#       "location": {
+#         "type": "AzureBlobFSLocation",
+#         "fileName": "crash.json",
+#         "folderPath": "fdos",
+#         "fileSystem": "raw"
+#       }
+#     }
+#   JSON
+# }
 
 # resource "azurerm_data_factory_pipeline" "data_transfer_intersections" {
 #   name            = "data_transfer_intersections"
