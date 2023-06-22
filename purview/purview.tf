@@ -32,7 +32,7 @@ resource "azurerm_purview_account" "aim" {
   public_network_enabled = true
   managed_resource_group_name = module.namepurview.resource_group.name
   identity {
-    type = "SystemAssigned, UserAssigned"
+    type = "UserAssigned"
     identity_ids = [
       azurerm_user_assigned_identity.purview_identity.id
     ]
