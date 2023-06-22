@@ -23,7 +23,10 @@ resource "azurerm_data_factory_trigger_schedule" "pipeline_files" {
   frequency  = "Day"
   #start_time = "03:00:00"
   #time_zone  = "EST"
- 
+  schedule = {
+    hours = "03"
+    hours = "00"
+  }
   depends_on = [ 
     azurerm_data_factory_pipeline.pipeline_files
   ]
