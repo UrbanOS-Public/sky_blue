@@ -204,6 +204,10 @@ resource "azurerm_data_factory_custom_dataset" "data" {
       }
     }
   JSON
+  depends_on = [  
+    azurerm_data_factory_linked_custom_service.adf
+  ]
+
 }
 
 

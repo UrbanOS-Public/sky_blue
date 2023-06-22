@@ -5,4 +5,13 @@ resource "azurerm_data_factory_pipeline" "pipeline_files" {
   activities_json = <<JSON
         ${(file("./pipelines/${each.key}"))}
   JSON
+
+  depends_on = [  
+    azurerm_data_factory_linked_custom_service.adf,
+    azurerm_data_factory_custom_dataset.data,
+    azurerm_data_factory_custom_dataset.datastore,
+    azurerm_data_factory_custom_dataset.crashdatastore
+
+  ]
+
 }
