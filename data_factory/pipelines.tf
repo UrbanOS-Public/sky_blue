@@ -10,7 +10,6 @@ resource "azurerm_data_factory_pipeline" "pipeline_files" {
     azurerm_data_factory_linked_custom_service.adf,
     azurerm_data_factory_custom_dataset.data,
     azurerm_data_factory_custom_dataset.rawstore
-
   ]
 
 }

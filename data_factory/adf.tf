@@ -211,7 +211,7 @@ resource "azurerm_data_factory_custom_dataset" "data" {
 }
 
 resource "azurerm_data_factory_custom_dataset" "rawstore" {
-  for_each = local.custom_data
+  for_each = local.raw_data
   name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
   type                = "Json"
