@@ -1,10 +1,10 @@
 #Create Resource Group for purview
-resource "azurerm_resource_group" "purview" {
+/* resource "azurerm_resource_group" "purview" {
   name     = module.namepurview.resource_group.name
   location = var.location
   tags     = var.tags
   depends_on = [ module.namepurview ]
-}
+} */
 
 
 
