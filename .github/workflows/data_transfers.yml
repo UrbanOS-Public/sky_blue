@@ -1,10 +1,10 @@
-name: "04 Data Transfers"
+name: "AIM 04 Data Transfers"
 on:
   workflow_dispatch:
     inputs:
       environment:
         type: choice
-        description: Choose the environment used to deploy urbanos.
+        description: Choose the environment to deploy to.
         options:
           - dev
           - uat

@@ -4,7 +4,7 @@ on:
     inputs:
       environment:
         type: choice
-        description: Choose the environment used to deploy urbanos.
+        description: Choose the environment to deploy to.
         options:
           - dev
           - uat
