@@ -15,7 +15,15 @@ else
   echo "[Azure Data Factory] extension is already registered."
 fi
 
-
+#Enable Azure Purview
+echo "Checking if [Azure Purview provider is already installed..."
+extension=$(az provider list -o table --query "[?namespace=='Microsoft.Purview' && registrationState=='Registered'].{Provider:namespace, Status:registrationState}" --output tsv)
+if [[ -z $extension ]]; then
+  echo "[Azure Purview] extension is not installed. Installing..."
+  az provider register --namespace Microsoft.Purview
+else
+  echo "[Azure Purview] extension is already registered."
+fi
 
 # Install EncryptionAtHost Azure extension
 echo "Checking if [EncryptionAtHost] extension is already installed..."
