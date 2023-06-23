@@ -4,6 +4,10 @@ locals {
     "arcgis"       = "https://services1.arcgis.com/"
   }
   custom_data = {
+    "aadt_data_json" = {
+      linked_service = "arcgis"
+      relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Annual_Average_Daily_Traffic_TDA/FeatureServer/0/query?where=COUNTYDOT%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=100000&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token="
+    }    
     "intersection_data_json" = {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
@@ -38,6 +42,11 @@ locals {
     }    
   }
   raw_data = {
+    "adl_aadt_data_json" = {
+      fileName = "aadt.json"
+      folderPath = "fdos"
+      fileSystem = "raw"
+    }
     "adl_intersection_data_json" = {
       fileName = "intersection.json"
       folderPath = "fdos"
