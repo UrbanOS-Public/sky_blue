@@ -21,3 +21,9 @@ module "namehub" {
   version = "0.3.0"
   suffix  = [var.prefix, "hub", var.suffix, var.loc]
 }
+
+module "namepurview" {
+  source  = "Azure/naming/azurerm"
+  version = "0.3.0"
+  suffix  = [var.prefix, "purview", var.suffix, var.loc]
+}

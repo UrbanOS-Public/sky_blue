@@ -4,7 +4,7 @@
 #az login --scope https://management.core.windows.net//.default
 #az login --tenant bea34d45-5ce0-4677-98b9-1b872aa89a37
 az account set --subscription "c26f81cf-321b-4132-8526-3f97a01e19d2"
-
+az login --service-principal -u -p  --tenant bea34d45-5ce0-4677-98b9-1b872aa89a37
 #az extension add --upgrade -n bastion
 #az extension add --upgrade -n ssh
 
@@ -21,3 +21,6 @@ kubectl get services
 az aks stop --name juno-dev1-0531-cluster --resource-group urbanos-team
 az aks show --name juno-dev1-0531-cluster --resource-group urbanos-team
 az aks start --name juno-dev1-0531-cluster --resource-group urbanos-team
+
+
+az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "1f2daa50-0dfc-44fd-82fe-978ecef07d6e" --resource-group "rg-aim-lake-dev-eus"
