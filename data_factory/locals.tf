@@ -4,6 +4,10 @@ locals {
     "arcgis"       = "https://services1.arcgis.com/"
   }
   custom_data = {
+    "bikes_data_json" = {
+      linked_service = "arcgis"
+      relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/USBikeRoutesFlorida/FeatureServer/0/query?where=%20(FDOTCOID%20%3D%2086%20OR%20FDOTCOID%20%3D%2067)%20&outFields=*&outSR=4326&f=json"
+    }    
     "boundaries_data_json" = {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Florida_County_Boundaries_with_FDOT_Districts/FeatureServer/0/query?where=FDOTCountyCode%20%3D%20%2786%27&outFields=*&outSR=4326&f=json"
@@ -46,6 +50,11 @@ locals {
     }    
   }
   raw_data = {
+    "adl_bikes_data_json" = {
+      fileName = "bikeroutes.json"
+      folderPath = "fdos"
+      fileSystem = "raw"
+    }    
     "adl_boundaries_data_json" = {
       fileName = "boundaries.json"
       folderPath = "fdos"
