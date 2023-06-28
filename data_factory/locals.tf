@@ -108,7 +108,7 @@ locals {
       fileSystem = "raw"
     }
     "adl_intersection_floris_data_json" = {
-      fileName = "intersection.json"
+      fileName = "intersection_floris.json"
       folderPath = "fdos"
       fileSystem = "raw"
     }
