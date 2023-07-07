@@ -191,7 +191,7 @@ resource "azurerm_data_factory_custom_dataset" "data" {
   for_each = local.custom_data
   name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
-  type                = "Json"
+  type                = each.value.type
 
   linked_service {
     name = each.value.linked_service
@@ -231,6 +231,11 @@ resource "azurerm_data_factory_custom_dataset" "rawstore" {
       }
     }
   JSON
+
+  depends_on = [  
+    azurerm_data_factory_linked_custom_service.adf
+  ]
+
 }
 
 
