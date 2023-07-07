@@ -211,6 +211,27 @@ resource "azurerm_data_factory_custom_dataset" "data" {
 
 }
 
+resource "azurerm_data_factory_custom_dataset" "restdata" {
+  for_each = local.custom_data_rest
+  name                = each.key
+  data_factory_id     = azurerm_data_factory.adf.id
+  type                = each.value.data_type
+
+  linked_service {
+    name = each.value.linked_service
+  }
+  
+  type_properties_json = <<JSON
+    {
+        "relativeUrl": "${each.value.relativeUrl}"
+    }
+  JSON
+  depends_on = [  
+    azurerm_data_factory_linked_custom_service.adf
+  ]
+
+}
+
 resource "azurerm_data_factory_custom_dataset" "rawstore" {
   for_each = local.raw_data
   name                = each.key
