@@ -76,6 +76,13 @@ resource "azurerm_storage_data_lake_gen2_path" "fdos" {
   resource           = "directory"
 }
 
+resource "azurerm_storage_data_lake_gen2_path" "fdos" {
+  path               = "fdos"
+  filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
+  storage_account_id =  module.storage_account.id
+  resource           = "directory"
+}
+
 resource "azurerm_role_assignment" "blob_contributor_admin" {
   count = length(var.admin_group_object_ids)
   scope                = module.storage_account.id

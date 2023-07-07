@@ -134,12 +134,12 @@ resource "azurerm_data_factory_linked_custom_service" "fdot" {
 
 resource "azurerm_data_factory_linked_custom_service" "adf" {
   for_each = local.linked_custom_service
-  name                = each.key
+  name                = each.value.name
   data_factory_id     = azurerm_data_factory.adf.id
-  type                = "HttpServer"
+  type                = each.value.linked_type
    type_properties_json = <<JSON
     {
-      "url": "${each.value}",
+      "url": "${each.value.baseUrl}",
       "enableServerCertificateValidation": true,
       "authenticationType": "Anonymous"
     }
@@ -215,7 +215,7 @@ resource "azurerm_data_factory_custom_dataset" "rawstore" {
   for_each = local.raw_data
   name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
-  type                = "Json"
+  type                = each.value.data_type
 
   linked_service {
     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name

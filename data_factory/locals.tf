@@ -1,7 +1,24 @@
 locals {
-  linked_custom_service = {
+/*   linked_custom_service = {
     "fdot"         = "https://gis.fdot.gov/"
     "arcgis"       = "https://services1.arcgis.com/"
+  } */
+  linked_custom_service = {
+    "fdot"                = {
+      linked_type         = "HttpServer"
+      linked_service_name = "fdot"
+      baseUrl             = "https://gis.fdot.gov/"
+    }
+    "arcgis"              = {
+      linked_type         = "HttpServer"
+      linked_service_name = "arcgis"
+      baseUrl             = "https://services1.arcgis.com/"
+    }
+    "flarisRestService"   = {
+      linked_type         = "RestService"
+      linked_service_name = "flarisRestService"
+      baseUrl             = "https://gis.fdot.gov/"
+    }    
   }
   custom_data = {
     "bikes_data_json" = {
@@ -47,8 +64,12 @@ locals {
     "crash_data_json_2017" = {
       linked_service = "fdot"
       relativeUrl = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2017&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=0&resultRecordCount=500000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
-    }    
-    "intersection_data_floris_0_5000_json" = {
+    }  
+    "FLARIS_Intersections" = {
+      linked_service = "flarisRestService"
+      relativeUrl = "arcgis/rest/services/sso/ssogis_flaris/FeatureServer/3/query?where=DOT_CNTY_CD%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
+    }  
+    /* "intersection_data_floris_0_5000_json" = {
       linked_service = "fdot"
       relativeUrl = "arcgis/rest/services/sso/ssogis_flaris/FeatureServer/3/query?where=DOT_CNTY_CD%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=0&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
     }    
@@ -83,64 +104,106 @@ locals {
     "intersection_data_floris_40000_45000_json" = {
       linked_service = "fdot"
       relativeUrl = "arcgis/rest/services/sso/ssogis_flaris/FeatureServer/3/query?where=DOT_CNTY_CD%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=40000&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
-    }    
+    }     */
     
   }
   raw_data = {
     "adl_bikes_data_json" = {
-      fileName = "bikeroutes.json"
+      fileName   = "bikeroutes.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }    
     "adl_boundaries_data_json" = {
       fileName = "boundaries.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_aadt_data_json" = {
       fileName = "aadt.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_intersection_data_json" = {
       fileName = "intersection.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_intersection_floris_data_json" = {
       fileName = "intersection_floris.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_traffic_signal_locations_json" = {
       fileName = "trafficsignal.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_crash_data_json_2022" = {
       fileName = "crash2022.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_crash_data_json_2021" = {
       fileName = "crash2021.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_crash_data_json_2020" = {
       fileName = "crash2020.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_crash_data_json_2019" = {
       fileName = "crash2019.json"
       folderPath = "fdos"
       fileSystem = "raw"
+      data_type  = "Json"
     }
     "adl_crash_data_json_2018" = {
       fileName = "crash2018.json"
       folderPath = "fdos"
       fileSystem = "raw"
-    }                
+      data_type  = "Json"
+    }  
+    "adl_FLARIS_Intersections_json" = {
+      fileName = "flaris_inter.json"
+      folderPath = "fdos"
+      fileSystem = "raw"
+      data_type  = "Json"
+    }    
+    "adl_FLARIS_Intersections_csv" = {
+      fileName = "flaris_inter.csv"
+      folderPath = "fdos"
+      fileSystem = "standardized"
+      data_type  = "DelimitedText"
+    }    
+    "adl_FLARIS_geometry_csv" = {
+      fileName = "flaris_geo.csv"
+      folderPath = "fdos"
+      fileSystem = "standardized"
+      data_type  = "DelimitedText"
+    }        
+  }
+  
+  data_flow = {
+    "data_flow_flaris_i" = {
+      fileName   = "dataflow1.json"
+      source_link = "adl_FLARIS_Intersections_json"
+      sink_link  = "adl_FLARIS_Intersections_csv"
+    }
+    "data_flow_flaris_g" = {
+      fileName   = "dataflow2.json"
+      source_link = "adl_FLARIS_Intersections_json"
+      sink_link  = "adl_FLARIS_geometry_csv"
+    } 
   }
 }
