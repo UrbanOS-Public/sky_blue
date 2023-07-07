@@ -6,7 +6,7 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
    source {
      name = "source1"
 
-     dataset = {
+     dataset {
        name = each.value.source_link
      }
    }
@@ -14,7 +14,7 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
   sink {
     name = "sink1"
 
-    dataset =  {
+    dataset {
       name = each.value.sink_link
     }
   }
