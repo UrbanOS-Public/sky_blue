@@ -76,7 +76,7 @@ resource "azurerm_storage_data_lake_gen2_path" "fdos" {
   resource           = "directory"
 }
 
-resource "azurerm_storage_data_lake_gen2_path" "fdos" {
+resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
   path               = "fdos"
   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
   storage_account_id =  module.storage_account.id
