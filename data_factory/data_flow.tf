@@ -3,18 +3,18 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
   name            = each.key
   data_factory_id = azurerm_data_factory.adf.id
 
-  # source {
-  #   name = "source1"
+   source {
+     name = "source1"
 
-  #   linked_service {
-  #     name = each.value.source_link
-  #   }
-  # }
+     dataset = {
+       name = each.value.source_link
+     }
+   }
 
   sink {
     name = "sink1"
 
-    linked_service {
+    dataset =  {
       name = each.value.sink_link
     }
   }
