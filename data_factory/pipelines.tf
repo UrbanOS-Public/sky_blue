@@ -9,7 +9,8 @@ resource "azurerm_data_factory_pipeline" "pipeline_files" {
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
     azurerm_data_factory_custom_dataset.data,
-    azurerm_data_factory_custom_dataset.rawstore
+    azurerm_data_factory_custom_dataset.rawstore,
+    azurerm_data_factory_custom_dataset.data_rest
   ]
 }
 
