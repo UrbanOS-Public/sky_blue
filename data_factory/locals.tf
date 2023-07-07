@@ -205,16 +205,16 @@ locals {
     }        
   }
   
-/*   data_flow = {
-    "data_flow_flaris_i" = {
-      fileName   = "dataflow1.json"
-      source_link = "adl_FLARIS_Intersections_json"
-      sink_link  = "adl_FLARIS_Intersections_csv"
-    }
-    "data_flow_flaris_g" = {
-      fileName   = "dataflow2.json"
-      source_link = "adl_FLARIS_Intersections_json"
-      sink_link  = "adl_FLARIS_geometry_csv"
-    } 
-  } */
+   data_flow = {
+    # "data_flow_flaris_i" = {
+    #   fileName   = "dataflow1.json"
+    #   source_link = "adl_FLARIS_Intersections_json"
+    #   sink_link  = "adl_FLARIS_Intersections_csv"
+    # }
+    # "data_flow_flaris_g" = {
+    #   fileName   = "dataflow2.json"
+    #   source_link = "adl_FLARIS_Intersections_json"
+    #   sink_link  = "adl_FLARIS_geometry_csv"
+    # } 
+  }  
 }
