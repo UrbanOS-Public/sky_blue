@@ -134,7 +134,7 @@ resource "azurerm_data_factory_linked_custom_service" "fdot" {
 
 resource "azurerm_data_factory_linked_custom_service" "adf" {
   for_each = local.linked_custom_service
-  name                = each.value.name
+  name                = each.value.linked_service_name
   data_factory_id     = azurerm_data_factory.adf.id
   type                = each.value.linked_type
    type_properties_json = <<JSON
