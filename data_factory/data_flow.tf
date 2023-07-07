@@ -19,9 +19,9 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     }
   }
 
-  script_lines = <<JSON
+  script_lines = <<EOT
         ${(file("./data_flow/${each.value.fileName}"))}
-  JSON
+  EOT
 
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
