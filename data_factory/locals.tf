@@ -150,7 +150,13 @@ locals {
       folderPath = "fdos"
       fileSystem = "raw"
       data_type  = "Json"
-    }  
+    } 
+    "adl_crash_data_json_2017" = {
+      fileName = "crash2017.json"
+      folderPath = "fdos"
+      fileSystem = "raw"
+      data_type  = "Json"
+    } 
     "adl_FLARIS_Intersections_json" = {
       fileName = "flaris_inter.json"
       folderPath = "fdos"
