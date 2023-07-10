@@ -23,7 +23,10 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     name = "flatten1"
   }
 
-  script_lines = [file("./data_flow/${each.key}.txt")]
+  script_lines = [<<EOT
+  file("./data_flow/${each.key}.txt")
+  EOT
+  ]
   
 
   depends_on = [  
