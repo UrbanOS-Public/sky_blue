@@ -23,7 +23,7 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     name = "flatten1"
   }
 
-  script_lines = [file("./data_flow/${each.value.fileName}")]
+  #script_lines = [file("./data_flow/${each.value.fileName}")]
 
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
