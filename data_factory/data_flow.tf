@@ -23,10 +23,8 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     name = "flatten1"
   }
 
-  script_lines = [<<EOT
-    ${(file("./adl_datasets/${each.key}.json"))}
-  EOT
-    ]
+  script_lines = [split(",", file("./data_flow/${each.key}.txt"))]
+  
 
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
