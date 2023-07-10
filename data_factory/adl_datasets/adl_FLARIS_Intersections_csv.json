@@ -1,0 +1,12 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "flaris_inter.csv",
+        "folderPath": "fdos",
+        "fileSystem": "standardized"
+    },
+    "columnDelimiter": ",",
+    "escapeChar": "\\",
+    "firstRowAsHeader": true,
+    "quoteChar": "\""
+}

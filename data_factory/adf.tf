@@ -104,34 +104,6 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   ]
 }
 
-/* resource "azurerm_data_factory_linked_custom_service" "arcgis" {
-  name                = "arcgis"
-  data_factory_id     = azurerm_data_factory.adf.id
-  type                = "HttpServer"
-   type_properties_json = <<JSON
-    {
-      "url": "https://services1.arcgis.com/",
-      "enableServerCertificateValidation": true,
-      "authenticationType": "Anonymous"
-    }
-    JSON
-}
-
-
-resource "azurerm_data_factory_linked_custom_service" "fdot" {
-  name                = "fdot"
-  data_factory_id     = azurerm_data_factory.adf.id
-  type                = "HttpServer"
-   type_properties_json = <<JSON
-    {
-      "url": "https://gis.fdot.gov/",
-      "enableServerCertificateValidation": true,
-      "authenticationType": "Anonymous"
-    }
-    JSON
-} */
-
-
 resource "azurerm_data_factory_linked_custom_service" "adf" {
   for_each = local.linked_custom_service
   name                = each.value.linked_service_name
@@ -145,47 +117,6 @@ resource "azurerm_data_factory_linked_custom_service" "adf" {
     }
     JSON
 }
-
-
-/* 
-resource "azurerm_data_factory_custom_dataset" "intersectiondata" {
-  name                = "intersection_data_json"
-  data_factory_id     = azurerm_data_factory.adf.id
-  type                = "Json"
-
-  linked_service {
-    name = azurerm_data_factory_linked_custom_service.arcgis.name
-  }
-  
-  type_properties_json = <<JSON
-    {
-      "location": {
-        "type": "HttpServerLocation",
-        "relativeUrl": "O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
-      }
-    }
-  JSON
-}
-
-resource "azurerm_data_factory_custom_dataset" "crashdata" {
-  name                = "crash_data_json"
-  data_factory_id     = azurerm_data_factory.adf.id
-  type                = "Json"
-
-  linked_service {
-    name = azurerm_data_factory_linked_custom_service.fdot.name
-  }
-  
-  type_properties_json = <<JSON
-    {
-      "location": {
-        "type": "HttpServerLocation",
-        "relativeUrl": "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2022&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=0&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
-      }
-    }
-  JSON
-}
- */
 
 resource "azurerm_data_factory_custom_dataset" "data" {
   for_each = local.custom_data
@@ -232,38 +163,11 @@ resource "azurerm_data_factory_custom_dataset" "data_rest" {
 
 }
 
-resource "azurerm_data_factory_custom_dataset" "rawstore" {
-  for_each = local.raw_data
-  name                = each.key
-  data_factory_id     = azurerm_data_factory.adf.id
-  type                = each.value.data_type
-
-  linked_service {
-    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
-  }
-  
-  type_properties_json = <<JSON
-    {
-      "location": {
-        "type": "AzureBlobFSLocation",
-        "fileName": "${each.value.fileName}",
-        "folderPath": "${each.value.folderPath}",
-        "fileSystem": "${each.value.fileSystem}"
-      }
-    }
-  JSON
-
-  depends_on = [  
-    azurerm_data_factory_linked_custom_service.adf
-  ]
-
-}
-
-
-# resource "azurerm_data_factory_custom_dataset" "datastore" {
-#   name                = "adl_intersection_data_json"
+# resource "azurerm_data_factory_custom_dataset" "rawstore" {
+#   for_each = local.raw_data
+#   name                = each.key
 #   data_factory_id     = azurerm_data_factory.adf.id
-#   type                = "Json"
+#   type                = each.value.data_type
 
 #   linked_service {
 #     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
@@ -273,148 +177,16 @@ resource "azurerm_data_factory_custom_dataset" "rawstore" {
 #     {
 #       "location": {
 #         "type": "AzureBlobFSLocation",
-#         "fileName": "intersection.json",
-#         "folderPath": "fdos",
-#         "fileSystem": "raw"
+#         "fileName": "${each.value.fileName}",
+#         "folderPath": "${each.value.folderPath}",
+#         "fileSystem": "${each.value.fileSystem}"
 #       }
 #     }
 #   JSON
-# }
 
-# resource "azurerm_data_factory_custom_dataset" "crashdatastore" {
-#   name                = "adl_crash_data_json"
-#   data_factory_id     = azurerm_data_factory.adf.id
-#   type                = "Json"
-
-#   linked_service {
-#     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
-#   }
-  
-#   type_properties_json = <<JSON
-#     {
-#       "location": {
-#         "type": "AzureBlobFSLocation",
-#         "fileName": "crash.json",
-#         "folderPath": "fdos",
-#         "fileSystem": "raw"
-#       }
-#     }
-#   JSON
-# }
-
-# resource "azurerm_data_factory_pipeline" "data_transfer_intersections" {
-#   name            = "data_transfer_intersections"
-#   data_factory_id = azurerm_data_factory.adf.id
-#   activities_json = <<JSON
-#   [{
-#                 "name": "GetIntersectionData",
-#                 "type": "Copy",
-#                 "dependsOn": [],
-#                 "policy": {
-#                     "timeout": "0.12:00:00",
-#                     "retry": 0,
-#                     "retryIntervalInSeconds": 30,
-#                     "secureOutput": false,
-#                     "secureInput": false
-#                 },
-#                 "userProperties": [],
-#                 "typeProperties": {
-#                     "source": {
-#                         "type": "JsonSource",
-#                         "storeSettings": {
-#                             "type": "HttpReadSettings",
-#                             "requestMethod": "GET"
-#                         },
-#                         "formatSettings": {
-#                             "type": "JsonReadSettings"
-#                         }
-#                     },
-#                     "sink": {
-#                         "type": "JsonSink",
-#                         "storeSettings": {
-#                             "type": "AzureBlobFSWriteSettings"
-#                         },
-#                         "formatSettings": {
-#                             "type": "JsonWriteSettings"
-#                         }
-#                     },
-#                     "enableStaging": false
-#                 },
-#                 "inputs": [
-#                     {
-#                         "referenceName": "intersection_data_json",
-#                         "type": "DatasetReference"
-#                     }
-#                 ],
-#                 "outputs": [
-#                     {
-#                         "referenceName": "adl_intersection_data_json",
-#                         "type": "DatasetReference"
-#                     }
-#                 ]
-#             }
-#   ]          
-#   JSON
-#   depends_on = [ 
-#     azurerm_data_factory_custom_dataset.datastore
+#   depends_on = [  
+#     azurerm_data_factory_linked_custom_service.adf
 #   ]
+
 # }
 
-
-# resource "azurerm_data_factory_pipeline" "data_transfer_crash" {
-#   name            = "data_transfer_crash"
-#   data_factory_id = azurerm_data_factory.adf.id
-#   activities_json = <<JSON
-#   [{
-#                 "name": "GetCrashData",
-#                 "type": "Copy",
-#                 "dependsOn": [],
-#                 "policy": {
-#                     "timeout": "0.12:00:00",
-#                     "retry": 0,
-#                     "retryIntervalInSeconds": 30,
-#                     "secureOutput": false,
-#                     "secureInput": false
-#                 },
-#                 "userProperties": [],
-#                 "typeProperties": {
-#                     "source": {
-#                         "type": "JsonSource",
-#                         "storeSettings": {
-#                             "type": "HttpReadSettings",
-#                             "requestMethod": "GET"
-#                         },
-#                         "formatSettings": {
-#                             "type": "JsonReadSettings"
-#                         }
-#                     },
-#                     "sink": {
-#                         "type": "JsonSink",
-#                         "storeSettings": {
-#                             "type": "AzureBlobFSWriteSettings"
-#                         },
-#                         "formatSettings": {
-#                             "type": "JsonWriteSettings"
-#                         }
-#                     },
-#                     "enableStaging": false
-#                 },
-#                 "inputs": [
-#                     {
-#                         "referenceName": "crash_data_json",
-#                         "type": "DatasetReference"
-#                     }
-#                 ],
-#                 "outputs": [
-#                     {
-#                         "referenceName": "adl_crash_data_json",
-#                         "type": "DatasetReference"
-#                     }
-#                 ]
-#             }
-#   ]          
-#   JSON
-#   depends_on = [ 
-#     azurerm_data_factory_custom_dataset.crashdatastore
-#   ]
-# }

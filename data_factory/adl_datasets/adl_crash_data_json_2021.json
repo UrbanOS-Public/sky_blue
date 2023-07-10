@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "crash2021.json",
+        "folderPath": "fdos",
+        "fileSystem": "raw"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "intersection.json",
+        "folderPath": "fdos",
+        "fileSystem": "raw"
+    }
+}

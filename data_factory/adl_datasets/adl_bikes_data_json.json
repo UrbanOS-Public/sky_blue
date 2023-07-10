@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "bikeroutes.json",
+        "folderPath": "fdos",
+        "fileSystem": "raw"
+    }
+}

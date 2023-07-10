@@ -1,0 +1,8 @@
+{
+"location": {
+    "type": "AzureBlobFSLocation",
+    "fileName": "flaris_inter.json",
+    "folderPath": "fdos",
+    "fileSystem": "raw"
+}
+}

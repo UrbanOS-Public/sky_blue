@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "trafficsignal.json",
+        "folderPath": "fdos",
+        "fileSystem": "raw"
+    }
+}
