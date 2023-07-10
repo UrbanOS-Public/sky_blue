@@ -19,7 +19,7 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     }
   }
 
-  script = <<JSON
+  script_lines = <<JSON
         ${(file("./data_flow/${each.value.fileName}"))}
   JSON
 
