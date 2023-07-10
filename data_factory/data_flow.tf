@@ -19,6 +19,10 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     }
   }
 
+  transformation {
+    name = "flatten1"
+  }
+
   script_lines = [file("./data_flow/${each.value.fileName}")]
 
   depends_on = [  
