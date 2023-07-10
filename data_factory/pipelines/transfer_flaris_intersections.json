@@ -67,7 +67,7 @@
         "userProperties": [],
         "typeProperties": {
             "dataflow": {
-                "referenceName": "data flow 1",
+                "referenceName": "data_flow_flaris_i",
                 "type": "DataFlowReference"
             },
             "compute": {
@@ -98,7 +98,7 @@
         "userProperties": [],
         "typeProperties": {
             "dataflow": {
-                "referenceName": "data flow 2",
+                "referenceName": "data_flow_flaris_g",
                 "type": "DataFlowReference"
             },
             "compute": {
