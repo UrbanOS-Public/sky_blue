@@ -19,7 +19,12 @@ locals {
       linked_type         = "RestService"
       linked_service_name = "openmeteoRestService"
       baseUrl             = "https://archive-api.open-meteo.com/"
-    }   
+    } 
+    "openmeteo"   = {
+      linked_type         = "HttpServer"
+      linked_service_name = "openmeteo"
+      baseUrl             = "https://archive-api.open-meteo.com/"
+    }  
   }
   custom_data = {
     "bikes_data_json" = {
@@ -86,37 +91,37 @@ locals {
       data_type = "RestResource"
     }
     "weather_data_json_2017" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2017-01-01&end_date=2017-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     }
     "weather_data_json_2018" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2018-01-01&end_date=2018-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     }
     "weather_data_json_2019" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2019-01-01&end_date=2019-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     }
     "weather_data_json_2020" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2020-01-01&end_date=2020-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     } 
     "weather_data_json_2021" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2021-01-01&end_date=2021-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     }
     "weather_data_json_2022" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2022-01-01&end_date=2022-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     } 
     "weather_data_json_2023" = {
-      linked_service = "openmeteoRestService"
+      linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2023-01-01&end_date=2023-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
     }
