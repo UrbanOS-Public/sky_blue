@@ -82,32 +82,32 @@ resource "azurerm_role_assignment" "blob_contributor_admin" {
 #    ]
 #  }
 
-# resource "azurerm_storage_data_lake_gen2_filesystem" "raw_data" {
-#   storage_account_id = module.storage_account.id
-#   name               = "raw"
-# }
+resource "azurerm_storage_data_lake_gen2_filesystem" "raw_data" {
+  storage_account_id = module.storage_account.id
+  name               = "raw"
+}
 
-# resource "azurerm_storage_data_lake_gen2_filesystem" "enriched_data" {
-#   storage_account_id = module.storage_account.id
-#   name               = "enriched"
-# }
+resource "azurerm_storage_data_lake_gen2_filesystem" "enriched_data" {
+  storage_account_id = module.storage_account.id
+  name               = "enriched"
+}
 
-#  resource "azurerm_storage_data_lake_gen2_filesystem" "standardized_data" {
-#    storage_account_id = module.storage_account.id
-#    name               = "standardized"
-#  }
+ resource "azurerm_storage_data_lake_gen2_filesystem" "standardized_data" {
+   storage_account_id = module.storage_account.id
+   name               = "standardized"
+ }
 
-# resource "azurerm_storage_data_lake_gen2_path" "fdos" {
-#   path               = "fdos"
-#   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.raw_data.name
-#   storage_account_id =  module.storage_account.id
-#   resource           = "directory"
-# }
+resource "azurerm_storage_data_lake_gen2_path" "fdos" {
+  path               = "fdos"
+  filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.raw_data.name
+  storage_account_id =  module.storage_account.id
+  resource           = "directory"
+}
 
-#  resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
-#    path               = "fdos"
-#    filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
-#    storage_account_id =  module.storage_account.id
-#    resource           = "directory"
-#  }
+ resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
+   path               = "fdos"
+   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
+   storage_account_id =  module.storage_account.id
+   resource           = "directory"
+ }
 
