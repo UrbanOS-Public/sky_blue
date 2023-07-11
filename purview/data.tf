@@ -34,7 +34,7 @@ data "azurerm_resources" "key_vault" {
     name = module.namespoke.key_vault.name
 }
 
-data "azurerm_storage_account" "lake" {
-  name                = module.namedatalake.data_lake_store.name 
-  resource_group_name = module.namedatalake.resource_group.name
-}
+# data "azurerm_storage_account" "lake" {
+#   name                = module.namedatalake.data_lake_store.name 
+#   resource_group_name = module.namedatalake.resource_group.name
+# }
