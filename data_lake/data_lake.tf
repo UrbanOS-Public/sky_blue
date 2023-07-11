@@ -60,7 +60,7 @@ module "storage_account" {
  }
 
 
- resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
+ resource "azurerm_storage_data_lake_gen2_path" "adl_directory" {
    for_each = local.adl_directory
    path               = each.value.dir_name
    filesystem_name    = each.value.filesystem_name
