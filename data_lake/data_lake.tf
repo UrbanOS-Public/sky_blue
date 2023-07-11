@@ -53,35 +53,52 @@ module "storage_account" {
   tags                        = var.tags
 }
 
+ resource "azurerm_storage_data_lake_gen2_filesystem" "adl_filesystem" {
+   for_each = local.adl_filesystem
+   storage_account_id = module.storage_account.id
+   name               = each.value.filesystem_name
+ }
 
-resource "azurerm_storage_data_lake_gen2_filesystem" "raw_data" {
-  storage_account_id = module.storage_account.id
-  name               = "raw"
-}
 
-resource "azurerm_storage_data_lake_gen2_filesystem" "enriched_data" {
-  storage_account_id = module.storage_account.id
-  name               = "enriched"
-}
+ resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
+   for_each = local.adl_directory
+   path               = each.value.dir_name
+   filesystem_name    = each.value.filesystem_name
+   resource           = each.value.resource
+   storage_account_id = module.storage_account.id
+   depends_on = [ 
+      azurerm_storage_data_lake_gen2_filesystem.adl_filesystem 
+   ]
+ }
 
-resource "azurerm_storage_data_lake_gen2_filesystem" "standardized_data" {
-  storage_account_id = module.storage_account.id
-  name               = "standardized"
-}
+# resource "azurerm_storage_data_lake_gen2_filesystem" "raw_data" {
+#   storage_account_id = module.storage_account.id
+#   name               = "raw"
+# }
 
-resource "azurerm_storage_data_lake_gen2_path" "fdos" {
-  path               = "fdos"
-  filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.raw_data.name
-  storage_account_id =  module.storage_account.id
-  resource           = "directory"
-}
+# resource "azurerm_storage_data_lake_gen2_filesystem" "enriched_data" {
+#   storage_account_id = module.storage_account.id
+#   name               = "enriched"
+# }
 
-resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
-  path               = "fdos"
-  filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
-  storage_account_id =  module.storage_account.id
-  resource           = "directory"
-}
+# resource "azurerm_storage_data_lake_gen2_filesystem" "standardized_data" {
+#   storage_account_id = module.storage_account.id
+#   name               = "standardized"
+# }
+
+# resource "azurerm_storage_data_lake_gen2_path" "fdos" {
+#   path               = "fdos"
+#   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.raw_data.name
+#   storage_account_id =  module.storage_account.id
+#   resource           = "directory"
+# }
+
+# resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
+#   path               = "fdos"
+#   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
+#   storage_account_id =  module.storage_account.id
+#   resource           = "directory"
+# }
 
 resource "azurerm_role_assignment" "blob_contributor_admin" {
   count = length(var.admin_group_object_ids)
