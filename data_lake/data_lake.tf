@@ -92,10 +92,10 @@ resource "azurerm_role_assignment" "blob_contributor_admin" {
 #   name               = "enriched"
 # }
 
- resource "azurerm_storage_data_lake_gen2_filesystem" "standardized_data" {
-   storage_account_id = module.storage_account.id
-   name               = "standardized"
- }
+#  resource "azurerm_storage_data_lake_gen2_filesystem" "standardized_data" {
+#    storage_account_id = module.storage_account.id
+#    name               = "standardized"
+#  }
 
 # resource "azurerm_storage_data_lake_gen2_path" "fdos" {
 #   path               = "fdos"
@@ -104,10 +104,10 @@ resource "azurerm_role_assignment" "blob_contributor_admin" {
 #   resource           = "directory"
 # }
 
- resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
-   path               = "fdos"
-   filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
-   storage_account_id =  module.storage_account.id
-   resource           = "directory"
- }
+#  resource "azurerm_storage_data_lake_gen2_path" "standardized_fdos" {
+#    path               = "fdos"
+#    filesystem_name    = azurerm_storage_data_lake_gen2_filesystem.standardized_data.name
+#    storage_account_id =  module.storage_account.id
+#    resource           = "directory"
+#  }
 
