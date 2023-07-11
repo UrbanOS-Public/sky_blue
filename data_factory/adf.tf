@@ -58,7 +58,7 @@ resource "azurerm_data_factory" "adf" {
   public_network_enabled  = false
   customer_managed_key_id = azurerm_key_vault_key.cmk.id
   customer_managed_key_identity_id = azurerm_user_assigned_identity.adf_identity.id
-  purview_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${module.namedatalake.resource_group.name}/providers/Microsoft.Purview/accounts/${module.namepurview.powerbi_embedded.name}"
+  purview_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${module.namepurview.resource_group.name}/providers/Microsoft.Purview/accounts/${module.namepurview.powerbi_embedded.name}"
   identity {
     type = "SystemAssigned, UserAssigned"
     identity_ids = [

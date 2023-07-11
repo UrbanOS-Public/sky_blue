@@ -30,7 +30,7 @@ resource "azurerm_purview_account" "aim" {
   tags                = var.tags
 
   public_network_enabled = true
-  managed_resource_group_name = module.namepurview.resource_group.name
+  managed_resource_group_name = module.namepurview2.resource_group.name
   identity {
     type = "SystemAssigned"
   }

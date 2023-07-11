@@ -4,6 +4,12 @@ module "namepurview" {
   suffix  = [var.prefix, "purview", var.suffix, var.loc]
 }
 
+module "namepurview2" {
+  source  = "Azure/naming/azurerm"
+  version = "0.3.0"
+  suffix  = [var.prefix, "purvman", var.suffix, var.loc]
+}
+
 module "namedatalake" {
   source  = "Azure/naming/azurerm"
   version = "0.3.0"

@@ -1,7 +1,7 @@
 module "namedatalake" {
   source  = "Azure/naming/azurerm"
   version = "0.3.0"
-  suffix  = [var.prefix, "lake", var.suffix, var.loc]
+  suffix  = [var.prefix, "adl", var.suffix, var.loc]
 }
 
 module "namelaw" {
