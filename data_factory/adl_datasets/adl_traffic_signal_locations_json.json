@@ -1,8 +1,8 @@
 {
     "location": {
         "type": "AzureBlobFSLocation",
-        "fileName": "trafficsignal.json",
-        "folderPath": "intersections",
+        "fileName": "trafficsignals.json",
+        "folderPath": "traffic_signals",
         "fileSystem": "raw"
     }
 }
