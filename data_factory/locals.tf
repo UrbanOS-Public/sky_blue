@@ -52,6 +52,11 @@ locals {
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Traffic_Signal_Locations_TDA/FeatureServer/0/query?where=COUNTYDOT%20%3D%20'86'&outFields=*&outSR=4326&f=json"
       data_type = "Json"
     } 
+    "weather_data_json_2017" = {
+      linked_service = "openmeteo"
+      relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2017-01-01&end_date=2017-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
+      data_type = "RestResource"
+    }
     "weather_data_json_2018" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2018-01-01&end_date=2018-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
@@ -79,7 +84,12 @@ locals {
     } 
     "weather_data_json_2023" = {
       linked_service = "openmeteo"
-      relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2023-01-01&end_date=2023-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
+      relativeUrl = "@concat('v1/archive?latitude=26.100412&longitude=-80.130704&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&start_date=2023-01-01&end_date=',formatDateTime(utcnow(), 'yyyy-MM-dd'))"
+      data_type = "Json"
+    }   
+    "weather_data_json_all" = {
+      linked_service = "openmeteo"
+      relativeUrl = "@concat('v1/archive?latitude=26.100412&longitude=-80.130704&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&start_date=2017-01-01&end_date=',formatDateTime(utcnow(), 'yyyy-MM-dd'))"
       data_type = "Json"
     }   
   }
@@ -120,12 +130,6 @@ locals {
       relativeUrl = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2022&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type = "RestResource"
     }
-    "weather_data_json_2017" = {
-      linked_service = "openmeteo"
-      relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2017-01-01&end_date=2017-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
-      data_type = "RestResource"
-    }
-    
   } 
   
     
@@ -263,6 +267,12 @@ locals {
       fileSystem = "raw"
       data_type  = "Json"
     }    
+    "adl_weather_data_json_all" = {
+      fileName = "weather_all.json"
+      folderPath = "weather"
+      fileSystem = "raw"
+      data_type  = "Json"
+    } 
   }
   
    data_flow = {
