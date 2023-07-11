@@ -53,23 +53,34 @@ module "storage_account" {
   tags                        = var.tags
 }
 
- resource "azurerm_storage_data_lake_gen2_filesystem" "adl_filesystem" {
-   for_each = local.adl_filesystem
-   storage_account_id = module.storage_account.id
-   name               = each.value.filesystem_name
- }
+resource "azurerm_role_assignment" "blob_contributor_admin" {
+  count = length(var.admin_group_object_ids)
+  scope                = module.storage_account.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.admin_group_object_ids[count.index]
+  depends_on = [ 
+    module.storage_account
+  ]
+}
 
 
- resource "azurerm_storage_data_lake_gen2_path" "adl_directory" {
-   for_each = local.adl_directory
-   path               = each.value.dir_name
-   filesystem_name    = each.value.filesystem_name
-   resource           = each.value.resource
-   storage_account_id = module.storage_account.id
-   depends_on = [ 
-      azurerm_storage_data_lake_gen2_filesystem.adl_filesystem 
-   ]
- }
+#  resource "azurerm_storage_data_lake_gen2_filesystem" "adl_filesystem" {
+#    for_each = local.adl_filesystem
+#    storage_account_id = module.storage_account.id
+#    name               = each.value.filesystem_name
+#  }
+
+
+#  resource "azurerm_storage_data_lake_gen2_path" "adl_directory" {
+#    for_each = local.adl_directory
+#    path               = each.value.dir_name
+#    filesystem_name    = each.value.filesystem_name
+#    resource           = each.value.resource
+#    storage_account_id = module.storage_account.id
+#    depends_on = [ 
+#       azurerm_storage_data_lake_gen2_filesystem.adl_filesystem 
+#    ]
+#  }
 
 # resource "azurerm_storage_data_lake_gen2_filesystem" "raw_data" {
 #   storage_account_id = module.storage_account.id
@@ -100,12 +111,3 @@ module "storage_account" {
 #   resource           = "directory"
 # }
 
-resource "azurerm_role_assignment" "blob_contributor_admin" {
-  count = length(var.admin_group_object_ids)
-  scope                = module.storage_account.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = var.admin_group_object_ids[count.index]
-  depends_on = [ 
-    module.storage_account
-  ]
-}
