@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "weather2018.json",
+        "folderPath": "weather",
+        "fileSystem": "raw"
+    }
+}
