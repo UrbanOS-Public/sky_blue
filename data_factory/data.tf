@@ -30,8 +30,8 @@ data "azurerm_private_dns_zone" "vault" {
 
 data "azurerm_resources" "key_vault" {
     type ="Microsoft.KeyVault/vaults"
-    resource_group_name = module.namespoke.resource_group.name
-    name = module.namespoke.key_vault.name
+    resource_group_name = module.namedatalake.resource_group.name
+    name = module.namedatalake.key_vault.name
 }
 
  data "azurerm_storage_account" "lake" {
