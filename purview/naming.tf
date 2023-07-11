@@ -7,7 +7,7 @@ module "namepurview" {
 module "namepurview2" {
   source  = "Azure/naming/azurerm"
   version = "0.3.0"
-  suffix  = [var.prefix, "purvman", var.suffix, var.loc]
+  suffix  = [var.prefix, "purvmng", var.suffix, var.loc]
 }
 
 module "namedatalake" {
