@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "data" {
 }
 
 resource "azurerm_key_vault_key" "cmk_storage" {
-  name         = "cmk-storage"
+  name         = "cmk-adl"
   key_vault_id = module.key_vault.id
   key_type     = "RSA"
   key_size     = 2048
