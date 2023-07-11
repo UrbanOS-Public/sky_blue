@@ -13,12 +13,12 @@ locals {
 
   adl_directory = {
     "fdot1" = {
-      dir_name        = "fdot"
+      dir_name        = "fdos"
       resource        = "directory"
       filesystem_name = "raw"
     }
     "fdot2" = {
-      dir_name        = "fdot"
+      dir_name        = "fdos"
       resource        = "directory"
       filesystem_name = "standardized"
     }
