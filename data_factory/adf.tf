@@ -46,7 +46,8 @@ resource "azurerm_key_vault_access_policy" "adf_identity" {
     "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
   depends_on = [ 
-    azurerm_user_assigned_identity.adf_identity
+    azurerm_user_assigned_identity.adf_identity,
+    azurerm_key_vault_key.cmk
   ]
 }
 
@@ -65,6 +66,9 @@ resource "azurerm_data_factory" "adf" {
       azurerm_user_assigned_identity.adf_identity.id
     ]
   }
+  depends_on = [
+    azurerm_key_vault_access_policy.adf_identity
+  ]
 }
 
 # resource "azurerm_data_factory_managed_private_endpoint" "example" {
