@@ -2,7 +2,7 @@
     "location": {
         "type": "AzureBlobFSLocation",
         "fileName": "boundaries.json",
-        "folderPath": "fdos",
+        "folderPath": "boundaries",
         "fileSystem": "raw"
     }
 }

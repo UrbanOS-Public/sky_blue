@@ -72,5 +72,15 @@ locals {
       resource        = "directory"
       filesystem_name = "standardized"
     }  
+    "other1" = {
+      dir_name        = "other"
+      resource        = "directory"
+      filesystem_name = "raw"
+    }
+    "other2" = {
+      dir_name        = "other"
+      resource        = "directory"
+      filesystem_name = "standardized"
+    }
   }
 }

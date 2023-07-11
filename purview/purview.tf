@@ -25,7 +25,7 @@ resource "azurerm_user_assigned_identity" "purview_identity" {
 
 resource "azurerm_purview_account" "aim" {
   name                = module.namepurview.powerbi_embedded.name
-  resource_group_name = module.namepurview.resource_group.name
+  resource_group_name = azurerm_resource_group.purview.name
   location            = var.location
   tags                = var.tags
 

@@ -2,7 +2,7 @@
     "location": {
         "type": "AzureBlobFSLocation",
         "fileName": "crash2019.json",
-        "folderPath": "fdos",
+        "folderPath": "crash",
         "fileSystem": "raw"
     }
 }

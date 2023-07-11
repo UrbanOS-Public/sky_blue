@@ -2,7 +2,7 @@
     "location": {
         "type": "AzureBlobFSLocation",
         "fileName": "intersection_floris.json",
-        "folderPath": "fdos",
+        "folderPath": "intersections",
         "fileSystem": "raw"
     }
 }

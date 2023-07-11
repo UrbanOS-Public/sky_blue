@@ -2,7 +2,7 @@
     "location": {
         "type": "AzureBlobFSLocation",
         "fileName": "trafficsignal.json",
-        "folderPath": "fdos",
+        "folderPath": "intersections",
         "fileSystem": "raw"
     }
 }
