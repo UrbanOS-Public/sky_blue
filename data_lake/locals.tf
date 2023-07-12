@@ -82,5 +82,15 @@ locals {
       resource        = "directory"
       filesystem_name = "standardized"
     }
+      "near_miss1" = {
+      dir_name        = "near_miss"
+      resource        = "directory"
+      filesystem_name = "raw"
+    }
+    "near_miss2" = {
+      dir_name        = "near_miss"
+      resource        = "directory"
+      filesystem_name = "standardized"
+    }
   }
 }
