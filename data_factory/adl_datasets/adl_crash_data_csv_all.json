@@ -1,0 +1,12 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "crash_all.csv",
+        "folderPath": "crash",
+        "fileSystem": "standardized"
+    },
+    "columnDelimiter": ",",
+    "escapeChar": "\\",
+    "firstRowAsHeader": true,
+    "quoteChar": "\""
+}
