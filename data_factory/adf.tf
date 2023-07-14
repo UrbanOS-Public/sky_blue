@@ -99,7 +99,7 @@ resource "azurerm_role_assignment" "blob_contributor_adf" {
 
 resource "azurerm_role_assignment" "dev" {
   count = length(var.admin_group_object_ids)
-  scope                = azurerm_data_factory.adf.id.id
+  scope                = azurerm_data_factory.adf.id
   role_definition_name = "Data Factory Contributor"
   principal_id         = var.admin_group_object_ids[count.index]
   depends_on = [ 
