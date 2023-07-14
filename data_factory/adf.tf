@@ -97,6 +97,16 @@ resource "azurerm_role_assignment" "blob_contributor_adf" {
 }
 
 
+resource "azurerm_role_assignment" "dev" {
+  count = length(var.admin_group_object_ids)
+  scope                = azurerm_data_factory.adf.id.id
+  role_definition_name = "Data Factory Contributor"
+  principal_id         = var.admin_group_object_ids[count.index]
+  depends_on = [ 
+    azurerm_data_factory.adf
+  ]
+}
+
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
   data_factory_id       = azurerm_data_factory.adf.id
