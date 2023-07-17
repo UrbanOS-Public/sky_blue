@@ -40,7 +40,7 @@ resource "azurerm_purview_account" "aim" {
 resource "azurerm_role_assignment" "blob_contributor_prv" {
   scope                = data.azurerm_storage_account.lake.id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_purview_account.aim.id
+  principal_id         = azurerm_purview_account.aim.identity.0.principal_id
   depends_on = [ 
     azurerm_purview_account.aim
   ]
@@ -49,7 +49,7 @@ resource "azurerm_role_assignment" "blob_contributor_prv" {
 resource "azurerm_role_assignment" "blob_contributor_prv-umi" {
   scope                = data.azurerm_storage_account.lake.id
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_user_assigned_identity.purview_identity.id
+  principal_id         = azurerm_user_assigned_identity.purview_identity.principal_id
   depends_on = [ 
     azurerm_user_assigned_identity.purview_identity
   ]
