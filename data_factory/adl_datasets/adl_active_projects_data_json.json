@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "active_projects.json",
+        "folderPath": "active_projects",
+        "fileSystem": "raw"
+    }
+}

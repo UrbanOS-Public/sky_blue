@@ -92,5 +92,15 @@ locals {
       resource        = "directory"
       filesystem_name = "standardized"
     }
+    "active_projects1" = {
+      dir_name        = "active_projects"
+      resource        = "directory"
+      filesystem_name = "raw"
+    }
+    "active_projects2" = {
+      dir_name        = "active_projects"
+      resource        = "directory"
+      filesystem_name = "standardized"
+    }
   }
 }
