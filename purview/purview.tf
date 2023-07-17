@@ -36,3 +36,21 @@ resource "azurerm_purview_account" "aim" {
   }
   depends_on = [ azurerm_resource_group.purview ]
 }
+
+resource "azurerm_role_assignment" "blob_contributor_adf" {
+  scope                = data.azurerm_storage_account.lake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_purview_account.aim.id
+  depends_on = [ 
+    azurerm_purview_account.aim
+  ]
+}
+
+resource "azurerm_role_assignment" "blob_contributor_adf" {
+  scope                = data.azurerm_storage_account.lake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_user_assigned_identity.purview_identity.id
+  depends_on = [ 
+    azurerm_user_assigned_identity.purview_identity
+  ]
+}

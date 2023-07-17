@@ -22,6 +22,6 @@ az aks stop --name juno-dev1-0531-cluster --resource-group urbanos-team
 az aks show --name juno-dev1-0531-cluster --resource-group urbanos-team
 az aks start --name juno-dev1-0531-cluster --resource-group urbanos-team
 
-
-az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "1f2daa50-0dfc-44fd-82fe-978ecef07d6e" --resource-group "rg-aim-lake-dev-eus"
-az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "592308cb-ed13-4076-b3f5-d420a56748ad" --resource-group "rg-aim-lake-dev-eus"
+az purview account show --name "pbi-aim-purview-dev-eus" --resource-group "rg-aim-purview-dev-eus"
+az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "1f2daa50-0dfc-44fd-82fe-978ecef07d6e" --resource-group "rg-aim-purview-dev-eus"
+az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "592308cb-ed13-4076-b3f5-d420a56748ad" --resource-group "rg-aim-purview-dev-eus"

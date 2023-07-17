@@ -234,7 +234,7 @@ locals {
       fileName = "flaris_geo.csv"
       folderPath = "fdos"
       fileSystem = "standardized"
-      data_type  = "DelimitedText"
+      data_type  = "DelimitedTeto jet"
     }
     "adl_crash_data_csv_all" = {
       fileName = "crash_all.csv"
