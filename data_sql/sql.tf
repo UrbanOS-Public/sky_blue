@@ -46,12 +46,12 @@ resource "azurerm_key_vault_access_policy" "sql_identity" {
     "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
   depends_on = [ 
-    azurerm_user_assigned_identity.adf_identity,
+    azurerm_user_assigned_identity.sql_identity,
     azurerm_key_vault_key.cmk
   ]
 }
 
-resource "azurerm_mssql_server" "example" {
+resource "azurerm_mssql_server" "aim" {
   name                         = module.namedatalake.mssql_server.name
   resource_group_name          = module.namedatalake.resource_group.name
   location                     = var.location
@@ -73,6 +73,6 @@ resource "azurerm_mssql_server" "example" {
   azuread_administrator {
     azuread_authentication_only = true
     login_username              = "SQL_dev_admin"
-    object_id                   = var.admin_group_object_ids[count.index]
+    object_id                   = var.admin_group_object_ids[0]
   }
 }
