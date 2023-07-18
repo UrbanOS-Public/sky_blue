@@ -62,6 +62,14 @@ resource "azurerm_mssql_server" "aim" {
 
   tags                = var.tags
 
+
+
+  azuread_administrator {
+    azuread_authentication_only = true
+    login_username              = "SQL_dev_admin"
+    object_id                   = var.admin_group_object_ids[0]
+  }
+
   identity {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.sql_identity.id]
@@ -70,15 +78,10 @@ resource "azurerm_mssql_server" "aim" {
   primary_user_assigned_identity_id            = azurerm_user_assigned_identity.sql_identity.id
   transparent_data_encryption_key_vault_key_id = azurerm_key_vault_key.cmk.id
 
-  azuread_administrator {
-    azuread_authentication_only = true
-    login_username              = "SQL_dev_admin"
-    object_id                   = var.admin_group_object_ids[0]
-  }
+
   depends_on = [  
     azurerm_key_vault_key.cmk,
     azurerm_user_assigned_identity.sql_identity,
     azurerm_key_vault_access_policy.sql_identity
-
   ]
 }
