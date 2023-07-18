@@ -75,4 +75,10 @@ resource "azurerm_mssql_server" "aim" {
     login_username              = "SQL_dev_admin"
     object_id                   = var.admin_group_object_ids[0]
   }
+  depends_on = [  
+    azurerm_key_vault_key.cmk,
+    azurerm_user_assigned_identity.sql_identity,
+    azurerm_key_vault_access_policy.sql_identity
+
+  ]
 }
