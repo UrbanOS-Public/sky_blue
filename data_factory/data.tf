@@ -11,6 +11,10 @@ data "azurerm_resource_group" "hub" {
   name = module.namehub.resource_group.name
 }
 
+data "azurerm_resource_group" "datalake" {
+  name = module.namedatalake.resource_group.name
+}
+
 data "azurerm_subnet" "spoke_vm_subnet" {
   name                 = var.vm_subnet_name
   virtual_network_name = module.namespoke.virtual_network.name
