@@ -93,7 +93,7 @@ resource "azurerm_mssql_database" "aim" {
   server_id      = azurerm_mssql_server.aim.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   
-  min_capacity   = each.value.min_capacity
+  #min_capacity   = each.value.min_capacity
   max_size_gb    = each.value.max_size_gb
   auto_pause_delay_in_minutes = each.value.auto_pause_delay_in_minutes
   
