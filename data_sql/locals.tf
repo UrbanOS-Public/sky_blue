@@ -6,6 +6,7 @@ locals {
       license_type    = "BasePrice"
       min_capacity    = "10"
       max_size_gb     = "50"
+      auto_pause_delay_in_minutes = "120"
     }
   }
 }

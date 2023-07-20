@@ -95,9 +95,12 @@ resource "azurerm_mssql_database" "aim" {
   license_type   = each.value.license_type
   min_capacity   = each.value.min_capacity
   max_size_gb    = each.value.max_size_gb
-  read_scale     = true
+  auto_pause_delay_in_minutes = each.value.auto_pause_delay_in_minutes
+  
   sku_name       = each.value.sku_name
-  zone_redundant = each.value.zone_redundant
+  #This property is only settable for Premium and Business Critical databases.
+  #zone_redundant = each.value.zone_redundant
+  #read_scale     = true
   geo_backup_enabled = true
   maintenance_configuration_name = "SQL_Default"
   tags = var.tags
