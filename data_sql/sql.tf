@@ -99,8 +99,8 @@ resource "azurerm_mssql_database" "aim" {
   
   sku_name       = each.value.sku_name
   #This property is only settable for Premium and Business Critical databases.
-  #zone_redundant = each.value.zone_redundant
-  #license_type   = each.value.license_type
+  #zone_redundant = each.value.zone_redundant 
+  #license_type   = each.value.license_type   
   #read_scale     = true
   geo_backup_enabled = true
   maintenance_configuration_name = "SQL_Default"
