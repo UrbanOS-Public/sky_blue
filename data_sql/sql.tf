@@ -85,3 +85,23 @@ resource "azurerm_mssql_server" "aim" {
     azurerm_key_vault_access_policy.sql_identity
   ]
 }
+
+
+resource "azurerm_mssql_database" "aim" {
+  for_each = local.database
+  name           = each.key
+  server_id      = azurerm_mssql_server.aim.id
+  collation      = "SQL_Latin1_General_CP1_CI_AS"
+  license_type   = each.value.license_type
+  min_capacity   = each.value.min_capacity
+  max_size_gb    = each.value.max_size_gb
+  read_scale     = true
+  sku_name       = each.value.sku_name
+  zone_redundant = each.value.zone_redundant
+  geo_backup_enabled = true
+  maintenance_configuration_name = "SQL_Default"
+  tags = var.tags
+  depends_on = [ 
+    azurerm_mssql_server.aim
+   ]
+}
