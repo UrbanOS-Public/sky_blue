@@ -124,7 +124,7 @@ resource "azurerm_data_factory_integration_runtime_azure" "aim" {
 resource "azurerm_data_factory_managed_private_endpoint" "adl" {
   name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
   data_factory_id    = azurerm_data_factory.adf.id
-  target_resource_id = azurerm_storage_account.example.id
+  target_resource_id = data.azurerm_resource_group.datalake.id
   subresource_name   = "blob"
   depends_on = [ 
     azurerm_role_assignment.blob_contributor 
