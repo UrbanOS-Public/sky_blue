@@ -26,6 +26,20 @@ locals {
       baseUrl             = "https://archive-api.open-meteo.com/"
     }  
   }
+  linked_sql = {
+    "SQLDB_AIM"                = {
+      connection_string = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
+      integration_runtime_name = "vnetRuntime"
+    }
+  }
+  integration_runtime = {
+    "vnetRuntime"                = {
+      core_count      = 8
+      compute_type    = "General"
+      description     = "Runtime with vnet enabled"
+      virtual_network_enabled = true
+    }
+  }
   custom_data = {
     "bikes_data_json" = {
       linked_service = "arcgis"

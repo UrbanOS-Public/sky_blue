@@ -71,13 +71,6 @@ resource "azurerm_data_factory" "adf" {
   ]
 }
 
-# resource "azurerm_data_factory_managed_private_endpoint" "example" {
-#   name               = "${(module.namedatalake.data_factory.name)}-mpe"
-#   data_factory_id    = azurerm_data_factory.adf.id
-#   target_resource_id = data.azurerm_storage_account.lake.id
-#   subresource_name   = "blob"
-# }
-
 resource "azurerm_role_assignment" "blob_contributor" {
   scope                = data.azurerm_storage_account.lake.id
   role_definition_name = "Storage Blob Data Contributor"
@@ -118,13 +111,14 @@ resource "azurerm_role_assignment" "rg" {
 }
 
 resource "azurerm_data_factory_integration_runtime_azure" "aim" {
-  name            = "vnetRuntime"
+  for_each = local.integration_runtime
+  name            = each.key
   data_factory_id = azurerm_data_factory.adf.id
   location        = var.location
-  core_count      = 8
-  compute_type    = "General"
-  virtual_network_enabled = true
-  description     = "Runtime with vnet enabled"
+  core_count      = each.value.core_count
+  compute_type    = each.value.compute_type
+  virtual_network_enabled = each.value.virtual_network_enabled
+  description     = each.value.description
 }
 
 resource "azurerm_data_factory_managed_private_endpoint" "adl" {
@@ -209,32 +203,14 @@ resource "azurerm_data_factory_custom_dataset" "data_rest" {
 }
 
 
-
-
-# resource "azurerm_data_factory_custom_dataset" "rawstore" {
-#   for_each = local.raw_data
-#   name                = each.key
-#   data_factory_id     = azurerm_data_factory.adf.id
-#   type                = each.value.data_type
-
-#   linked_service {
-#     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
-#   }
-  
-#   type_properties_json = <<JSON
-#     {
-#       "location": {
-#         "type": "AzureBlobFSLocation",
-#         "fileName": "${each.value.fileName}",
-#         "folderPath": "${each.value.folderPath}",
-#         "fileSystem": "${each.value.fileSystem}"
-#       }
-#     }
-#   JSON
-
-#   depends_on = [  
-#     azurerm_data_factory_linked_custom_service.adf
-#   ]
-
-# }
-
+resource "azurerm_data_factory_linked_service_azure_sql_database" "example" {
+  for_each = local.linked_sql
+  name              = each.key
+  data_factory_id   = azurerm_data_factory.adf.id
+  connection_string = each.value.connection_string
+  integration_runtime_name = each.value.integration_runtime_name
+  depends_on = [  
+    azurerm_data_factory_linked_custom_service.adf,
+    azurerm_data_factory_integration_runtime_azure.aim
+  ]
+}
