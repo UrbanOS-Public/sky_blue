@@ -32,6 +32,12 @@ locals {
       integration_runtime_name = "vnetRuntime"
     }
   }
+  linked_adl = {
+    "ADL_AIM"                = {
+      connection_string = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
+      integration_runtime_name = "vnetRuntime"
+    }
+  }
   integration_runtime = {
     "vnetRuntime"                = {
       core_count      = 8
