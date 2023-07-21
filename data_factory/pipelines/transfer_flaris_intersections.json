@@ -1,6 +1,6 @@
 [
     {
-        "name": "Copy data1",
+        "name": "GetCrashData",
         "type": "Copy",
         "dependsOn": [],
         "policy": {
@@ -35,13 +35,13 @@
         },
         "inputs": [
             {
-                "referenceName": "FLARIS_Intersections",
+                "referenceName": "crash_data_json_all",
                 "type": "DatasetReference"
             }
         ],
         "outputs": [
             {
-                "referenceName": "adl_FLARIS_Intersections_json",
+                "referenceName": "adl_crash_data_json_all",
                 "type": "DatasetReference"
             }
         ]
@@ -51,7 +51,7 @@
         "type": "ExecuteDataFlow",
         "dependsOn": [
             {
-                "activity": "Copy data1",
+                "activity": "GetCrashData",
                 "dependencyConditions": [
                     "Succeeded"
                 ]
@@ -67,7 +67,7 @@
         "userProperties": [],
         "typeProperties": {
             "dataflow": {
-                "referenceName": "data_flow_flaris_i",
+                "referenceName": "data_flow_crash",
                 "type": "DataFlowReference"
             },
             "compute": {
@@ -78,8 +78,8 @@
         }
     },
     {
-        "name": "Data flow2",
-        "type": "ExecuteDataFlow",
+        "name": "Copy data1",
+        "type": "Copy",
         "dependsOn": [
             {
                 "activity": "Data flow1",
@@ -97,15 +97,1925 @@
         },
         "userProperties": [],
         "typeProperties": {
-            "dataflow": {
-                "referenceName": "data_flow_flaris_g",
-                "type": "DataFlowReference"
+            "source": {
+                "type": "DelimitedTextSource",
+                "storeSettings": {
+                    "type": "AzureBlobFSReadSettings",
+                    "recursive": true,
+                    "enablePartitionDiscovery": false
+                },
+                "formatSettings": {
+                    "type": "DelimitedTextReadSettings"
+                }
             },
-            "compute": {
-                "coreCount": 8,
-                "computeType": "General"
+            "sink": {
+                "type": "AzureSqlSink",
+                "writeBehavior": "upsert",
+                "upsertSettings": {
+                    "useTempDB": true,
+                    "keys": [
+                        "OBJECTID"
+                    ]
+                },
+                "sqlWriterUseTableLock": true,
+                "tableOption": "autoCreate",
+                "disableMetricsCollection": false
             },
-            "traceLevel": "Fine"
-        }
+            "enableStaging": false,
+            "translator": {
+                "type": "TabularTranslator",
+                "mappings": [
+                    {
+                        "source": {
+                            "name": "AADT_SOURCE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AADT_SOURCE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ACCLANE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ACCLANE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ACCSIDRD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ACCSIDRD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGENCY_TYPE_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGENCY_TYPE_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGE_65_69_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGE_65_69_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGE_65_PLUS_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGE_65_PLUS_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGE_70_74_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGE_70_74_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGE_75_79_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGE_75_79_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGE_80_PLUS_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGE_80_PLUS_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGE_TEEN_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGE_TEEN_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AGGRESSIVE_DRIVING_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AGGRESSIVE_DRIVING_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ALCINVCD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ALCINVCD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ARBM_ROADSIDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ARBM_ROADSIDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ARBM_ROAD_STATUS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ARBM_ROAD_STATUS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "AVERAGE_DAILY_TRAFFIC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "AVERAGE_DAILY_TRAFFIC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "BICYCLIST_RELATED_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "BICYCLIST_RELATED_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CALENDAR_YEAR",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CALENDAR_YEAR",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CARSTACD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CARSTACD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CASE_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CASE_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CNTOFLANES",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CNTOFLANES",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "COMMERCIAL_VEHICLE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "COMMERCIAL_VEHICLE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "COUNTY_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "COUNTY_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRASH_CLASS_IND_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRASH_CLASS_IND_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRASH_DATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRASH_DATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRASH_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRASH_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRASH_TIME",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRASH_TIME",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRRATECD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRRATECD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRSH_REF_NODE_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRSH_REF_NODE_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRSH_XTMREF_NOD_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRSH_XTMREF_NOD_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "CRSH_XTRREFNODB_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "CRSH_XTRREFNODB_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "D1_FRST_DR_ACTN_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "D1_FRST_DR_ACTN_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "D1_FRST_DR_ACTN_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "D1_FRST_DR_ACTN_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "D2_FRST_DR_ACTN_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "D2_FRST_DR_ACTN_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "D2_FRST_DR_ACTN_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "D2_FRST_DR_ACTN_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DAYOWEEK",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DAYOWEEK",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DHSCNTYCTY",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DHSCNTYCTY",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DHSMV_CTY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DHSMV_CTY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DHSRDSYS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DHSRDSYS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DISTRACTED_DRIVER_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DISTRACTED_DRIVER_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DOT_CNTY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DOT_CNTY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DOT_GEOG_DIST_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DOT_GEOG_DIST_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DRIVER_ACTION_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DRIVER_ACTION_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DRIVER_PEDEST_CONDIT_IND_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DRIVER_PEDEST_CONDIT_IND_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DSTNC_TOXTRNOD_NUM",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DSTNC_TOXTRNOD_NUM",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "DST_TOXTRMNODB_NUM",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "DST_TOXTRMNODB_NUM",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRNMT1",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRNMT1",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRNMT1_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRNMT1_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRNMT2",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRNMT2",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRNMT2_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRNMT2_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRNMT3",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRNMT3",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRNMT3_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRNMT3_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ENVIRONMENT_CONDITION_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ENVIRONMENT_CONDITION_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "EVNT_WTHR_COND_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "EVNT_WTHR_COND_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "EXTRACT_DATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "EXTRACT_DATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "FRST_HARM_LOC_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "FRST_HARM_LOC_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "FUNCLASS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "FUNCLASS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "GEO_URBAN_RURAL_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "GEO_URBAN_RURAL_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "IMPAIRED_BICYCLIST_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "IMPAIRED_BICYCLIST_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "IMPAIRED_DRIVER_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "IMPAIRED_DRIVER_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "IMPAIRED_PEDESTRIAN_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "IMPAIRED_PEDESTRIAN_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "IMPCT_TYP_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "IMPCT_TYP_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "INJSEVER",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "INJSEVER",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "INTCT_TYP_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "INTCT_TYP_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "INTERSECTION_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "INTERSECTION_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "INT_ROADWAY_NAME",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "INT_ROADWAY_NAME",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "INVSTGT_AGCY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "INVSTGT_AGCY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "IN_TOWN_FLAG",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "IN_TOWN_FLAG",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "JCT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "JCT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LANE_DEPARTURE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LANE_DEPARTURE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LATITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LATITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LAW_ENFRC_PRSNT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LAW_ENFRC_PRSNT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LGHT_COND_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LGHT_COND_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LINK_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LINK_ID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LOCMP",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LOCMP",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LOC_WTHN_ZONE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LOC_WTHN_ZONE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "LONGITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "LONGITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "MAP_SOURCE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "MAP_SOURCE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "MOST_HARM_EVNT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "MOST_HARM_EVNT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "MOTORCYCLE_INVOLVED_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "MOTORCYCLE_INVOLVED_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NEAREST_NODE_FROM_CRASH",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NEAREST_NODE_FROM_CRASH",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NO_BELT_AGE_13_17_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NO_BELT_AGE_13_17_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NO_BELT_AGE_1_4_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NO_BELT_AGE_1_4_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NO_BELT_AGE_5_12_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NO_BELT_AGE_5_12_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NO_BELT_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NO_BELT_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NUMBER_OF_BICYCLISTS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NUMBER_OF_BICYCLISTS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NUMBER_OF_INJURED",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NUMBER_OF_INJURED",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NUMBER_OF_KILLED",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NUMBER_OF_KILLED",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NUMBER_OF_PEDESTRIANS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NUMBER_OF_PEDESTRIANS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NUMBER_OF_SERIOUS_INJURIES",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NUMBER_OF_SERIOUS_INJURIES",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "NUMBER_OF_VEHICLES",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "NUMBER_OF_VEHICLES",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "OBJECTID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "OBJECTID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "OFFICER_LATITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "OFFICER_LATITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "OFFICER_LONGITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "OFFICER_LONGITUDE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ON_ROADWAY_NAME",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ON_ROADWAY_NAME",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "PEDESTRIAN_BICYCLIST_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "PEDESTRIAN_BICYCLIST_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "PEDESTRIAN_RELATED_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "PEDESTRIAN_RELATED_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_AVG_PERC_TRUCK_TRAFF",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_AVG_PERC_TRUCK_TRAFF",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_HORIZ_CURVE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_HORIZ_CURVE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_MEDIAN_WIDTH_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_MEDIAN_WIDTH_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_TYPE_1",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_TYPE_1",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_TYPE_1_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_TYPE_1_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_TYPE_2",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_TYPE_2",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_TYPE_2_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_TYPE_2_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_TYPE_3",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_TYPE_3",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_TYPE_3_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_TYPE_3_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_WIDTH_1_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_WIDTH_1_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_WIDTH_2_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_WIDTH_2_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SHOULDER_WIDTH_3_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SHOULDER_WIDTH_3_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RCI_SURFACE_WIDTH_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RCI_SURFACE_WIDTH_FT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RDWY_ALIGN_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RDWY_ALIGN_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RDWY_GRDE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RDWY_GRDE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "RD_SRFC_COND_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "RD_SRFC_COND_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "REFDIRECT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "REFDIRECT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "REFDISTANCE_MI",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "REFDISTANCE_MI",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADCOND1",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADCOND1",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADCOND1_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADCOND1_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADCOND2",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADCOND2",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADCOND2_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADCOND2_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADCOND3",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADCOND3",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADCOND3_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADCOND3_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROADWAYID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROADWAYID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "ROAD_CONDITION_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "ROAD_CONDITION_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SAFETYLAT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SAFETYLAT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SAFETYLON",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SAFETYLON",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SCHL_BUS_REL_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SCHL_BUS_REL_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SITELOCA",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SITELOCA",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SKID_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SKID_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SKID_TEST_DATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SKID_TEST_DATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SPEEDING_AGGRESSIVE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SPEEDING_AGGRESSIVE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SPEEDING_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SPEEDING_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "SPEED_LIMIT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "SPEED_LIMIT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "STATE_ROAD_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "STATE_ROAD_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "TOTAL_DRIVERS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "TOTAL_DRIVERS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "TOTAL_PERSONS",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "TOTAL_PERSONS",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "TRAFFIC_CONTROL_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "TRAFFIC_CONTROL_MC",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "TRAF_WAY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "TRAF_WAY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "TRAVDIR",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "TRAVDIR",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "TYPESHLD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "TYPESHLD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "US_ROAD_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "US_ROAD_NUMBER",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V1TRAFCTL",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V1TRAFCTL",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V1TRAFCTL_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V1TRAFCTL_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V1_TRAF_WAY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V1_TRAF_WAY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V1_TRAF_WAY_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V1_TRAF_WAY_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V2TRAFCTL",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V2TRAFCTL",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V2TRAFCTL_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V2TRAFCTL_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V2_TRAF_WAY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V2_TRAF_WAY_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "V2_TRAF_WAY_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "V2_TRAF_WAY_CD_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "VHCL_MOVE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "VHCL_MOVE_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "WEEKDAY_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "WEEKDAY_TXT",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "WORKZONE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "WORKZONE_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "WRK_PRSNT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "WRK_PRSNT_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "WRK_ZONE_TYP_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "WRK_ZONE_TYP_CD",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "WRONGWAY_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "WRONGWAY_IND",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "XID",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "XID",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "X_COORDINATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "X_COORDINATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    },
+                    {
+                        "source": {
+                            "name": "Y_COORDINATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        },
+                        "sink": {
+                            "name": "Y_COORDINATE",
+                            "type": "String",
+                            "physicalType": "String"
+                        }
+                    }
+                ],
+                "typeConversion": true,
+                "typeConversionSettings": {
+                    "allowDataTruncation": true,
+                    "treatBooleanAsNumber": false
+                }
+            }
+        },
+        "inputs": [
+            {
+                "referenceName": "adl_crash_data_csv_all",
+                "type": "DatasetReference"
+            }
+        ],
+        "outputs": [
+            {
+                "referenceName": "sql_crash",
+                "type": "DatasetReference"
+            }
+        ]
     }
 ]

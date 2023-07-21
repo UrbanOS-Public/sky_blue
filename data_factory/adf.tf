@@ -117,6 +117,25 @@ resource "azurerm_role_assignment" "rg" {
   ]
 }
 
+resource "azurerm_data_factory_integration_runtime_azure" "aim" {
+  name            = "vnetRuntime"
+  data_factory_id = azurerm_data_factory.adf.id
+  location        = var.location
+  core_count      = 8
+  compute_type    = "General"
+  virtual_network_enabled = true
+  description     = "Runtime with vnet enabled"
+}
+
+resource "azurerm_data_factory_managed_private_endpoint" "adl" {
+  name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
+  data_factory_id    = azurerm_data_factory.adf.id
+  target_resource_id = azurerm_storage_account.example.id
+  subresource_name   = "blob"
+  depends_on = [ 
+    azurerm_role_assignment.blob_contributor 
+  ]
+}
 
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
@@ -188,6 +207,9 @@ resource "azurerm_data_factory_custom_dataset" "data_rest" {
   ]
 
 }
+
+
+
 
 # resource "azurerm_data_factory_custom_dataset" "rawstore" {
 #   for_each = local.raw_data

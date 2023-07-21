@@ -1,7 +1,7 @@
 {
     "location": {
         "type": "AzureBlobFSLocation",
-        "fileName": "flaris_inter.csv",
+        "fileName": "intersections.csv",
         "folderPath": "intersections",
         "fileSystem": "standardized"
     },
