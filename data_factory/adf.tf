@@ -57,6 +57,7 @@ resource "azurerm_data_factory" "adf" {
   location                = var.location
   resource_group_name     = module.namedatalake.resource_group.name
   public_network_enabled  = false
+  managed_virtual_network_enabled = true #!
   customer_managed_key_id = azurerm_key_vault_key.cmk.id
   customer_managed_key_identity_id = azurerm_user_assigned_identity.adf_identity.id
   purview_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/${module.namepurview.resource_group.name}/providers/Microsoft.Purview/accounts/${module.namepurview.powerbi_embedded.name}"
