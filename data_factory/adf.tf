@@ -146,15 +146,15 @@ resource "azurerm_data_factory_managed_private_endpoint" "adl" {
   ]
 }
 
-# resource "azurerm_data_factory_managed_private_endpoint" "sql" {
-#   name               = "adf-${(data.azurerm_mssql_server.aim.name)}-pe"
-#   data_factory_id    = azurerm_data_factory.adf.id
-#   target_resource_id = data.azurerm_mssql_server.aim.id
-#   subresource_name   = "sqlServer"
-#   depends_on = [ 
-#     azurerm_data_factory.adf
-#   ]
-# }
+resource "azurerm_data_factory_managed_private_endpoint" "sql" {
+   name               = "adf-${(data.azurerm_mssql_server.aim.name)}-pe"
+   data_factory_id    = azurerm_data_factory.adf.id
+   target_resource_id = data.azurerm_mssql_server.aim.id
+   subresource_name   = "sqlServer"
+   depends_on = [ 
+     azurerm_data_factory.adf
+   ]
+}
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
