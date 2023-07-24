@@ -122,16 +122,25 @@ resource "azurerm_data_factory_integration_runtime_azure" "aim" {
   virtual_network_enabled = each.value.virtual_network_enabled
 }
 
-resource "azurerm_data_factory_managed_private_endpoint" "adl" {
-  name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
-  data_factory_id    = azurerm_data_factory.adf.id
-  target_resource_id = data.azurerm_resource_group.datalake.id
-  subresource_name   = "blob"
-  depends_on = [ 
-    azurerm_role_assignment.blob_contributor 
-  ]
-}
+# resource "azurerm_data_factory_managed_private_endpoint" "adl" {
+#   name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
+#   data_factory_id    = azurerm_data_factory.adf.id
+#   target_resource_id = data.azurerm_resource_group.datalake.id
+#   subresource_name   = "blob"
+#   depends_on = [ 
+#     azurerm_role_assignment.blob_contributor 
+#   ]
+# }
 
+# resource "azurerm_data_factory_managed_private_endpoint" "sql" {
+#   name               = "sql-${(data.azurerm_storage_account.lake.name)}-pe"
+#   data_factory_id    = azurerm_data_factory.adf.id
+#   target_resource_id = data.azurerm_resource_group.datalake.id
+#   subresource_name   = "sql"
+#   depends_on = [ 
+#     azurerm_role_assignment.blob_contributor 
+#   ]
+# }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
@@ -141,7 +150,8 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   description           = "Link with Data Lake storage"
   integration_runtime_name = "vnetRuntime"
   depends_on = [ 
-    azurerm_role_assignment.blob_contributor 
+    azurerm_role_assignment.blob_contributor,
+    azurerm_data_factory_integration_runtime_azure.aim
   ]
 }
 
