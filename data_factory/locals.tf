@@ -34,8 +34,8 @@ locals {
   }
   linked_adl = {
     "ADL_AIM"                = {
-      connection_string = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
       integration_runtime_name = "vnetRuntime"
+      
     }
   }
   integration_runtime = {
@@ -263,7 +263,7 @@ locals {
       fileName = "flaris_geo.csv"
       folderPath = "fdos"
       fileSystem = "standardized"
-      data_type  = "DelimitedTeto jet"
+      data_type  = "DelimitedText"
     }
     "adl_crash_data_csv_all" = {
       fileName = "crash_all.csv"
@@ -326,6 +326,7 @@ locals {
        fileName   = "data_flow_flaris_i.json"
        source_link = "adl_FLARIS_Intersections_json"
        sink_link  = "adl_FLARIS_Intersections_csv"
+       transformation = ["flatten1"]
        script_lines = [ "source(output(",
                 "          exceededTransferLimit as boolean,",
                 "          features as (attributes as (AADT_MAJOR as integer, AADT_MAJOR_ROADWAY_ID as string, AADT_MINOR as integer, AADT_MINOR_ROADWAY_ID as string, COMPLEX_INTERSECTION_IND as boolean, CRASH_INTERSECT_CATEGORY_SN as string, DOT_CNTY_CD as short, DOT_GEOG_DIST_CD as short, EV_DAILY_TRAFFIC as integer, EXTRACT_DATE as long, EXT_NUM_SEG as short, GEOMETRY_TYPE as boolean, GEOMETRY_TYPE_ID as short, INTERCHANGE_IND as string, INTERSECTING_ROADWAYID_MPS as string, INTERSECTING_ROAD_NAMES as string, INTERSECTION_KEY as integer, INTERSECTION_MIN_NODE_ID as integer, INTERSECTION_TYPE_ID as string, INT_NUM_SEG as short, MAP_SOURCE as string, MAX_LANES_NO as short, NUM_LEG_ID as short, OBJECTID as integer, ON_OFF_SYSTEM_IND as string, OTHER_SIGN_IND as string, PXID as integer, SIGNALIZED_IND as boolean, STOP_CONTROL_IND as boolean, TOT_NUM_LEG as short, TOT_NUM_NODES as short, TOT_NUM_SEG as short, URBAN_IND as boolean, USPS_CITY_PRIMARY_ID as short, X_UTM as double, YIELD_CONTROL_IND as boolean, Y_UTM as double), geometry as (paths as double[][][]))[],",
@@ -399,6 +400,7 @@ locals {
        fileName   = "data_flow_flaris_g.json"
        source_link = "adl_FLARIS_Intersections_json"
        sink_link  = "adl_FLARIS_geometry_csv"
+       transformation = ["flatten1", "flatten2", "flatten3"]
        script_lines = ["source(output(",
                 "          exceededTransferLimit as boolean,",
                 "          features as (attributes as (AADT_MAJOR as integer, AADT_MAJOR_ROADWAY_ID as string, AADT_MINOR as integer, AADT_MINOR_ROADWAY_ID as string, COMPLEX_INTERSECTION_IND as boolean, CRASH_INTERSECT_CATEGORY_SN as string, DOT_CNTY_CD as short, DOT_GEOG_DIST_CD as short, EV_DAILY_TRAFFIC as integer, EXTRACT_DATE as long, EXT_NUM_SEG as short, GEOMETRY_TYPE as boolean, GEOMETRY_TYPE_ID as short, INTERCHANGE_IND as string, INTERSECTING_ROADWAYID_MPS as string, INTERSECTING_ROAD_NAMES as string, INTERSECTION_KEY as integer, INTERSECTION_MIN_NODE_ID as integer, INTERSECTION_TYPE_ID as string, INT_NUM_SEG as short, MAP_SOURCE as string, MAX_LANES_NO as short, NUM_LEG_ID as short, OBJECTID as integer, ON_OFF_SYSTEM_IND as string, OTHER_SIGN_IND as string, PXID as integer, SIGNALIZED_IND as boolean, STOP_CONTROL_IND as boolean, TOT_NUM_LEG as short, TOT_NUM_NODES as short, TOT_NUM_SEG as short, URBAN_IND as boolean, USPS_CITY_PRIMARY_ID as short, X_UTM as double, YIELD_CONTROL_IND as boolean, Y_UTM as double), geometry as (paths as double[][][]))[],",
@@ -451,6 +453,7 @@ locals {
        fileName   = "data_flow_crash.json"
        source_link = "adl_crash_data_json_all"
        sink_link  = "adl_crash_data_csv_all"
+       transformation = ["flatten1"]
        script_lines = [ "source(output(",
                 "          features as (attributes as (AADT_SOURCE as string, ACCLANE as string, ACCSIDRD as string, AGENCY_TYPE_TXT as string, AGE_65_69_IND as boolean, AGE_65_PLUS_IND as boolean, AGE_70_74_IND as boolean, AGE_75_79_IND as boolean, AGE_80_PLUS_IND as boolean, AGE_TEEN_IND as boolean, AGGRESSIVE_DRIVING_IND as boolean, ALCINVCD as short, ARBM_ROADSIDE as string, ARBM_ROAD_STATUS as string, AVERAGE_DAILY_TRAFFIC as integer, BICYCLIST_RELATED_IND as boolean, CALENDAR_YEAR as short, CARSTACD as short, CASE_NUMBER as string, CNTOFLANES as short, COMMERCIAL_VEHICLE_IND as boolean, COUNTY_TXT as string, CRASH_CLASS_IND_MC as string, CRASH_DATE as long, CRASH_NUMBER as integer, CRASH_TIME as short, CRRATECD as short, CRSH_REF_NODE_ID as boolean, CRSH_XTMREF_NOD_ID as boolean, CRSH_XTRREFNODB_ID as boolean, D1_FRST_DR_ACTN_CD as short, D1_FRST_DR_ACTN_CD_TXT as string, D2_FRST_DR_ACTN_CD as short, D2_FRST_DR_ACTN_CD_TXT as string, DAYOWEEK as short, DHSCNTYCTY as short, DHSMV_CTY_CD as short, DHSRDSYS as short, DISTRACTED_DRIVER_IND as boolean, DOT_CNTY_CD as short, DOT_GEOG_DIST_CD as short, DRIVER_ACTION_MC as string, DRIVER_PEDEST_CONDIT_IND_MC as string, DSTNC_TOXTRNOD_NUM as double, DST_TOXTRMNODB_NUM as double, ENVIRNMT1 as short, ENVIRNMT1_TXT as string, ENVIRNMT2 as short, ENVIRNMT2_TXT as string, ENVIRNMT3 as short, ENVIRNMT3_TXT as string, ENVIRONMENT_CONDITION_MC as string, EVNT_WTHR_COND_CD as short, EXTRACT_DATE as long, FRST_HARM_LOC_CD as short, FUNCLASS as short, GEO_URBAN_RURAL_IND as string, IMPAIRED_BICYCLIST_IND as boolean, IMPAIRED_DRIVER_IND as boolean, IMPAIRED_PEDESTRIAN_IND as boolean, IMPCT_TYP_CD as short, INJSEVER as short, INTCT_TYP_CD as short, INTERSECTION_IND as boolean, INT_ROADWAY_NAME as string, INVSTGT_AGCY_CD as short, IN_TOWN_FLAG as boolean, JCT_CD as short, LANE_DEPARTURE_IND as boolean, LATITUDE as double, LAW_ENFRC_PRSNT_CD as short, LGHT_COND_CD as short, LINK_ID as boolean, LOCMP as double, LOC_WTHN_ZONE_CD as short, LONGITUDE as double, MAP_SOURCE as string, MOST_HARM_EVNT_CD as short, MOTORCYCLE_INVOLVED_IND as boolean, NEAREST_NODE_FROM_CRASH as short, NO_BELT_AGE_13_17_IND as boolean, NO_BELT_AGE_1_4_IND as boolean, NO_BELT_AGE_5_12_IND as boolean, NO_BELT_IND as boolean, NUMBER_OF_BICYCLISTS as short, NUMBER_OF_INJURED as short, NUMBER_OF_KILLED as short, NUMBER_OF_PEDESTRIANS as short, NUMBER_OF_SERIOUS_INJURIES as short, NUMBER_OF_VEHICLES as short, OBJECTID as integer, OFFICER_LATITUDE as double, OFFICER_LONGITUDE as double, ON_ROADWAY_NAME as string, PEDESTRIAN_BICYCLIST_IND as boolean, PEDESTRIAN_RELATED_IND as boolean, RCI_AVG_PERC_TRUCK_TRAFF as double, RCI_HORIZ_CURVE_CD as string, RCI_MEDIAN_WIDTH_FT as double, RCI_SHOULDER_TYPE_1 as short, RCI_SHOULDER_TYPE_1_TXT as string, RCI_SHOULDER_TYPE_2 as short, RCI_SHOULDER_TYPE_2_TXT as string, RCI_SHOULDER_TYPE_3 as short, RCI_SHOULDER_TYPE_3_TXT as string, RCI_SHOULDER_WIDTH_1_FT as double, RCI_SHOULDER_WIDTH_2_FT as double, RCI_SHOULDER_WIDTH_3_FT as double, RCI_SURFACE_WIDTH_FT as double, RDWY_ALIGN_CD as short, RDWY_GRDE_CD as short, RD_SRFC_COND_CD as short, REFDIRECT as string, REFDISTANCE_MI as double, ROADCOND1 as short, ROADCOND1_TXT as string, ROADCOND2 as short, ROADCOND2_TXT as string, ROADCOND3 as short, ROADCOND3_TXT as string, ROADWAYID as integer, ROAD_CONDITION_MC as string, SAFETYLAT as double, SAFETYLON as double, SCHL_BUS_REL_CD as short, SITELOCA as short, SKID_NUMBER as short, SKID_TEST_DATE as long, SPEEDING_AGGRESSIVE_IND as boolean, SPEEDING_IND as boolean, SPEED_LIMIT as short, STATE_ROAD_NUMBER as string, TOTAL_DRIVERS as short, TOTAL_PERSONS as short, TRAFFIC_CONTROL_MC as string, TRAF_WAY_CD as short, TRAVDIR as string, TYPESHLD as short, US_ROAD_NUMBER as string, V1TRAFCTL as short, V1TRAFCTL_TXT as string, V1_TRAF_WAY_CD as short, V1_TRAF_WAY_CD_TXT as string, V2TRAFCTL as short, V2TRAFCTL_TXT as string, V2_TRAF_WAY_CD as short, V2_TRAF_WAY_CD_TXT as string, VHCL_MOVE_CD as short, WEEKDAY_TXT as string, WORKZONE_IND as boolean, WRK_PRSNT_CD as short, WRK_ZONE_TYP_CD as short, WRONGWAY_IND as boolean, XID as long, X_COORDINATE as double, Y_COORDINATE as double), geometry as (x as integer, y as integer))[],",
                 "          fields as (alias as string, length as short, name as string, type as string)[],",

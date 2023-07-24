@@ -23,6 +23,13 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
     name = "flatten1"
   }
 
+  dynamic "transformation" {
+    for_each = each.value.transformation
+    content {
+      name = transformation.value
+    }
+  }
+
   script_lines = each.value.script_lines
   
 
