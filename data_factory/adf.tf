@@ -221,6 +221,7 @@ resource "azurerm_data_factory_linked_service_azure_sql_database" "aim" {
   data_factory_id   = azurerm_data_factory.adf.id
   connection_string = each.value.connection_string
   integration_runtime_name = each.value.integration_runtime_name
+  use_managed_identity = true
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
     azurerm_data_factory_integration_runtime_azure.aim,
