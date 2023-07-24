@@ -245,10 +245,25 @@ resource "azurerm_data_factory_linked_service_azure_sql_database" "aim" {
   ]
 }
 
-resource "azurerm_data_factory_dataset_sql_server_table" "aim" {
+resource "azurerm_data_factory_custom_dataset" "sql_tables" {
   for_each = local.linked_sql_table
   name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
-  linked_service_name = each.value.linked_service_name
-  table_name = each.value.table_name
+  type                = "AzureSqlTable"
+
+  linked_service {
+    name = each.value.linked_service_name
+  }
+  
+  type_properties_json = <<JSON
+        {
+            "schema": "dbo",
+            "table": "${each.value.table_name}"
+        }
+  JSON
+  depends_on = [  
+    azurerm_data_factory_linked_custom_service.adf
+  ]
+
+
 }
