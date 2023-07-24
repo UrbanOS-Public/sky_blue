@@ -149,7 +149,7 @@ resource "azurerm_data_factory_managed_private_endpoint" "adl" {
 resource "azurerm_data_factory_managed_private_endpoint" "sql" {
   name               = "sql-${(data.azurerm_storage_account.lake.name)}-pe"
   data_factory_id    = azurerm_data_factory.adf.id
-  target_resource_id = data.azurerm_sql_server.aim.id
+  target_resource_id = data.azurerm_mssql_server.aim.id
   subresource_name   = "sql"
   depends_on = [ 
     azurerm_data_factory.adf

@@ -1,4 +1,4 @@
-name: "AIM 04 Data Factory"
+name: "AIM 05 Data Factory"
 on:
   workflow_dispatch:
     inputs:

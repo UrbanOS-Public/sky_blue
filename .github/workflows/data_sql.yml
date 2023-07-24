@@ -1,4 +1,4 @@
-name: "AIM 05 Azure SQL DB"
+name: "AIM 04 Azure SQL DB"
 on:
   workflow_dispatch:
     inputs:
