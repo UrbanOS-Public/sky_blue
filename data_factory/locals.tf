@@ -51,10 +51,14 @@ locals {
     "sql_table_crash" = {
       linked_service_name = "SQLDB_AIM"
       table_name = "crash"
+      description = "Crash data sql table"
+      folder = "sql"
     }
     "sql_table_intersections" = {
       linked_service_name = "SQLDB_AIM"
       table_name = "intersections"
+      description = "Intersections data sql table"
+      folder = "sql"
     }
   }
   custom_data = {

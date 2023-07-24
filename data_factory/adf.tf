@@ -254,7 +254,8 @@ resource "azurerm_data_factory_custom_dataset" "sql_tables" {
   linked_service {
     name = each.value.linked_service_name
   }
-  
+  description = each.value.description
+  folder      = each.value.folder
   type_properties_json = <<JSON
         {
             "tableName": "[dbo].[${each.value.table_name}]"
