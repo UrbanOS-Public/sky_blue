@@ -124,32 +124,44 @@ resource "azurerm_data_factory_integration_runtime_azure" "aim" {
   virtual_network_enabled = each.value.virtual_network_enabled
 }
 
-# resource "azurerm_data_factory_managed_private_endpoint" "adl" {
-#   name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
-#   data_factory_id    = azurerm_data_factory.adf.id
-#   target_resource_id = data.azurerm_resource_group.datalake.id
-#   subresource_name   = "blob"
-#   depends_on = [ 
-#     azurerm_role_assignment.blob_contributor 
-#   ]
+# Interactive authoring is not supported - TO DO: possible workaround
+# resource "azapi_resource_action" "df" {
+#   for_each = local.integration_runtime
+#   type = "Microsoft.DataFactory/factories/integrationRuntimes@2018-06-01"
+#   resource_id = azurerm_data_factory_integration_runtime_azure.aim[each.key].id
+#   action = "enableInteractiveQuery"
+#   body = jsonencode({
+#     autoTerminationMinutes = 10
+#   })
 # }
 
-# resource "azurerm_data_factory_managed_private_endpoint" "sql" {
-#   name               = "sql-${(data.azurerm_storage_account.lake.name)}-pe"
-#   data_factory_id    = azurerm_data_factory.adf.id
-#   target_resource_id = data.azurerm_resource_group.datalake.id
-#   subresource_name   = "sql"
-#   depends_on = [ 
-#     azurerm_role_assignment.blob_contributor 
-#   ]
-# }
+#After creation, a private endpoint request will be generated that must get approved by an owner of the data source.
+resource "azurerm_data_factory_managed_private_endpoint" "adl" {
+  name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
+  data_factory_id    = azurerm_data_factory.adf.id
+  target_resource_id = data.azurerm_resource_group.datalake.id
+  subresource_name   = "blob"
+  depends_on = [ 
+    azurerm_data_factory.adf
+  ]
+}
+
+resource "azurerm_data_factory_managed_private_endpoint" "sql" {
+  name               = "sql-${(data.azurerm_storage_account.lake.name)}-pe"
+  data_factory_id    = azurerm_data_factory.adf.id
+  target_resource_id = data.azurerm_sql_server.aim.id
+  subresource_name   = "sql"
+  depends_on = [ 
+    azurerm_data_factory.adf
+  ]
+}
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
   data_factory_id       = azurerm_data_factory.adf.id
   use_managed_identity  = true
   url                   = "https://${(data.azurerm_storage_account.lake.name)}.dfs.core.windows.net"
-  description           = "Link with Data Lake storage"
+  description           = "Link with Data Lake storage via private link"
   integration_runtime_name = "vnetRuntime"
   depends_on = [ 
     azurerm_role_assignment.blob_contributor,

@@ -42,3 +42,8 @@ data "azurerm_resources" "key_vault" {
    name                = module.namedatalake.data_lake_store.name 
    resource_group_name = module.namedatalake.resource_group.name
  }
+
+ data "azurerm_sql_server" "aim" {
+  name                = module.namedatalake.mssql_server.name
+  resource_group_name = module.namedatalake.resource_group.name
+}
