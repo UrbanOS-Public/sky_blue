@@ -52,6 +52,10 @@ locals {
       linked_service_name = "SQLDB_AIM"
       table_name = "crash"
     }
+    "sql_table_intersections" = {
+      linked_service_name = "SQLDB_AIM"
+      table_name = "intersections"
+    }
   }
   custom_data = {
     "bikes_data_json" = {
