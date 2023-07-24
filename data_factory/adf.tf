@@ -140,21 +140,21 @@ resource "azurerm_data_factory_managed_private_endpoint" "adl" {
   name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
   data_factory_id    = azurerm_data_factory.adf.id
   target_resource_id = data.azurerm_resource_group.datalake.id
-  subresource_name   = "blob"
+  #subresource_name   = "blob"
   depends_on = [ 
     azurerm_data_factory.adf
   ]
 }
 
-resource "azurerm_data_factory_managed_private_endpoint" "sql" {
-  name               = "sql-${(data.azurerm_storage_account.lake.name)}-pe"
-  data_factory_id    = azurerm_data_factory.adf.id
-  target_resource_id = data.azurerm_mssql_server.aim.id
-  subresource_name   = "sql"
-  depends_on = [ 
-    azurerm_data_factory.adf
-  ]
-}
+# resource "azurerm_data_factory_managed_private_endpoint" "sql" {
+#   name               = "sql-${(data.azurerm_storage_account.lake.name)}-pe"
+#   data_factory_id    = azurerm_data_factory.adf.id
+#   target_resource_id = data.azurerm_mssql_server.aim.id
+#   subresource_name   = "sql"
+#   depends_on = [ 
+#     azurerm_data_factory.adf
+#   ]
+# }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   name                  = module.namedatalake.data_factory_linked_service_data_lake_storage_gen2.name
