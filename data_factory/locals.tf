@@ -47,6 +47,12 @@ locals {
       virtual_network_enabled = true
     }
   }
+  linked_sql_table = {
+    "sql_table_crash" = {
+      linked_service_name = "SQLDB_AIM"
+      table_name = "crash"
+    }
+  }
   custom_data = {
     "bikes_data_json" = {
       linked_service = "arcgis"
@@ -267,7 +273,7 @@ locals {
       data_type  = "DelimitedText"
     }
     "adl_crash_data_csv_all" = {
-      fileName = "crash_all.csv"
+      fileName = "crash.csv"
       folderPath = "crash"
       fileSystem = "standardized"
       data_type  = "DelimitedText"

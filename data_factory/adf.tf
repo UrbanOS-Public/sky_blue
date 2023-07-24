@@ -165,7 +165,8 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   integration_runtime_name = "vnetRuntime"
   depends_on = [ 
     azurerm_role_assignment.blob_contributor,
-    azurerm_data_factory_integration_runtime_azure.aim
+    azurerm_data_factory_integration_runtime_azure.aim,
+    azurerm_data_factory_managed_private_endpoint.adl
   ]
 }
 
@@ -239,6 +240,15 @@ resource "azurerm_data_factory_linked_service_azure_sql_database" "aim" {
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
     azurerm_data_factory_integration_runtime_azure.aim,
+    azurerm_data_factory_managed_private_endpoint.sql,
     azurerm_data_factory.adf
   ]
+}
+
+resource "azurerm_data_factory_dataset_sql_server_table" "aim" {
+  for_each = local.linked_sql_table
+  name                = each.key
+  data_factory_id     = azurerm_data_factory.adf.id
+  linked_service_name = each.value.linked_service_name
+  table_name = each.value.table_name
 }
