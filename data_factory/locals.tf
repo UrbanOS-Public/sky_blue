@@ -66,71 +66,85 @@ locals {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/USBikeRoutesFlorida/FeatureServer/0/query?where=%20(FDOTCOID%20%3D%2086%20OR%20FDOTCOID%20%3D%2067)%20&outFields=*&outSR=4326&f=json"
       data_type = "Json"
+      folder = "source"
     }    
     "boundaries_data_json" = {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Florida_County_Boundaries_with_FDOT_Districts/FeatureServer/0/query?where=FDOTCountyCode%20%3D%20%2786%27&outFields=*&outSR=4326&f=json"
       data_type = "Json"
+      folder = "source"
     }
     "active_projects_data_json" = {
       linked_service = "fdot"
       relativeUrl = "arcgis/rest/services/Active_Construction_Projects/FeatureServer/0/query?where=County%3D%27Broward%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Meter&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=&resultRecordCount=&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type = "Json"
+      folder = "source"
     }
     "aadt_data_json" = {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Annual_Average_Daily_Traffic_TDA/FeatureServer/0/query?where=COUNTYDOT%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=100000&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token="
       data_type = "Json"
+      folder = "source"
     }    
     "intersection_data_json" = {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
       data_type = "Json"
+      folder = "source"
     }
     "traffic_signal_locations_json" = {
       linked_service = "arcgis"
       relativeUrl = "O1JpcwDW8sjYuddV/arcgis/rest/services/Traffic_Signal_Locations_TDA/FeatureServer/0/query?where=COUNTYDOT%20%3D%20'86'&outFields=*&outSR=4326&f=json"
       data_type = "Json"
+      folder = "source"
     } 
     "weather_data_json_2017" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2017-01-01&end_date=2017-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "RestResource"
+      folder = "source"
     }
     "weather_data_json_2018" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2018-01-01&end_date=2018-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "Json"
+      folder = "source"
     }
     "weather_data_json_2019" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2019-01-01&end_date=2019-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "Json"
+      folder = "source"
     }
     "weather_data_json_2020" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2020-01-01&end_date=2020-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "Json"
+      folder = "source"
     } 
     "weather_data_json_2021" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2021-01-01&end_date=2021-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "Json"
+      folder = "source"
     }
     "weather_data_json_2022" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2022-01-01&end_date=2022-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type = "Json"
+      folder = "source"
     } 
     "weather_data_json_2023" = {
       linked_service = "openmeteo"
       relativeUrl = "@concat('v1/archive?latitude=26.100412&longitude=-80.130704&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&start_date=2023-01-01&end_date=',formatDateTime(utcnow(), 'yyyy-MM-dd'))"
       data_type = "Json"
+      folder = "source"
     }   
     "weather_data_json_all" = {
       linked_service = "openmeteo"
       relativeUrl = "@concat('v1/archive?latitude=26.100412&longitude=-80.130704&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&start_date=2017-01-01&end_date=',formatDateTime(utcnow(), 'yyyy-MM-dd'))"
       data_type = "Json"
+      folder = "source"
     }   
   }
 

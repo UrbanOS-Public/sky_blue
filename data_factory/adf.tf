@@ -193,7 +193,7 @@ resource "azurerm_data_factory_custom_dataset" "data" {
   linked_service {
     name = each.value.linked_service
   }
-  
+  folder = each.value.folder
   type_properties_json = <<JSON
     {
       "location": {
