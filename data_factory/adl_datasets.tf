@@ -8,7 +8,7 @@ resource "azurerm_data_factory_custom_dataset" "rawstore" {
   linked_service {
     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
   }
-  
+  folder = each.value.folder
   type_properties_json = <<JSON
     ${(file("./adl_datasets/${each.key}.json"))}
   JSON
