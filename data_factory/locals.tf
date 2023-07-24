@@ -27,19 +27,19 @@ locals {
     }  
   }
   linked_sql = {
-    "SQLDB_AIM"                = {
+    "SQLDB_AIM"  = {
       connection_string = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
       integration_runtime_name = "vnetRuntime"
     }
   }
   linked_adl = {
-    "ADL_AIM"                = {
+    "ADL_AIM" = {
       integration_runtime_name = "vnetRuntime"
       
     }
   }
   integration_runtime = {
-    "vnetRuntime"                = {
+    "vnetRuntime" = {
       core_count        = 8
       compute_type      = "General"
       description       = "Runtime with vnet enabled"

@@ -113,13 +113,14 @@ resource "azurerm_role_assignment" "rg" {
 
 resource "azurerm_data_factory_integration_runtime_azure" "aim" {
   for_each = local.integration_runtime
-  name            = each.key
-  data_factory_id = azurerm_data_factory.adf.id
-  location        = var.location
-  core_count      = each.value.core_count
-  compute_type    = each.value.compute_type
-  description     = each.value.description
-  time_to_live_min = each.value.time_to_live_min
+  name              = each.key
+  data_factory_id   = azurerm_data_factory.adf.id
+  location          = var.location
+  core_count        = each.value.core_count
+  compute_type      = each.value.compute_type
+  description       = each.value.description
+  time_to_live_min  = each.value.time_to_live_min
+  cleanup_enabled   = true
   virtual_network_enabled = each.value.virtual_network_enabled
 }
 
