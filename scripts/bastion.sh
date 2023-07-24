@@ -25,3 +25,8 @@ az aks start --name juno-dev1-0531-cluster --resource-group urbanos-team
 az purview account show --name "pbi-aim-purview-dev-eus" --resource-group "rg-aim-purview-dev-eus"
 az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "1f2daa50-0dfc-44fd-82fe-978ecef07d6e" --resource-group "rg-aim-purview-dev-eus"
 az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --object-id "592308cb-ed13-4076-b3f5-d420a56748ad" --resource-group "rg-aim-purview-dev-eus"
+
+
+
+az datafactory managed-private-endpoint list --resource-group "rg-aim-adl-dev-eus" --factory-name "adf-aim-adl-dev-eus" --managed-virtual-network-name "default"
+az datafactory managed-private-endpoint delete --resource-group "rg-aim-adl-dev-eus" --factory-name "adf-aim-adl-dev-eus" --managed-virtual-network-name "default" -n "sql-dlsaimadldeveus-pe"
