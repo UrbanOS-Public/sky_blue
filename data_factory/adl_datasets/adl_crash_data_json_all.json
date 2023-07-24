@@ -1,7 +1,7 @@
 {
     "location": {
         "type": "AzureBlobFSLocation",
-        "fileName": "crash_all.json",
+        "fileName": "crash.json",
         "folderPath": "crash",
         "fileSystem": "raw"
     }
