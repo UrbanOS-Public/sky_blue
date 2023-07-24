@@ -124,6 +124,16 @@ resource "azurerm_data_factory_integration_runtime_azure" "aim" {
   virtual_network_enabled = each.value.virtual_network_enabled
 }
 
+resource "azapi_resource_action" "df" {
+  for_each = local.integration_runtime
+  type = "Microsoft.DataFactory/factories/integrationRuntimes@2018-06-01"
+  resource_id = azurerm_data_factory_integration_runtime_azure.aim[each.key].id
+  action = "enableInteractiveQuery"
+  body = jsonencode({
+    autoTerminationMinutes = 10
+  })
+}
+
 # resource "azurerm_data_factory_managed_private_endpoint" "adl" {
 #   name               = "adf-${(data.azurerm_storage_account.lake.name)}-pe"
 #   data_factory_id    = azurerm_data_factory.adf.id
