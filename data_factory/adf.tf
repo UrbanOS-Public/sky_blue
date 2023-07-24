@@ -119,6 +119,7 @@ resource "azurerm_data_factory_integration_runtime_azure" "aim" {
   core_count      = each.value.core_count
   compute_type    = each.value.compute_type
   description     = each.value.description
+  time_to_live_min = each.value.time_to_live_min
   virtual_network_enabled = each.value.virtual_network_enabled
 }
 

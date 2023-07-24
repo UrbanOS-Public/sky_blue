@@ -40,9 +40,10 @@ locals {
   }
   integration_runtime = {
     "vnetRuntime"                = {
-      core_count      = 8
-      compute_type    = "General"
-      description     = "Runtime with vnet enabled"
+      core_count        = 8
+      compute_type      = "General"
+      description       = "Runtime with vnet enabled"
+      time_to_live_min  = 60
       virtual_network_enabled = true
     }
   }
