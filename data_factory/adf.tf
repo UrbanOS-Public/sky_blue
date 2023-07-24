@@ -257,7 +257,7 @@ resource "azurerm_data_factory_custom_dataset" "sql_tables" {
   
   type_properties_json = <<JSON
         {
-            "table": "[dbo].[${each.value.table_name}]"
+            "tableName": "[dbo].[${each.value.table_name}]"
         }
   JSON
   depends_on = [  
