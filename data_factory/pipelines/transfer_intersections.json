@@ -1,9 +1,7 @@
 [
     {
-        "name": "Copy data1",
+        "name": "Get Intersections data",
         "type": "Copy",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [],
         "policy": {
             "timeout": "0.12:00:00",
@@ -49,13 +47,11 @@
         ]
     },
     {
-        "name": "Data flow1",
+        "name": "Intersections data to csv",
         "type": "ExecuteDataFlow",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
             {
-                "activity": "Copy data1",
+                "activity": "Get Intersections data",
                 "dependencyConditions": [
                     "Succeeded"
                 ]
@@ -74,21 +70,19 @@
                 "referenceName": "data_flow_flaris_i",
                 "type": "DataFlowReference"
             },
-            "compute": {
-                "coreCount": 8,
-                "computeType": "General"
+            "integrationRuntime": {
+                "referenceName": "vnetRuntime",
+                "type": "IntegrationRuntimeReference"
             },
             "traceLevel": "Fine"
         }
     },
     {
-        "name": "Data flow2",
+        "name": "Inetersections geo data to csv",
         "type": "ExecuteDataFlow",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
             {
-                "activity": "Data flow1",
+                "activity": "Intersections data to csv",
                 "dependencyConditions": [
                     "Succeeded"
                 ]
@@ -107,19 +101,19 @@
                 "referenceName": "data_flow_flaris_g",
                 "type": "DataFlowReference"
             },
-            "compute": {
-                "coreCount": 8,
-                "computeType": "General"
+            "integrationRuntime": {
+                "referenceName": "vnetRuntime",
+                "type": "IntegrationRuntimeReference"
             },
             "traceLevel": "Fine"
         }
     },
     {
-        "name": "Copy data2",
+        "name": "Insert Intersections to SQL",
         "type": "Copy",
         "dependsOn": [
             {
-                "activity": "Data flow2",
+                "activity": "Inetersections geo data to csv",
                 "dependencyConditions": [
                     "Succeeded"
                 ]

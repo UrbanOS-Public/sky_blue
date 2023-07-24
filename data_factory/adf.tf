@@ -220,7 +220,12 @@ resource "azurerm_data_factory_custom_dataset" "data_rest" {
   folder = each.value.folder
   type_properties_json = <<JSON
     {
-        "relativeUrl": "${each.value.relativeUrl}"
+        "relativeUrl": "${each.value.relativeUrl}",
+        "requestMethod": "GET",
+        "paginationRules": {
+                "AbsoluteUrl.{offset}": "RANGE:0:500000:5000",
+                "EndCondition:$.exceededTransferLimit": "NonExist"
+        }
     }
   JSON
   depends_on = [  
