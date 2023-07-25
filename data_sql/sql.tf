@@ -118,3 +118,18 @@ for_each = var.sql_fw_rules
   start_ip_address = each.value.start_ip
   end_ip_address   = each.value.end_ip
 }
+
+module "diagnostic_settings" {
+  for_each = local.database
+  source = "./modules/diagnostic_setting"
+  diagnostics_settings_name  = "DiagnosticSettings"
+  target_resource_id         = aresource.azurerm_mssql_database.aim[each.key].id
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id
+  logs                       = [
+                                  "allLogs"
+                               ]
+  metrics                    = [
+                                 "AllMetrics"
+                               ]
+  retention_policy_days      = var.retention_policy_days
+}

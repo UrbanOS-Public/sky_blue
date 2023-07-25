@@ -631,3 +631,9 @@ variable "sql_fw_rules" {
   type        = map(any)
   description = "Specifies the ip ranges to access sql server"
 }
+
+variable "retention_policy_days" {
+  description = "(Optional) The number of days for which this Retention Policy should apply."
+  type        = number
+  default     = 30
+}
