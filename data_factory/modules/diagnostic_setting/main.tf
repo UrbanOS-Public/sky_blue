@@ -8,7 +8,7 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   log_analytics_workspace_id = var.log_analytics_workspace_id
   
   dynamic "enabled_log" {
-    for_each = toset(data.azurerm_monitor_diagnostic_categories.this.logs)
+    for_each = toset(data.azurerm_monitor_diagnostic_categories.this.enabled_log)
 
     content {
       category = enabled_log.value
