@@ -15,8 +15,8 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
       #enabled  = contains(var.logs,enabled_log.value) 
 
       retention_policy {
-          enabled = contains(var.logs,enabled_log.value)
-          days    = contains(var.logs,enabled_log.value) == true ? var.retention_policy_days :0
+          enabled = contains(var.logs, enabled_log.value)
+          days    = contains(var.logs, enabled_log.value) == true ? var.retention_policy_days :0
       }
     }
   }
@@ -27,16 +27,16 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
 
     content {
       category = metric.value
-      enabled  = contains(var.metrics,metric.value) 
+      enabled  = contains(var.metrics, metric.value) 
 
       retention_policy {
-        enabled = contains(var.metrics,metric.value)
-        days    = contains(var.metrics,metric.value) == true ? var.retention_policy_days :0
+        enabled = contains(var.metrics, metric.value)
+        days    = contains(var.metrics, metric.value) == true ? var.retention_policy_days :0
       }
     }
   }
 
   lifecycle {
-    ignore_changes = [ metric ]
+    #ignore_changes = [ metric ]
   }
 }
