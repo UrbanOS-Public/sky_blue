@@ -625,3 +625,9 @@ variable "is_hns_enabled" {
   description = "Enable or disable hierarchical namespace. This is required for Azure Data Lake Storage Gen 2."
   default     = true
 }
+
+variable "retention_policy_days" {
+  description = "(Optional) The number of days for which this Retention Policy should apply."
+  type        = number
+  default     = 30
+}
