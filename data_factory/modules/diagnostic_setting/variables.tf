@@ -24,7 +24,7 @@ variable "diagnostics_settings_name" {
 variable "log_analytics_destination_type" {
   description = "(Optional) When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table."
   type        = string
-  default     = null
+  default     = "Dedicated"
 }
 
 variable "storage_account_id" {
