@@ -1,48 +1,42 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-    }
-  }
-
-  required_version = ">= 0.14.9"
+data "azurerm_monitor_diagnostic_categories" "this" {
+  resource_id = var.target_resource_id
 }
 
-resource "azurerm_monitor_diagnostic_setting" "settings" {
-  name                           = var.name
-  target_resource_id             = var.target_resource_id
-
-  log_analytics_workspace_id     = var.log_analytics_workspace_id
-  log_analytics_destination_type = var.log_analytics_destination_type
-
-  eventhub_name                  = var.eventhub_name
-  eventhub_authorization_rule_id = var.eventhub_authorization_rule_id 
-
-  storage_account_id             = var.storage_account_id
-
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  name                       = var.diagnostics_settings_name
+  target_resource_id         = var.target_resource_id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+  
   dynamic "log" {
-    for_each = toset(logs)
+    for_each = toset(data.azurerm_monitor_diagnostic_categories.this.logs)
+
     content {
-      category = each.key
-      enabled  = true
+      category = log.value
+      enabled  = contains(var.logs,log.value) 
 
       retention_policy {
-        enabled = var.retention_policy_enabled
-        days    = var.retention_policy_days
+          enabled = contains(var.logs,log.value)
+          days    = contains(var.logs,log.value) == true ? var.retention_policy_days :0
       }
     }
   }
 
+
   dynamic "metric" {
-    for_each = toset(metrics)
+    for_each = toset(data.azurerm_monitor_diagnostic_categories.this.metrics)
+
     content {
-      category = each.key
-      enabled  = true
+      category = metric.value
+      enabled  = contains(var.metrics,metric.value) 
 
       retention_policy {
-        enabled = var.retention_policy_enabled
-        days    = var.retention_policy_days
+        enabled = contains(var.metrics,metric.value)
+        days    = contains(var.metrics,metric.value) == true ? var.retention_policy_days :0
       }
     }
+  }
+
+  lifecycle {
+    ignore_changes = [ metric ]
   }
 }

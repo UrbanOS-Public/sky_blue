@@ -1,23 +1,11 @@
-
-variable "name" {
-  description = "(Required) Specifies the name of the Container Registry. Changing this forces a new resource to be created."
+variable "target_resource_id" {
+  description = "(Required) The ID of an existing Resource on which to configure Diagnostic Settings. Changing this forces a new resource to be created."
   type        = string
 }
 
-variable "resource_group_name" {
-  description = "(Required) The name of the resource group in which to create the Container Registry. Changing this forces a new resource to be created."
-  type        = string
-}
-
-variable "location" {
-  description = "(Required) Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
-  type        = string
-}
-
-variable "retention_policy_enabled" {
-  description = "(Required) Is this Retention Policy enabled?"
-  type        = bool
-  default     = true
+variable "log_analytics_workspace_id" {
+  description = "(Required) Specifies the ID of a Log Analytics Workspace where Diagnostics Data should be sent."
+   type        = string
 }
 
 variable "retention_policy_days" {
@@ -26,15 +14,12 @@ variable "retention_policy_days" {
   default     = 30
 }
 
-variable "target_resource_id" {
-  description = "(Required) The ID of an existing Resource on which to configure Diagnostic Settings. Changing this forces a new resource to be created."
+variable "diagnostics_settings_name" {
+  description = "(Required) Specifies the name Diagnostics Data."
   type        = string
+  default     = "diagnostics"
 }
 
-variable "log_analytics_workspace_id" {
-  description = "(Optional) Specifies the ID of a Log Analytics Workspace where Diagnostics Data should be sent."
-   type        = string
-}
 
 variable "log_analytics_destination_type" {
   description = "(Optional) When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table."
@@ -62,14 +47,14 @@ variable "eventhub_authorization_rule_id" {
 
 variable "logs" {
   description = "(Optional) Specifies a list of log categories to enable."
-  type        = list(string)
-  default     = []
+  #type        = list(string)
+  #default     = []
 }
 
 variable "metrics" {
   description = "(Optional) Specifies a list of metrics to enable."
-  type        = list(string)
-  default     = []
+  #type        = list(string)
+  #default     = []
 }
 
 variable "tags" {

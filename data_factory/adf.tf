@@ -72,6 +72,22 @@ resource "azurerm_data_factory" "adf" {
   ]
 }
 
+module "diagnostic_settings" {
+  source = "./modules/diagnostic_setting"
+  diagnostics_settings_name  = "DiagnosticSettings"
+  resource_id                = azurerm_data_factory.adf.id
+  law_id                     = data.azurerm_log_analytics_workspace.law.id
+  logs                       = [
+                                  "AuditEvent"
+                               ]
+  metrics                    = [
+                                 "AllMetrics"
+                               ]
+  retention_days             = var.retention_days
+}
+
+
+
 resource "azurerm_role_assignment" "blob_contributor" {
   scope                = data.azurerm_storage_account.lake.id
   role_definition_name = "Storage Blob Data Contributor"
