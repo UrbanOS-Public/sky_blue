@@ -111,3 +111,16 @@ resource "azurerm_role_assignment" "blob_contributor_admin" {
 #    resource           = "directory"
 #  }
 
+module "diagnostic_settings" {
+  source = "./modules/diagnostic_setting"
+  diagnostics_settings_name  = "DiagnosticSettings"
+  target_resource_id         = module.storage_account.id
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id
+  logs                       = [
+                                  "allLogs"
+                               ]
+  metrics                    = [
+                                 
+                               ]
+  retention_policy_days      = var.retention_policy_days
+}
