@@ -7,16 +7,16 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
   target_resource_id         = var.target_resource_id
   log_analytics_workspace_id = var.log_analytics_workspace_id
   
-  dynamic "enabled_log" {
+  dynamic "log" {
     for_each = toset(data.azurerm_monitor_diagnostic_categories.this.logs)
 
     content {
-      category = enabled_log.value
-      enabled  = contains(var.logs,enabled_log.value) 
+      category = log.value
+      enabled  = contains(var.logs,log.value) 
 
       retention_policy {
-          enabled = contains(var.logs,enabled_log.value)
-          days    = contains(var.logs,enabled_log.value) == true ? var.retention_policy_days :0
+          enabled = contains(var.logs,log.value)
+          days    = contains(var.logs,log.value) == true ? var.retention_policy_days :0
       }
     }
   }
