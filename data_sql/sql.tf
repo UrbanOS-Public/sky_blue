@@ -58,7 +58,7 @@ resource "azurerm_mssql_server" "aim" {
   version                      = "12.0"
   minimum_tls_version          = "1.2"
   
-  public_network_access_enabled = false
+  public_network_access_enabled = true #to change
 
   tags                = var.tags
 
