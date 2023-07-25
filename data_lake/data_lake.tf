@@ -120,7 +120,7 @@ module "diagnostic_settings" {
                                   "allLogs"
                                ]
   metrics                    = [
-                                 
+                                 "Transaction", "Capacity"
                                ]
   retention_policy_days      = var.retention_policy_days
 }
