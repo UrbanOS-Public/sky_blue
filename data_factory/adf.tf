@@ -78,7 +78,7 @@ module "diagnostic_settings" {
   target_resource_id         = azurerm_data_factory.adf.id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id
   logs                       = [
-                                  "AuditEvent"
+                                  "allLogs"
                                ]
   metrics                    = [
                                  "AllMetrics"
