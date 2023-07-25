@@ -628,6 +628,6 @@ variable "is_hns_enabled" {
 
 
 variable "sql_fw_rules" {
-  type        = map(string)
+  type        = map(any)
   description = "Specifies the ip ranges to access sql server"
 }
