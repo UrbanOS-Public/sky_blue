@@ -75,8 +75,8 @@ resource "azurerm_data_factory" "adf" {
 module "diagnostic_settings" {
   source = "./modules/diagnostic_setting"
   diagnostics_settings_name  = "DiagnosticSettings"
-  resource_id                = azurerm_data_factory.adf.id
-  law_id                     = data.azurerm_log_analytics_workspace.law.id
+  target_resource_id         = azurerm_data_factory.adf.id
+  log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id
   logs                       = [
                                   "AuditEvent"
                                ]
