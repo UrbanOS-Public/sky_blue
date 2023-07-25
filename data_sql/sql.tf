@@ -129,7 +129,7 @@ module "diagnostic_settings" {
                                   "allLogs"
                                ]
   metrics                    = [
-                                 "AllMetrics"
+                                 "WorkloadManagement", "InstanceAndAppAdvanced", "Basic"
                                ]
   retention_policy_days      = var.retention_policy_days
 }
