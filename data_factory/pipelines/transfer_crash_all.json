@@ -1,6 +1,6 @@
 [
     {
-        "name": "GetCrashData",
+        "name": "Get Crash Data",
         "type": "Copy",
         "dependsOn": [],
         "policy": {
@@ -47,11 +47,11 @@
         ]
     },
     {
-        "name": "Data flow1",
+        "name": "Crash data to csv",
         "type": "ExecuteDataFlow",
         "dependsOn": [
             {
-                "activity": "GetCrashData",
+                "activity": "Get Crash Data",
                 "dependencyConditions": [
                     "Succeeded"
                 ]
@@ -76,5 +76,63 @@
             },
             "traceLevel": "Fine"
         }
+    },
+    {
+        "name": "Insert crash in SQL",
+        "type": "Copy",
+        "dependsOn": [
+            {
+                "activity": "Crash data to csv",
+                "dependencyConditions": [
+                    "Succeeded"
+                ]
+            }
+        ],
+        "policy": {
+            "timeout": "0.12:00:00",
+            "retry": 0,
+            "retryIntervalInSeconds": 30,
+            "secureOutput": false,
+            "secureInput": false
+        },
+        "userProperties": [],
+        "typeProperties": {
+            "source": {
+                "type": "DelimitedTextSource",
+                "storeSettings": {
+                    "type": "AzureBlobFSReadSettings",
+                    "recursive": true,
+                    "enablePartitionDiscovery": false
+                },
+                "formatSettings": {
+                    "type": "DelimitedTextReadSettings"
+                }
+            },
+            "sink": {
+                "type": "AzureSqlSink",
+                "writeBehavior": "upsert",
+                "upsertSettings": {
+                    "useTempDB": true,
+                    "keys": [
+                        "OBJECTID"
+                    ]
+                },
+                "sqlWriterUseTableLock": false,
+                "disableMetricsCollection": false
+            },
+            "enableStaging": false
+        },
+        "inputs": [
+            {
+                "referenceName": "adl_crash_data_csv_all",
+                "type": "DatasetReference"
+            }
+        ],
+        "outputs": [
+            {
+                "referenceName": "sql_table_crash",
+                "type": "DatasetReference"
+            }
+        ]
     }
 ]

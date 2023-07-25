@@ -1,7 +1,7 @@
 {
     "location": {
         "type": "AzureBlobFSLocation",
-        "fileName": "crash_all.csv",
+        "fileName": "crash.csv",
         "folderPath": "crash",
         "fileSystem": "standardized"
     },

@@ -1,4 +1,6 @@
 locals {
+
+  # All data sources listed as a custom service
   linked_custom_service = {
     "fdot"                = {
       linked_type         = "HttpServer"
@@ -26,18 +28,8 @@ locals {
       baseUrl             = "https://archive-api.open-meteo.com/"
     }  
   }
-  linked_sql = {
-    "SQLDB_AIM"  = {
-      connection_string = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
-      integration_runtime_name = "vnetRuntime"
-    }
-  }
-  linked_adl = {
-    "ADL_AIM" = {
-      integration_runtime_name = "vnetRuntime"
-      
-    }
-  }
+
+  # ADF integration runtime with vnet enabled
   integration_runtime = {
     "vnetRuntime" = {
       core_count        = 8
@@ -47,6 +39,23 @@ locals {
       virtual_network_enabled = true
     }
   }
+
+  # All linked Azure SQL DB databases
+  linked_sql = {
+    "SQLDB_AIM"  = {
+      connection_string = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
+      integration_runtime_name = "vnetRuntime"
+    }
+  }
+
+  # All linked Azure Data Lake
+  linked_adl = {
+    "ADL_AIM" = {
+      integration_runtime_name = "vnetRuntime"
+    }
+  }
+
+  # Linked SQL table data
   linked_sql_table = {
     "sql_table_crash" = {
       linked_service_name = "SQLDB_AIM"
@@ -61,6 +70,8 @@ locals {
       folder = "sql"
     }
   }
+
+  # Data sources as a https json
   custom_data = {
     "bikes_data_json" = {
       linked_service = "arcgis"
@@ -101,7 +112,7 @@ locals {
     "weather_data_json_2017" = {
       linked_service = "openmeteo"
       relativeUrl = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2017-01-01&end_date=2017-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
-      data_type = "RestResource"
+      data_type = "Json"
       folder = "source/weather"
     }
     "weather_data_json_2018" = {
@@ -148,6 +159,7 @@ locals {
     }   
   }
 
+  # Data sources as a Rest Resource
   custom_data_rest = {
     "FLARIS_Intersections" = {
       linked_service = "flarisRestService"
@@ -199,6 +211,7 @@ locals {
     }
   } 
 
+  # ADL Raw data layer
   raw_data = {
     "adl_bikes_data_json" = {
       folder = "adl/raw/bikes"
@@ -306,7 +319,14 @@ locals {
     } 
   }
   
-   data_flow = {
+  #ADF Pipelines
+  adf_pipelines = {
+    
+  }
+
+
+  #ADF Data flows
+  data_flow = {
      "data_flow_flaris_i" = {
        fileName   = "data_flow_flaris_i.json"
        source_link = "adl_FLARIS_Intersections_json"
