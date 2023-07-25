@@ -425,7 +425,7 @@ variable "key_vault_bypass" {
 variable "key_vault_default_action" { 
   description = "(Required) The Default Action to use when no rules match from ip_rules / virtual_network_subnet_ids. Possible values are Allow and Deny."
   type        = string
-  default     = "Allow" 
+  default     = "Deny" 
 
   validation {
     condition = contains(["Allow", "Deny" ], var.key_vault_default_action)
