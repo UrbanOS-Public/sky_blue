@@ -145,22 +145,13 @@
                 "upsertSettings": {
                     "useTempDB": true,
                     "keys": [
-                        "INTERSECTION_KEY"
+                        "OBJECTID"
                     ]
                 },
                 "sqlWriterUseTableLock": false,
-                "tableOption": "autoCreate",
                 "disableMetricsCollection": false
             },
-            "enableStaging": false,
-            "translator": {
-                "type": "TabularTranslator",
-                "typeConversion": true,
-                "typeConversionSettings": {
-                    "allowDataTruncation": true,
-                    "treatBooleanAsNumber": false
-                }
-            }
+            "enableStaging": false
         },
         "inputs": [
             {
@@ -170,7 +161,7 @@
         ],
         "outputs": [
             {
-                "referenceName": "sql_intersections",
+                "referenceName": "sql_table_intersections",
                 "type": "DatasetReference"
             }
         ]
