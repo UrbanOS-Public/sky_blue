@@ -12,7 +12,7 @@ resource "azurerm_monitor_diagnostic_setting" "this" {
 
     content {
       category = enabled_log.value
-      enabled  = contains(var.logs,enabled_log.value) 
+      #enabled  = contains(var.logs,enabled_log.value) 
 
       retention_policy {
           enabled = contains(var.logs,enabled_log.value)

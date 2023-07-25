@@ -3,8 +3,8 @@ output "id" {
   description = "The ID of the Diagnostic Setting."
 }
 
-output "log_category_type" {
-  value = data.azurerm_monitor_diagnostic_categories.this.log_category_type
+output "log_category_typed" {
+  value = data.azurerm_monitor_diagnostic_categories.this.log_category_types
   description = "The log_category_type of the Diagnostic Setting."
 }
 
