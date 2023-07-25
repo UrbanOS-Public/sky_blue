@@ -16,6 +16,7 @@ module "key_vault" {
   default_action                  = var.key_vault_default_action
   log_analytics_workspace_id      = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days    = var.log_analytics_retention_days
+  public_network_access_enabled   = var.public_network_access_enabled
 }
 
 

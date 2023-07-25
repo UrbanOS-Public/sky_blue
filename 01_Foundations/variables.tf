@@ -425,7 +425,7 @@ variable "key_vault_bypass" {
 variable "key_vault_default_action" { 
   description = "(Required) The Default Action to use when no rules match from ip_rules / virtual_network_subnet_ids. Possible values are Allow and Deny."
   type        = string
-  default     = "Deny" 
+  default     = "Allow" 
 
   validation {
     condition = contains(["Allow", "Deny" ], var.key_vault_default_action)
@@ -618,4 +618,10 @@ variable "domain_name_label" {
   description = "Specifies the domain name for the jumbox virtual machine"
   default     = "jumpbox"
   type        = string
+}
+
+variable "public_network_access_enabled" { 
+  description = "(Optional) Whether public network access is allowed for this Key Vault. Defaults to true."
+  type        = bool
+  default     = false 
 }
