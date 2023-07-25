@@ -83,7 +83,7 @@ module "diagnostic_settings" {
   metrics                    = [
                                  "AllMetrics"
                                ]
-  retention_days             = var.retention_days
+  retention_policy_days      = var.retention_days
 }
 
 
