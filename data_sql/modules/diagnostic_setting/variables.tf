@@ -47,14 +47,14 @@ variable "eventhub_authorization_rule_id" {
 
 variable "logs" {
   description = "(Optional) Specifies a list of log categories to enable."
-  type        = list(string)
-  default     = []
+  #type        = list(string)
+  #default     = []
 }
 
 variable "metrics" {
   description = "(Optional) Specifies a list of metrics to enable."
-  type        = list(string)
-  default     = []
+  #type        = list(string)
+  #default     = []
 }
 
 variable "tags" {
