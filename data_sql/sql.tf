@@ -109,3 +109,12 @@ resource "azurerm_mssql_database" "aim" {
     azurerm_mssql_server.aim
    ]
 }
+
+
+resource "azurerm_mssql_firewall_rule" "aim" {
+for_each = var.sql_fw_rules
+  name             = each.key
+  server_id        = azurerm_mssql_server.aim.id
+  start_ip_address = each.value.start_ip
+  end_ip_address   = each.value.end_ip
+}

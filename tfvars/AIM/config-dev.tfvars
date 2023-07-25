@@ -28,3 +28,9 @@ log_analytics_retention_days = 30
 default_node_pool_vm_size = "Standard_B4ms"
 additional_node_pool_vm_size = "Standard_B2ms"
 acr_georeplication_locations = ["WestUS2"]
+sql_fw_rules = {
+  "marko" = {
+    start_ip = "47.203.195.3",
+    end_ip = "47.203.195.3"
+  }
+}

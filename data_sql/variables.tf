@@ -625,3 +625,9 @@ variable "is_hns_enabled" {
   description = "Enable or disable hierarchical namespace. This is required for Azure Data Lake Storage Gen 2."
   default     = true
 }
+
+
+variable "sql_fw_rules" {
+  type        = map(string)
+  description = "Specifies the ip ranges to access sql server"
+}
