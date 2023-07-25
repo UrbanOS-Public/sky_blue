@@ -123,7 +123,7 @@ module "diagnostic_settings" {
   for_each = local.database
   source = "./modules/diagnostic_setting"
   diagnostics_settings_name  = "DiagnosticSettings"
-  target_resource_id         = aresource.azurerm_mssql_database.aim[each.key].id
+  target_resource_id         = azurerm_mssql_database.aim[each.key].id
   log_analytics_workspace_id = data.azurerm_log_analytics_workspace.law.id
   logs                       = [
                                   "allLogs"
