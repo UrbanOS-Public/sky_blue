@@ -1,8 +1,13 @@
 #!/bin/bash
 
-VAULT_NAME=kv-urbanos-spoke-dev-eus
-KEY_PREFIX=aks
+VAULT_NAME=kv-aim-spk-dev-eus #kv to store ssh
+KEY_PREFIX=git #change this to your naming convention
 TMP_DIR=./temp
+
+# usage
+# $ cd scripts
+# $ ./aks_key_pair.sh [dev|uat|prd]
+
 
 function generate {
   echo "generate..."
@@ -15,10 +20,10 @@ function generate {
 function send {
   echo "send..."
   az keyvault secret set --vault-name "${VAULT_NAME}" \
-    -n "aks-private-sshkey" \
+    -n "${KEY_PREFIX}-private-sshkey" \
     -f "${TMP_DIR}/${KEY_PREFIX}-${envCurrent}.rsa"
   az keyvault secret set --vault-name "${VAULT_NAME}" \
-    -n "aks-public-sshkey" \
+    -n "${KEY_PREFIX}-public-sshkey" \
     -f "${TMP_DIR}/${KEY_PREFIX}-${envCurrent}.rsa.pub"
 }
 function clean {

@@ -8,10 +8,10 @@ data "azurerm_log_analytics_workspace" "law" {
   resource_group_name = module.namelaw.resource_group.name
 }
 
-# data "azurerm_key_vault_secret" "ssh_public_key" {
-#   name      = "aks-public-sshkey"
-#   key_vault_id = data.azurerm_key_vault.key_vault.id
-# }
+data "azurerm_key_vault_secret" "ssh_public_key" {
+   name      = "git-public-sshkey"
+   key_vault_id = data.azurerm_key_vault.key_vault.id
+}
 
 data "azurerm_resource_group" "spoke" {
   name = module.namespoke.resource_group.name
