@@ -45,7 +45,8 @@ sudo ./svc.sh status
 #sudo chmod 666 /var/run/docker.sock
 #sudo apt-get install unzip
 #sudo apt-get install zip
-
+#sudo apt install nodejs
+#
 
 # sh -c "$(curl -fsSL https://gist.githubusercontent.com/gjgd/5a08da85a98bf147294f331461e44d1f/raw/a63bf0f4169a8ab651adfa0a56e676e6bc465876/setup-github-action-runner.sh)"
 
