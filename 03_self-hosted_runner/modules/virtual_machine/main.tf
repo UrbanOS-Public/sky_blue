@@ -97,10 +97,10 @@ resource "azurerm_linux_virtual_machine" "virtual_machine" {
     storage_account_type = var.os_disk_storage_account_type
   }
 
-  admin_ssh_key {
-    username   = var.vm_user
-    public_key = var.admin_ssh_public_key
-  }
+  # admin_ssh_key {
+  #   username   = var.vm_user
+  #   public_key = var.admin_ssh_public_key
+  # }
 
   source_image_reference {
     offer     = lookup(var.os_disk_image, "offer", null)
