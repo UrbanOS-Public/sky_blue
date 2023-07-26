@@ -45,3 +45,25 @@ sudo ./svc.sh status
 #sudo chmod 666 /var/run/docker.sock
 #sudo apt-get install unzip
 #sudo apt-get install zip
+
+
+# sh -c "$(curl -fsSL https://gist.githubusercontent.com/gjgd/5a08da85a98bf147294f331461e44d1f/raw/a63bf0f4169a8ab651adfa0a56e676e6bc465876/setup-github-action-runner.sh)"
+
+# Update instance
+sudo apt update -y
+sudo apt upgrade -y
+
+# Install latest version of git
+sudo add-apt-repository ppa:git-core/ppa -y
+sudo apt-get update
+sudo apt-get install git -y
+
+# Install and setup docker
+sudo apt install docker.io docker-compose -y
+sudo systemctl enable docker
+sudo gpasswd -a $USER docker
+newgrp docker
+
+# Add current user to sudoer file
+# https://linuxize.com/post/how-to-add-user-to-sudoers-in-ubuntu/
+echo "${USER}  ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/${USER}"
