@@ -67,26 +67,26 @@ jobs:
         arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
         arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID  
 
-  Configure:
-      if: ${{ github.event.inputs.deploy == 'apply' }}
-      needs: Deploy
-      runs-on: ubuntu-latest
-      steps:
-       - name: Update
-         id: update
-         run: echo "Update" | sudo apt-get update -y |
-              echo "Upgrade" | sudo apt-get upgrade -y
-       - name: Install AzCLI 
-         id: instalazci
-         run: echo "Install AzCLI" | curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-       - name: Download Action Runner
-         id: downloadrunner 
-         run: echo "Create folder" | sudo mkdir /actions-runner 
-       - run: echo "Change folder" | cd /actions-runner 
-       - run: ls
-       - run: echo "Download runner" | curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz
-       - run: echo "Unpack" | tar xzf ./actions-runner-linux-x64-2.304.0.tar.gz
-       - run: echo "Create folder" | sudo ./svc.sh status 
+  # Configure:
+  #     if: ${{ github.event.inputs.deploy == 'apply' }}
+  #     needs: Deploy
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #      - name: Update
+  #        id: update
+  #        run: echo "Update" | sudo apt-get update -y |
+  #             echo "Upgrade" | sudo apt-get upgrade -y
+  #      - name: Install AzCLI 
+  #        id: instalazci
+  #        run: echo "Install AzCLI" | curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  #      - name: Download Action Runner
+  #        id: downloadrunner 
+  #        run: echo "Create folder" | sudo mkdir /actions-runner 
+  #      - run: echo "Change folder" | cd /actions-runner 
+  #      - run: ls
+  #      - run: echo "Download runner" | curl -o actions-runner-linux-x64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-x64-2.304.0.tar.gz
+  #      - run: echo "Unpack" | tar xzf ./actions-runner-linux-x64-2.304.0.tar.gz
+  #      - run: echo "Check Status" | sudo ./svc.sh status 
 
   Destroy:
           if: ${{ github.event.inputs.deploy == 'destroy' }}

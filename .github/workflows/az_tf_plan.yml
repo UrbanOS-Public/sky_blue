@@ -58,7 +58,7 @@ on:
 
 jobs:
   build-plan:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: ${{ inputs.gh_environment }}
     defaults:
       run:
