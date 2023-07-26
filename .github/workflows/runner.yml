@@ -1,4 +1,4 @@
-name: "GitHub Runner"
+name: "AIM 01 GitHub Runner"
 on:
   workflow_dispatch:
     inputs:
