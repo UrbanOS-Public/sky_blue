@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "databricks" {
 }
 
 resource "azurerm_databricks_workspace" "dp_workspace" {
-  name                                  = module.nameadb.resource_group.databricks_workspace
+  name                                  = module.nameadb.databricks_workspace.name
   resource_group_name                   = module.nameadb.resource_group.name
   location                              = var.location
   sku                                   = "premium"
