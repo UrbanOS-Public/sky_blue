@@ -29,6 +29,7 @@ jobs:
       tf_vars_file: ../tfvars/AIM/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
       #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
       gh_environment: ${{ github.event.inputs.environment }}
+      runs_on: self-hosted
     secrets:
       arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
       arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
@@ -61,6 +62,7 @@ jobs:
         tf_key: "datalake-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
         #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
         gh_environment: ${{ github.event.inputs.environment }}                       ## GH Environment. Default=null - (Optional)
+        runs_on: self-hosted
       secrets:
         arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
         arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret

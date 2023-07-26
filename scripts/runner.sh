@@ -41,3 +41,7 @@ sudo ./svc.sh status
 # runs-on: self-hosted
 
 #sudo apt install docker.io
+#curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+#sudo chmod 666 /var/run/docker.sock
+#sudo apt-get install unzip
+#sudo apt-get install zip

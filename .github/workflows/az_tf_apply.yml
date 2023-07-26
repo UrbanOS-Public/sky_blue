@@ -12,6 +12,11 @@ on:
         required: false
         type: string
         default: latest
+      runs_on:
+        description: 'Define the type of machine that will process a job in your workflow'
+        required: true
+        type: string    
+        default: ubuntu-latest
     #   az_resource_group:
     #     description: 'Specifies the Azure Resource Group where the backend storage account is hosted.'
     #     required: true
@@ -49,7 +54,7 @@ on:
 
 jobs:
   apply-plan:
-    runs-on: self-hosted
+    runs-on: ${{ inputs.runs_on }}
     environment: ${{ inputs.gh_environment }}
     defaults:
       run:
