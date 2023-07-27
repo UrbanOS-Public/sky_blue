@@ -87,3 +87,22 @@ resource "azurerm_databricks_access_connector" "adf" {
 
   tags = var.tags
 }
+
+
+resource "azurerm_role_assignment" "blob_contributor_metastore" {
+  scope                = module.metastore.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_databricks_access_connector.adf.identity.0.principal_id
+  depends_on = [ 
+    module.metastore
+  ]
+}
+
+resource "azurerm_role_assignment" "blob_contributor_adl" {
+  scope                = data.azurerm_storage_accoun.lake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_databricks_access_connector.adf.identity.0.principal_id
+  depends_on = [ 
+    module.metastore
+  ]
+}
