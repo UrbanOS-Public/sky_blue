@@ -21,13 +21,6 @@ resource "azurerm_key_vault_key" "cmk_metastore" {
     expire_after         = "P360D"
     notify_before_expiry = "P29D"
   }
-
-  depends_on = [ 
-    module.key_vault,
-    azurerm_key_vault_access_policy.agent,
-    azurerm_key_vault_access_policy.admin
-  ]
-
 }
 
 module "metastore" {
@@ -38,7 +31,7 @@ module "metastore" {
   account_kind                = var.storage_account_kind
   account_tier                = var.storage_account_tier
   replication_type            = var.storage_account_replication_type
-  key_vault_id                = module.key_vault.id
+  key_vault_id                = data.azurerm_resources.key_vault.resources[0].id
   key_vault_key_name          = azurerm_key_vault_key.cmk_metastore.name
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   is_hns_enabled              = var.is_hns_enabled

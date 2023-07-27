@@ -94,15 +94,16 @@ resource "azurerm_role_assignment" "blob_contributor_metastore" {
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_databricks_access_connector.adf.identity.0.principal_id
   depends_on = [ 
-    module.metastore
+    module.metastore,
+    azurerm_databricks_access_connector.adf
   ]
 }
 
 resource "azurerm_role_assignment" "blob_contributor_adl" {
-  scope                = data.azurerm_storage_accoun.lake.id
+  scope                = data.azurerm_storage_account.lake.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_databricks_access_connector.adf.identity.0.principal_id
   depends_on = [ 
-    module.metastore
+    azurerm_databricks_access_connector.adf
   ]
 }
