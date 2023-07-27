@@ -25,7 +25,7 @@ resource "azurerm_key_vault_key" "cmk_metastore" {
 
 module "metastore" {
   source                      = "./modules/storage_account"
-  name                        = "${module.nameadb.databricks_workspace.name}-adl"
+  name                        = module.nameadb.data_lake_store.name
   location                    = var.location
   resource_group_name         = module.nameadb.resource_group.name
   account_kind                = var.storage_account_kind
