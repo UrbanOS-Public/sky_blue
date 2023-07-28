@@ -44,51 +44,6 @@ resource "azurerm_key_vault_access_policy" "adb_identity" {
   ]
 }
 
-resource "azurerm_subnet" "dp_public" {
-  name                 = "DatabricksSubnet-Public"
-  resource_group_name  = module.namespoke.resource_group.name
-  virtual_network_name = module.namespoke.virtual_network.name
-  address_prefixes     = var.adb_public_subnet_address_prefix 
-
-  delegation {
-    name = "databricks"
-    service_delegation {
-      name = "Microsoft.Databricks/workspaces"
-      actions = [
-        "Microsoft.Network/virtualNetworks/subnets/join/action",
-        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
-      ]
-    }
-  }
-}
-
-
-resource "azurerm_subnet" "dp_private" {
-  name                 = "DatabricksSubnet-Private"
-  resource_group_name  = module.namespoke.resource_group.name
-  virtual_network_name = module.namespoke.virtual_network.name
-  address_prefixes     = var.adb_private_subnet_address_prefix
-
-  private_endpoint_network_policies_enabled     = true
-  private_link_service_network_policies_enabled = true
-
-  delegation {
-    name = "databricks"
-    service_delegation {
-      name = "Microsoft.Databricks/workspaces"
-      actions = [
-        "Microsoft.Network/virtualNetworks/subnets/join/action",
-        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
-      ]
-    }
-  }
-
-  service_endpoints = [] #var.private_subnet_endpoints
-}
-
-
 resource "azurerm_databricks_workspace" "dp_workspace" {
   name                                  = module.nameadb.databricks_workspace.name
   resource_group_name                   = module.nameadb.resource_group.name
