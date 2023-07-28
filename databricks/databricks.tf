@@ -67,9 +67,9 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   }
   depends_on = [
     azurerm_resource_group.databricks,
-    azurerm_key_vault_key.cmk
-    #azurerm_subnet_network_security_group_association.dp_public,
-    #azurerm_subnet_network_security_group_association.dp_private
+    azurerm_key_vault_key.cmk,
+    azurerm_subnet_network_security_group_association.dp_public,
+    azurerm_subnet_network_security_group_association.dp_private
   ]
 }
 
