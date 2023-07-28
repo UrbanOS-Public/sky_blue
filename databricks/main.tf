@@ -18,7 +18,7 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
-provider "azurerm" {
+provider "azuread" {
   features {}
 }
 
