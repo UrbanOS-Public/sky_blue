@@ -39,7 +39,7 @@ resource "azurerm_key_vault_access_policy" "adb_identity" {
     "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
   depends_on = [ 
-    azurerm_databricks_workspace.dp_workspace,
+    #azurerm_databricks_workspace.dp_workspace,
     azurerm_key_vault_key.cmk
   ]
 }
