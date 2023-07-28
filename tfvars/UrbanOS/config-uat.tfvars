@@ -13,7 +13,7 @@ tags = {
   solution      = "UrbanOS"
 }
 kubernetes_version = 1.26
-aks_vnet_address_space = ["10.10.0.0/16"]
+spoke_address_space = ["10.10.0.0/16"]
 hub_address_space = ["10.11.0.0/16"]
 hub_firewall_subnet_address_prefix = ["10.1.0.0/24"]
 hub_bastion_subnet_address_prefix  = ["10.11.1.0/24"]

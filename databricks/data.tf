@@ -47,3 +47,8 @@ data "azurerm_resources" "key_vault" {
   name                = module.namedatalake.mssql_server.name
   resource_group_name = module.namedatalake.resource_group.name
 }
+
+data "azurerm_virtual_network" "spoke" {
+  name                = module.namespoke.virtual_network.name
+  resource_group_name = module.namespoke.resource_group.name
+}

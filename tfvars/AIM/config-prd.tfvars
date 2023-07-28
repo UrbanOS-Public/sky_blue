@@ -13,7 +13,7 @@ tags = {
   solution      = "AIM"
 }
 kubernetes_version = 1.26
-aks_vnet_address_space = ["10.20.0.0/16"]
+spoke_address_space = ["10.20.0.0/16"]
 hub_address_space = ["10.21.0.0/16"]
 hub_firewall_subnet_address_prefix = ["10.21.0.0/24"]
 hub_bastion_subnet_address_prefix  = ["10.21.1.0/24"]

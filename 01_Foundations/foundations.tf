@@ -46,7 +46,7 @@ module "spoke_network" {
   resource_group_name          = azurerm_resource_group.spoke.name
   location                     = var.location
   vnet_name                    = module.namespoke.virtual_network.name #var.aks_vnet_name
-  address_space                = var.aks_vnet_address_space
+  address_space                = var.spoke_address_space
   log_analytics_workspace_id   = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days = var.log_analytics_retention_days
   tags                         = var.tags

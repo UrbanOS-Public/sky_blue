@@ -13,7 +13,7 @@ tags = {
   solution      = "AIM"
 }
 kubernetes_version = 1.26
-aks_vnet_address_space = ["10.0.0.0/16"]
+spoke_address_space = ["10.0.0.0/16"]
 hub_address_space = ["10.1.0.0/16"]
 hub_firewall_subnet_address_prefix = ["10.1.0.0/24"]
 hub_bastion_subnet_address_prefix  = ["10.1.1.0/24"]
@@ -21,6 +21,8 @@ default_node_pool_subnet_address_prefix =  ["10.0.0.0/20"]
 additional_node_pool_subnet_address_prefix = ["10.0.16.0/20"]
 pod_subnet_address_prefix = ["10.0.32.0/20"]
 vm_subnet_address_prefix = ["10.0.48.0/20"]
+adb_public_subnet_address_prefix = ["10.0.64.0/23"]
+adb_private_subnet_address_prefix = ["10.0.66.64/23"]
 network_dns_service_ip = "10.2.0.10"
 network_service_cidr = "10.2.0.0/24"
 admin_group_object_ids = ["592308cb-ed13-4076-b3f5-d420a56748ad"]

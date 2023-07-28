@@ -44,10 +44,52 @@ resource "azurerm_key_vault_access_policy" "adb_identity" {
   ]
 }
 
+resource "azurerm_subnet" "dp_public" {
+  name                 = "DatabricksSubnet-Public"
+  resource_group_name  = module.namespoke.resource_group.name
+  virtual_network_name = module.namespoke.virtual_network.name
+  address_prefixes     = var.adb_public_subnet_address_prefix 
+
+  delegation {
+    name = "databricks"
+    service_delegation {
+      name = "Microsoft.Databricks/workspaces"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+      ]
+    }
+  }
+}
 
 
+resource "azurerm_subnet" "dp_private" {
+  name                 = "DatabricksSubnet-Private"
+  resource_group_name  = module.namespoke.resource_group.name
+  virtual_network_name = module.namespoke.virtual_network.name
+  address_prefixes     = var.adb_private_subnet_address_prefix
 
-resource "azurerm_databricks_workspace" "dp_workspace" {
+  private_endpoint_network_policies_enabled     = true
+  private_link_service_network_policies_enabled = true
+
+  delegation {
+    name = "databricks"
+    service_delegation {
+      name = "Microsoft.Databricks/workspaces"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+      ]
+    }
+  }
+
+  service_endpoints = [] #var.private_subnet_endpoints
+}
+
+
+/* resource "azurerm_databricks_workspace" "dp_workspace" {
   name                                  = module.nameadb.databricks_workspace.name
   resource_group_name                   = module.nameadb.resource_group.name
   location                              = var.location
@@ -59,22 +101,22 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   infrastructure_encryption_enabled     = true
   managed_services_cmk_key_vault_key_id = azurerm_key_vault_key.cmk.id
   managed_resource_group_name           = module.nameadb.databricks_workspace.name
-  # custom_parameters {
-  #   no_public_ip                                         = true
-  #   virtual_network_id                                   = azurerm_virtual_network.dp_vnet.id
-  #   private_subnet_name                                  = azurerm_subnet.dp_private.name
-  #   public_subnet_name                                   = azurerm_subnet.dp_public.name
-  #   public_subnet_network_security_group_association_id  = azurerm_subnet_network_security_group_association.dp_public.id
-  #   private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.dp_private.id
-  #   storage_account_name                                 = local.dbfsname
-  # }
+  custom_parameters {
+    no_public_ip                                         = true
+    virtual_network_id                                   = data.azurerm_virtual_network.spoke.id
+    private_subnet_name                                  = azurerm_subnet.dp_private.name
+    public_subnet_name                                   = azurerm_subnet.dp_public.name
+    public_subnet_network_security_group_association_id  = azurerm_subnet_network_security_group_association.dp_public.id
+    private_subnet_network_security_group_association_id = azurerm_subnet_network_security_group_association.dp_private.id
+    storage_account_name                                 = module.nameadb.data_lake_store.name_unique
+  }
   depends_on = [
     azurerm_resource_group.databricks,
     azurerm_key_vault_key.cmk
     #azurerm_subnet_network_security_group_association.dp_public,
     #azurerm_subnet_network_security_group_association.dp_private
   ]
-}
+} */
 
 resource "azurerm_databricks_access_connector" "adf" {
   name                = "${module.nameadb.databricks_workspace.name}-conn"

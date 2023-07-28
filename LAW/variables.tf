@@ -58,7 +58,7 @@ variable "hub_bastion_subnet_address_prefix" {
   type        = list(string)
 }
 
-variable "aks_vnet_address_space" {
+variable "spoke_address_space" {
   description = "Specifies the address prefix of the AKS subnet"
   #default     =  ["10.0.0.0/16"]
   type        = list(string)
