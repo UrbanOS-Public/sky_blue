@@ -56,9 +56,6 @@ resource "azurerm_key_vault_key" "cmkdisk" {
   }
 }
 
-resource "azuread_application" "changeme_simple_service_principal_application" {
-  name = "changeme-simple-azuread-service-principal-application"
-}
 # data "azuread_application" "databricks" {
 #   application_id = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
 # }
