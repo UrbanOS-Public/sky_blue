@@ -34,7 +34,7 @@ resource "azurerm_key_vault_key" "cmk" {
 resource "azurerm_key_vault_access_policy" "adb_identity" {
   key_vault_id = data.azurerm_resources.key_vault.resources[0].id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
+  object_id    = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d" #azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
   key_permissions = [
     "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
@@ -55,6 +55,7 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   customer_managed_key_enabled          = true
   infrastructure_encryption_enabled     = true
   managed_services_cmk_key_vault_key_id = azurerm_key_vault_key.cmk.id
+  managed_disk_cmk_rotation_to_latest_version_enabled = true
   managed_resource_group_name           = "${module.nameadb.databricks_workspace.name}-db"
   custom_parameters {
     no_public_ip                                         = true
@@ -68,6 +69,7 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   depends_on = [
     azurerm_resource_group.databricks,
     azurerm_key_vault_key.cmk,
+    azurerm_key_vault_access_policy.adb_identity,
     azurerm_subnet_network_security_group_association.dp_public,
     azurerm_subnet_network_security_group_association.dp_private
   ]
