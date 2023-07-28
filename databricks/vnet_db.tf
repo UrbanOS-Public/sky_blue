@@ -42,7 +42,7 @@ resource "azurerm_subnet" "dp_private" {
 }
 
 resource "azurerm_network_security_group" "dp_sg" {
-  name                = "${local.prefix}-dp-nsg"
+  name                = "${module.nameadb.databricks_workspace.name}-nsg"
   location            = var.location
   resource_group_name = module.nameadb.resource_group.name
   tags                = var.tags
