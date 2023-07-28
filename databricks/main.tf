@@ -19,6 +19,7 @@ provider "azurerm" {
 }
 
 provider "azuread" {
+  features {}
 }
 
 data "azurerm_client_config" "current" {}
