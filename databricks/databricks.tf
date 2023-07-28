@@ -65,7 +65,7 @@ data "azuread_application" "databricks" {
 resource "azurerm_key_vault_access_policy" "adb_identity" {
   key_vault_id = data.azurerm_resources.key_vault.resources[0].id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_application.databricks.objectid #azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
+  object_id    = data.azuread_application.databricks.object_id #azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
   key_permissions = [
     "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
