@@ -56,10 +56,16 @@ resource "azurerm_key_vault_key" "cmkdisk" {
   }
 }
 
+
+data "azuread_application" "databricks" {
+  application_id = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d"
+}
+
+
 resource "azurerm_key_vault_access_policy" "adb_identity" {
   key_vault_id = data.azurerm_resources.key_vault.resources[0].id
   tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d" #azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
+  object_id    = azuread_application.databricks.objectid #azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
   key_permissions = [
     "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
