@@ -55,7 +55,7 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   customer_managed_key_enabled          = true
   infrastructure_encryption_enabled     = true
   managed_services_cmk_key_vault_key_id = azurerm_key_vault_key.cmk.id
-  managed_resource_group_name           = module.nameadb.databricks_workspace.name
+  managed_resource_group_name           = "${module.nameadb.databricks_workspace.name}-db"
   custom_parameters {
     no_public_ip                                         = true
     virtual_network_id                                   = data.azurerm_virtual_network.spoke.id
