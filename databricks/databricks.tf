@@ -51,7 +51,7 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   sku                                   = "premium"
   tags                                  = var.tags
   public_network_access_enabled         = false #var.public_network_access_enabled
-  #network_security_group_rules_required = "NoAzureDatabricksRules"
+  network_security_group_rules_required = "NoAzureDatabricksRules"
   customer_managed_key_enabled          = true
   infrastructure_encryption_enabled     = true
   managed_services_cmk_key_vault_key_id = azurerm_key_vault_key.cmk.id
