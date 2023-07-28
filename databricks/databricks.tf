@@ -31,6 +31,31 @@ resource "azurerm_key_vault_key" "cmk" {
   }
 }
 
+resource "azurerm_key_vault_key" "cmkdisk" {
+  name         = "cmk-adb-disk"
+  key_vault_id = data.azurerm_resources.key_vault.resources[0].id
+  key_type     = "RSA"
+  key_size     = 2048
+
+  key_opts = [
+    "decrypt",
+    "encrypt",
+    "sign",
+    "unwrapKey",
+    "verify",
+    "wrapKey",
+  ]
+
+  rotation_policy {
+    automatic {
+      time_before_expiry = "P30D"
+    }
+
+    expire_after         = "P360D"
+    notify_before_expiry = "P29D"
+  }
+}
+
 resource "azurerm_key_vault_access_policy" "adb_identity" {
   key_vault_id = data.azurerm_resources.key_vault.resources[0].id
   tenant_id    = data.azurerm_client_config.current.tenant_id
@@ -55,6 +80,7 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   customer_managed_key_enabled          = true
   infrastructure_encryption_enabled     = true
   managed_services_cmk_key_vault_key_id = azurerm_key_vault_key.cmk.id
+  managed_disk_cmk_key_vault_key_id     = azurerm_key_vault_key.cmkdisk.id
   managed_disk_cmk_rotation_to_latest_version_enabled = true
   managed_resource_group_name           = "${module.nameadb.databricks_workspace.name}-db"
   custom_parameters {
