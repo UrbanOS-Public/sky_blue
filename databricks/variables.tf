@@ -631,3 +631,15 @@ variable "retention_policy_days" {
   type        = number
   default     = 30
 }
+
+variable "adb_public_subnet_address_prefix" {
+  description = "Specifies the address prefix of the ADB Public subnet"
+  #default     = ["10.1.1.0/24"]
+  type        = list(string)
+}
+
+variable "adb_private_subnet_address_prefix" {
+  description = "Specifies the address prefix of the ADB Private subnet"
+  #default     = ["10.1.1.0/24"]
+  type        = list(string)
+}

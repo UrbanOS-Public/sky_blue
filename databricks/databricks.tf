@@ -89,7 +89,7 @@ resource "azurerm_subnet" "dp_private" {
 }
 
 
-/* resource "azurerm_databricks_workspace" "dp_workspace" {
+resource "azurerm_databricks_workspace" "dp_workspace" {
   name                                  = module.nameadb.databricks_workspace.name
   resource_group_name                   = module.nameadb.resource_group.name
   location                              = var.location
@@ -116,7 +116,7 @@ resource "azurerm_subnet" "dp_private" {
     #azurerm_subnet_network_security_group_association.dp_public,
     #azurerm_subnet_network_security_group_association.dp_private
   ]
-} */
+}
 
 resource "azurerm_databricks_access_connector" "adf" {
   name                = "${module.nameadb.databricks_workspace.name}-conn"
