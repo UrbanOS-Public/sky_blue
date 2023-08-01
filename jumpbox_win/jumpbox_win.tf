@@ -1,6 +1,6 @@
 module "virtual_machine" {
   source                              = "./modules/virtual_machine_win"
-  name                                = replace(module.namespoke.windows_virtual_machine.name, "spk", "jumpbox")
+  name                                = replace(module.namespoke.windows_virtual_machine.name, "spk", "jmp")
   vm_name                             = replace(module.namespoke.virtual_machine.name, "spk", "jmp")      
   size                                = var.vm_size
   location                            = var.location
