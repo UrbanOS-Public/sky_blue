@@ -81,7 +81,7 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
   location            = var.location
   size                = var.size
   admin_username      = var.vm_user
-  admin_password      = "T${random_string.password.result}!!"
+  admin_password      = var.admin_ssh_public_key
   encryption_at_host_enabled = true
   provision_vm_agent = true
   secure_boot_enabled = true
@@ -133,7 +133,7 @@ resource "azurerm_virtual_machine_extension" "ama" {
 }
 
 resource "azurerm_monitor_data_collection_rule" "rule1" {
- name                = join("-", [local.prefix, "rule1"])
+ name                = "${azurerm_windows_virtual_machine.jumpvm.name}-rule"
  location            = var.location
  resource_group_name = var.resource_group_name
  depends_on          = [
