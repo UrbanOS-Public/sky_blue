@@ -26,7 +26,7 @@ jobs:
       path: jumpbox_win                               ## Path to terraform root module (Required)
       tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
       tf_key: "jumpbox_win-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
-      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
+      tf_vars_file: ../tfvars/AIM/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
       #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
       gh_environment: ${{ github.event.inputs.environment }}
       runs_on: self-hosted
@@ -43,7 +43,7 @@ jobs:
           path: jumpbox_win                               ## Path to terraform root module (Required)
           tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
           tf_key: "jumpbox_win-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
-          tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
+          tf_vars_file: ../tfvars/AIM/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
           #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
           gh_environment: ${{ github.event.inputs.environment }}
         secrets:
