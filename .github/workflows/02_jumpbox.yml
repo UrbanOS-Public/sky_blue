@@ -1,0 +1,85 @@
+name: "02 Jumpbox"
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Choose the environment to deploy to.
+        options:
+          - dev
+          - uat
+          - prd
+        required: true
+      deploy:
+          type: choice
+          description: Deploy?
+          options:
+            - plan
+            - apply
+            - destroy
+          required: true
+jobs:
+  Plan:
+    if: ${{ github.event.inputs.deploy != 'destroy' }}
+    uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan.yml@main
+    with:
+      path: 02_Jumpbox                               ## Path to terraform root module (Required)
+      tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
+      tf_key: "jumpbox-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+      tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
+      #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
+      gh_environment: ${{ github.event.inputs.environment }}
+      runs_on: self-hosted
+    secrets:
+      arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
+      arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
+      arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
+      arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID
+
+  Plan-Destroy:
+        if: ${{ github.event.inputs.deploy == 'destroy' }}
+        uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_plan_destroy.yml@main
+        with:
+          path: 02_Jumpbox                               ## Path to terraform root module (Required)
+          tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
+          tf_key: "jumpbox-${{ github.event.inputs.environment }}"                            ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+          tf_vars_file: ../tfvars/UrbanOS/config-${{ github.event.inputs.environment }}.tfvars             ## Terraform TFVARS (Required)
+          #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
+          gh_environment: ${{ github.event.inputs.environment }}
+        secrets:
+          arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
+          arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
+          arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
+          arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID      
+
+  Deploy:
+      if: ${{ github.event.inputs.deploy == 'apply' }}
+      needs: Plan
+      uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_apply.yml@main
+      with:
+        path: 02_Jumpbox                               ## Path to terraform root module (Required)
+        tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
+        tf_key: "jumpbox-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+        #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
+        gh_environment: ${{ github.event.inputs.environment }}                       ## GH Environment. Default=null - (Optional)
+        runs_on: self-hosted
+      secrets:
+        arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
+        arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
+        arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
+        arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID  
+  Destroy:
+          if: ${{ github.event.inputs.deploy == 'destroy' }}
+          needs: Plan-Destroy
+          uses: UrbanOS-Public/sky_blue/.github/workflows/az_tf_destroy.yml@main
+          with:
+            path: 02_Jumpbox                               ## Path to terraform root module (Required)
+            tf_version: latest                                 ## Terraform version e.g: 1.1.0 Default=latest (Optional)
+            tf_key: "jumpbox-${{ github.event.inputs.environment }}"                           ## AZ backend - Specifies name that will be given to terraform state file and plan artifact (Required)
+            #enable_TFSEC: true                                ## (Optional)  Enable TFSEC IaC scans (Private repo requires GitHub enterprise)
+            gh_environment: ${{ github.event.inputs.environment }}                       ## GH Environment. Default=null - (Optional)
+          secrets:
+            arm_client_id: ${{ secrets.ARM_CLIENT_ID }}             ## ARM Client ID 
+            arm_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}     ## ARM Client Secret
+            arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }} ## ARM Subscription ID
+            arm_tenant_id: ${{ secrets.ARM_TENANT_ID }}             ## ARM Tenant ID  
