@@ -97,3 +97,9 @@ variable "admin_group_object_ids" {
   #default     = ["6e5de8c1-5a4b-409b-994f-0706e4403b77", "78761057-c58c-44b7-aaa7-ce1639c6c4f5"]
   type        = list(string)
 }
+
+variable "number_of_jumpbox_win_vm" {
+  description = "Specifies the number of jumbox win vms to be created"
+  type        = number
+  default     = 1
+}

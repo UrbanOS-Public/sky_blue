@@ -1,14 +1,15 @@
 module "virtual_machine" {
+  count                               = var.number_of_jumpbox_win_vm
   source                              = "./modules/virtual_machine_win"
-  name                                = replace(module.namespoke.linux_virtual_machine.name_unique, "spk", "jmp")
-  vm_name                             = replace(module.namespoke.virtual_machine.name_unique, "spk", "jmp")      
+  name                                = replace(module.namespoke.linux_virtual_machine.name, "spk", "jmpw${count.index}")
+  vm_name                             = replace(replace(module.namespoke.virtual_machine.name_unique, "spk", "jmpw${count.index}"),"-","")
   size                                = var.vm_size
   location                            = var.location
   public_ip                           = var.vm_public_ip
   vm_user                             = var.admin_username
   admin_ssh_public_key                = data.azurerm_key_vault_secret.win_pwd.value #tls_private_key.this.public_key_openssh
   os_disk_image                       = var.vm_os_disk_image
-  domain_name_label                   = "test change" #var.domain_name_label
+  domain_name_label                   = "jumpbox win" #var.domain_name_label
   resource_group_name                 = module.namespoke.resource_group.name
   subnet_id                           = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name]
   os_disk_storage_account_type        = var.vm_os_disk_storage_account_type
