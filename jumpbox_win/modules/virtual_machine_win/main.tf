@@ -310,10 +310,10 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
 
 resource "azurerm_virtual_machine_extension" "aad" {
   name                       = "AADLoginForWindows"
-  virtual_machine_id         = azurerm_windows_virtual_machine.virtual_machine.id
-  publisher                  = "Microsoft.Azure.ActiveDirectory.LinuxSSH"
+  virtual_machine_id         = azurerm_windows_virtual_machine.jumpvm.id
+  publisher                  = "Microsoft.Azure.ActiveDirectory"
   type                       = "AADLoginForWindows"
-  type_handler_version       = "1.0"
+  type_handler_version       = "2.0"
   auto_upgrade_minor_version = true
 }
 
