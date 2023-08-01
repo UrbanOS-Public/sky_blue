@@ -143,7 +143,7 @@ resource "azurerm_monitor_data_collection_rule" "rule1" {
  
  destinations {
    log_analytics {
-     workspace_resource_id = var.log_analytics_workspace_id
+     workspace_resource_id = var.log_analytics_workspace_resource_id
      name                  = "log-analytics"
    }
  }
