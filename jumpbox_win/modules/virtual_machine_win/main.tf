@@ -319,7 +319,7 @@ resource "azurerm_virtual_machine_extension" "aad" {
 
 resource "azurerm_role_assignment" "assign-vm-role" {
   count = length(var.admin_group_object_ids)
-    scope                = azurerm_windows_virtual_machine.virtual_machine.id
+    scope                = azurerm_windows_virtual_machine.jumpvm.id
     role_definition_name = "Virtual Machine Administrator Login"
     principal_id         = var.admin_group_object_ids[count.index]
 }
