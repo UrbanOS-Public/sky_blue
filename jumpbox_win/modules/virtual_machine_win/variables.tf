@@ -8,6 +8,11 @@ variable name {
   type = string
 }
 
+variable vm_name {
+  description = "(Required) Specifies the name of the virtual machine"
+  type = string
+}
+
 variable size {
   description = "(Required) Specifies the size of the virtual machine"
   type = string

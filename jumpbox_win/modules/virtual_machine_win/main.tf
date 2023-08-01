@@ -76,6 +76,7 @@ resource "azurerm_network_interface_security_group_association" "nsg_association
 }
 
 resource "azurerm_windows_virtual_machine" "jumpvm" {
+  computer_name       = var.vm_name
   name                = var.name
   resource_group_name = var.resource_group_name
   location            = var.location
