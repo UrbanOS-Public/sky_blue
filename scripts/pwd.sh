@@ -26,7 +26,7 @@ function send {
   echo "send..."
   az keyvault secret set --vault-name "${VAULT_NAME}" \
     -n "jumpbox-win-pwd" \
-    --value "'${random_password}'"
+    --value "${random_password}"
 }
 
 function process {
