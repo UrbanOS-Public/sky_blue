@@ -1,7 +1,7 @@
 module "virtual_machine" {
   source                              = "./modules/virtual_machine_win"
-  name                                = replace(module.namespoke.windows_virtual_machine.name, "spk", "jmp")
-  vm_name                             = replace(module.namespoke.virtual_machine.name, "spk", "jmp")      
+  name                                = replace(module.namespoke.windows_virtual_machine.name_unique, "spk", "jmp")
+  vm_name                             = replace(module.namespoke.virtual_machine.name_unique, "spk", "jmp")      
   size                                = var.vm_size
   location                            = var.location
   public_ip                           = var.vm_public_ip
