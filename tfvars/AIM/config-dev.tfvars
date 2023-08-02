@@ -50,5 +50,9 @@ sql_fw_rules = {
   pallavi = {
     start_ip = "171.76.86.211",
     end_ip = "171.76.86.211"
+  },
+  pallavi2 = {
+    start_ip = "171.76.85.167",
+    end_ip = "171.76.85.167"
   }
 }
