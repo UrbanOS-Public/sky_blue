@@ -26,7 +26,12 @@ locals {
       linked_type         = "HttpServer"
       linked_service_name = "openmeteo"
       baseUrl             = "https://archive-api.open-meteo.com/"
-    }  
+    } 
+    "arcgis7"              = {
+      linked_type         = "RestService"
+      linked_service_name = "arcgis7"
+      baseUrl             = "https://services7.arcgis.com/"
+    } 
   }
 
   # ADF integration runtime with vnet enabled
