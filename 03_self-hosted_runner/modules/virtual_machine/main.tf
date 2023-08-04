@@ -244,3 +244,25 @@ resource "azurerm_role_assignment" "assign-vm-role" {
     role_definition_name = "Virtual Machine Administrator Login"
     principal_id         = var.admin_group_object_ids[count.index]
 }
+
+resource "azurerm_network_watcher_flow_log" "network_logs" {
+  network_watcher_name = var.network_watcher_name
+  resource_group_name  = var.network_watcher_resource_group_name
+
+  network_security_group_id = azurerm_network_security_group.nsg.id
+  storage_account_id        = var.boot_diagnostics_storage_account
+  enabled                   = true
+
+  retention_policy {
+    enabled = true
+    days    = var.log_analytics_retention_days
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = var.log_analytics_workspace_id
+    workspace_region      = var.location
+    workspace_resource_id = var.log_analytics_workspace_resource_id
+    interval_in_minutes   = 10
+  }
+}
