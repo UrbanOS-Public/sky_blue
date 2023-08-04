@@ -4,7 +4,7 @@ resource "azurerm_data_factory_custom_dataset" "rawstore" {
   name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
   type                = each.value.data_type
-
+  description         = each.value.desc
   linked_service {
     name = azurerm_data_factory_linked_service_data_lake_storage_gen2.link.name
   }

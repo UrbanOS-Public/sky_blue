@@ -233,114 +233,142 @@ locals {
     "adl_bikes_data_json" = {
       folder = "adl/raw/bikes"
       data_type  = "Json"
+      desc = "tf ADL json Bike Data"
     }    
     "adl_boundaries_data_json" = {
       folder = "adl/raw/boundaries"
       data_type  = "Json"
+      desc = "tf ADL json Boundaries Data"
     }
     "adl_active_projects_data_json" = {
       folder = "adl/raw"
       data_type  = "Json"
+      desc = "tf ADL json Active projects Data"
     }
     "adl_aadt_data_json" = {
       folder = "adl/raw/aadt"
       data_type  = "Json"
+      desc = "tf ADL json AADT Data"
     }
     "adl_intersection_data_json" = {
       folder = "adl/raw/intersection"
       data_type  = "Json"
+      desc = "tf ADL json intersection data"
     }
     "adl_intersection_floris_data_json" = {
       folder = "adl/raw/intersection"
       data_type  = "Json"
+      desc = "tf ADL json floris data intersection"
     }
     "adl_traffic_signal_locations_json" = {
       folder = "adl/raw/traffic_signal"
       data_type  = "Json"
+      desc = "tf ADL json Traffic signal location"
     }
     "adl_crash_data_json_2022" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data 2022"
     }
     "adl_crash_data_json_2021" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data 2021"
     }
     "adl_crash_data_json_2020" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data 2020"
     }
     "adl_crash_data_json_2019" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data 2019"
     }
     "adl_crash_data_json_2018" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data 2018"
     } 
     "adl_crash_data_json_2017" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data 2017"
     } 
     "adl_crash_data_json_all" = {
       folder = "adl/raw/crash"
       data_type  = "Json"
+      desc = "tf ADL json Crash Data all"
     } 
     "adl_FLARIS_Intersections_json" = {
       folder = "adl/raw/intersections"
       data_type  = "Json"
+      desc = "tf ADL json FLARIS Intersections"
     }    
     "adl_FLARIS_Intersections_csv" = {
       folder = "adl/standardized"
       data_type  = "DelimitedText"
+      desc = "tf ADL csv FLARIS Intersections"
     }    
     "adl_FLARIS_geometry_csv" = {
       folder = "adl/standardized"
       data_type  = "DelimitedText"
+      desc = "tf ADL csv Crash Data all geometry data"
     }
     "adl_crash_data_csv_all" = {
       folder = "adl/standardized"
       data_type  = "DelimitedText"
+      desc = "tf ADL csv Crash Data all"
     }
     "adl_weather_data_json_2017" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2017"
     }   
     "adl_weather_data_json_2018" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2018"
     }     
     "adl_weather_data_json_2019" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2019"
     }  
     "adl_weather_data_json_2020" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2020"
     }
     "adl_weather_data_json_2021" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2021"
     } 
     "adl_weather_data_json_2022" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2022"
     }
     "adl_weather_data_json_2023" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data 2023"
     }    
     "adl_weather_data_json_all" = {
       folder = "adl/raw/weather"
       data_type  = "Json"
+      desc = "tf ADL json Weather Data all"
     }   
     "adl_arcgis_boundingbox_json_all" = {
       folder = "adl/raw/arcgis"
       data_type  = "Json"
+      desc = "tf ADL json Intersection - Bounding Box Data from arcgis"
     } 
     "adl_arcgis_crash_inter_json_all" = {
       folder = "adl/raw/arcgis"
       data_type  = "Json"
+      desc = "tf ADL json Crash - Intersection mapping Data from arcgis"
     } 
   }
   
