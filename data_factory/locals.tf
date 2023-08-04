@@ -330,6 +330,10 @@ locals {
       folder = "adl/raw/weather"
       data_type  = "Json"
     }    
+    "adl_weather_data_json_all" = {
+      folder = "adl/raw/weather"
+      data_type  = "Json"
+    }   
     "adl_arcgis_boundingbox_json_all" = {
       folder = "adl/raw/arcgis"
       data_type  = "Json"
