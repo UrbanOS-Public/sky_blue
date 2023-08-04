@@ -1,6 +1,6 @@
 [
             {
-                "name": "GetIntersectionData",
+                "name": "Get Traffic Signal Locations",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {

@@ -1,7 +1,7 @@
 
  [
             {
-                "name": "GetWeatherData",
+                "name": "Get Weather Data 2023",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {

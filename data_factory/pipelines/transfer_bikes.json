@@ -1,6 +1,6 @@
 [
             {
-                "name": "GetIntersectionData",
+                "name": "Get Bikes Data",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {

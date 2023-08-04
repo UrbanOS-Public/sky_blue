@@ -1,7 +1,7 @@
 
  [
             {
-                "name": "GetCrashData",
+                "name": "Get Crash Data 2019",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {

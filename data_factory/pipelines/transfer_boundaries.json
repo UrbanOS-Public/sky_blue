@@ -1,6 +1,6 @@
 [
             {
-                "name": "GetIntersectionData",
+                "name": "Ge Boundaries Data",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {
