@@ -151,3 +151,8 @@ variable network_watcher_resource_group_name {
   type = string
   default = "NetworkWatcherRG"
 }
+
+variable "diagnostics_storage_account_id" {
+  description = "(Required) The ID of the Storage Account where flow logs are stored."
+  type = string
+}

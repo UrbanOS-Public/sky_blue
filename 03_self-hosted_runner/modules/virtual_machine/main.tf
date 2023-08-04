@@ -251,7 +251,7 @@ resource "azurerm_network_watcher_flow_log" "network_logs" {
   resource_group_name  = var.network_watcher_resource_group_name
 
   network_security_group_id = azurerm_network_security_group.nsg.id
-  storage_account_id        = var.boot_diagnostics_storage_account
+  storage_account_id        = var.diagnostics_storage_account_id
   enabled                   = true
 
   retention_policy {

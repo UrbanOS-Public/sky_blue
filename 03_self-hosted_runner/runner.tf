@@ -12,6 +12,7 @@ module "runner" {
   subnet_id                           = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name]
   os_disk_storage_account_type        = var.vm_os_disk_storage_account_type
   boot_diagnostics_storage_account    = data.azurerm_storage_account.st.primary_blob_endpoint #module.storage_account.primary_blob_endpoint
+  diagnostics_storage_account_id      = data.azurerm_storage_account.st.id
   log_analytics_workspace_id          = data.azurerm_log_analytics_workspace.law.workspace_id #module.log_analytics_workspace.workspace_id
   log_analytics_workspace_key         = data.azurerm_log_analytics_workspace.law.primary_shared_key #module.log_analytics_workspace.primary_shared_key
   log_analytics_workspace_resource_id = data.azurerm_log_analytics_workspace.law.id #module.log_analytics_workspace.id
