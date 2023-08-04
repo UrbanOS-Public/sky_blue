@@ -1,7 +1,7 @@
 
  [
             {
-                "name": "GetCrashData",
+                "name": "ArcGis Get Intersection -- Bounding Box",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {
@@ -19,7 +19,7 @@
                         "requestInterval": "00.00:00:00.010",
                         "requestMethod": "GET",
                         "paginationRules": {
-                            "AbsoluteUrl.{offset}": "RANGE:0:500000:5000",
+                            "AbsoluteUrl.{offset}": "RANGE:0:500000:2000",
                             "EndCondition:$.exceededTransferLimit": "NonExist"
                         }
                     },
