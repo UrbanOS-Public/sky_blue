@@ -246,6 +246,7 @@ resource "azurerm_role_assignment" "assign-vm-role" {
 }
 
 resource "azurerm_network_watcher_flow_log" "network_logs" {
+  name = "${var.name}-nwfl"
   network_watcher_name = var.network_watcher_name
   resource_group_name  = var.network_watcher_resource_group_name
 
