@@ -229,7 +229,7 @@ resource "azurerm_data_factory_custom_dataset" "data_rest" {
   name                = each.key
   data_factory_id     = azurerm_data_factory.adf.id
   type                = each.value.data_type
-
+  description         = each.value.desc
   linked_service {
     name = each.value.linked_service
   }
