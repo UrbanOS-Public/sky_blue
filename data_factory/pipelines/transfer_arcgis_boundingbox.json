@@ -1,7 +1,7 @@
 
  [
             {
-                "name": "ArcGis Get Intersection -- Bounding Box",
+                "name": "ArcGis Get Intersection - Bounding Box",
                 "type": "Copy",
                 "dependsOn": [],
                 "policy": {
