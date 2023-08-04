@@ -1,0 +1,8 @@
+{
+    "location": {
+        "type": "AzureBlobFSLocation",
+        "fileName": "arcgis_boundingbox.json",
+        "folderPath": "crash",
+        "fileSystem": "raw"
+    }
+}
