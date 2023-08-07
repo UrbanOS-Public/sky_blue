@@ -85,7 +85,7 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
   admin_password      = var.admin_ssh_public_key
   encryption_at_host_enabled = true
   provision_vm_agent = true
-  secure_boot_enabled = true
+  #secure_boot_enabled = true
   #vtpm_enabled = true
   tags = var.tags
   network_interface_ids = [
