@@ -656,3 +656,118 @@ variable network_watcher_resource_group_name {
   type = string
   default = "NetworkWatcherRG"
 }
+
+
+variable "security_rules" {
+  description = "A list of security rules to be created."
+  type = list(object({
+    name      = string
+    priority  = number
+    direction = string 
+    access    = string
+    protocol  = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  }))
+  default = [ {
+     name                       : "Deny_All_OutBound"
+     priority                   : 4096
+     direction                  : "Outbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_OutBound"
+     priority                   : 100
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    }, 
+    {
+     name                       : "Allow_Internet_OutBound"
+     priority                   : 110
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "Tcp"
+     source_port_range          : "*"
+     destination_port_range     : "443"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
+     name                       : "Allow_Web_OutBound"
+     priority                   : 120
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "Tcp"
+     source_port_range          : "*"
+     destination_port_range     : "80"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
+     name                       : "Deny_All_InBound"
+     priority                   : 4096
+     direction                  : "Inbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_InBound"
+     priority                   : 100
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    },
+    {
+     name                       : "Allow_Vnet_AzureLoadBalancerInBound"
+     priority                   : 110
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "AzureLoadBalancer"
+     destination_address_prefix : "*"
+    },
+    {
+      name                        = "AllowAAD-dp"
+      priority                    = 200
+      direction                   = "Outbound"
+      access                      = "Allow"
+      protocol                    = "Tcp"
+      source_port_range           = "*"
+      destination_port_range      = "443"
+      source_address_prefix       = "VirtualNetwork"
+      destination_address_prefix  = "AzureActiveDirectory"
+    },
+    {
+      name                        = "AllowAzureFrontDoor-dp"
+      priority                    = 201
+      direction                   = "Outbound"
+      access                      = "Allow"
+      protocol                    = "Tcp"
+      source_port_range           = "*"
+      destination_port_range      = "443"
+      source_address_prefix       = "VirtualNetwork"
+      destination_address_prefix  = "AzureFrontDoor.Frontend"
+    }   ]
+}
