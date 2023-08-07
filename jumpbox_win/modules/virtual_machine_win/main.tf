@@ -85,8 +85,8 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
   admin_password      = var.admin_ssh_public_key
   encryption_at_host_enabled = true
   provision_vm_agent = true
-  #secure_boot_enabled = true
-  #vtpm_enabled = true
+  secure_boot_enabled = true
+  vtpm_enabled = true
   tags = var.tags
   network_interface_ids = [
     azurerm_network_interface.nic.id,
@@ -103,12 +103,11 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
     storage_account_type = "Standard_LRS"
   }
 
-  plan {
-     publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
-     product    = "cis-windows-11-l1" #"windows-11"
-     name   = "center-for-internet-security-inc:cis-windows-11-l1:cis-windows-11-l1:2.0.1" #"latest"
+   plan {
+      publisher = "MicrosoftWindowsDesktop" #"center-for-internet-security-inc" #
+      product    = "windows-11" #"cis-windows-11-l1" #"windows-11"
+      name   = "latest" #"center-for-internet-security-inc:cis-windows-11-l1:cis-windows-11-l1:2.0.1" #"latest"
    }
-
 
    source_image_reference {
      publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
