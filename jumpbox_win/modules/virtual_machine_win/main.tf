@@ -103,12 +103,19 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
     storage_account_type = "Standard_LRS"
   }
 
-  source_image_reference {
-    publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
-    offer     = "cis-windows-11-l1" #"windows-11"
-    sku       = "cis-windows-11-l1" #"19h2-pro-g2"
-    version   = "2.0.2" #"latest"
-  }
+  plan {
+     publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
+     product    = "cis-windows-11-l1" #"windows-11"
+     name   = "center-for-internet-security-inc:cis-windows-11-l1:cis-windows-11-l1:2.0.1" #"latest"
+   }
+
+
+  # source_image_reference {
+  #   publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
+  #   offer     = "cis-windows-11-l1" #"windows-11"
+  #   sku       = "cis-windows-11-l1" #"19h2-pro-g2"
+  #   version   = "2.0.2" #"latest"
+  # }
 }
 
 
