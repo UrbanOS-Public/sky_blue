@@ -684,7 +684,7 @@ variable "security_rules" {
     },
     {
      name                       : "Allow_Vnet_OutBound"
-     priority                   : 100
+     priority                   : 200
      direction                  : "Outbound"
      access                     : "Allow"
      protocol                   : "*"
@@ -695,7 +695,7 @@ variable "security_rules" {
     }, 
     {
      name                       : "Allow_Internet_OutBound"
-     priority                   : 110
+     priority                   : 210
      direction                  : "Outbound"
      access                     : "Allow"
      protocol                   : "Tcp"
@@ -706,7 +706,7 @@ variable "security_rules" {
     },
     {
      name                       : "Allow_Web_OutBound"
-     priority                   : 120
+     priority                   : 220
      direction                  : "Outbound"
      access                     : "Allow"
      protocol                   : "Tcp"
@@ -728,7 +728,7 @@ variable "security_rules" {
     },
     {
      name                       : "Allow_Vnet_InBound"
-     priority                   : 100
+     priority                   : 200
      direction                  : "Inbound"
      access                     : "Allow"
      protocol                   : "*"
@@ -739,7 +739,7 @@ variable "security_rules" {
     },
     {
      name                       : "Allow_Vnet_AzureLoadBalancerInBound"
-     priority                   : 110
+     priority                   : 210
      direction                  : "Inbound"
      access                     : "Allow"
      protocol                   : "*"
@@ -750,7 +750,7 @@ variable "security_rules" {
     },
     {
       name                        = "AllowAAD-dp"
-      priority                    = 200
+      priority                    = 300
       direction                   = "Outbound"
       access                      = "Allow"
       protocol                    = "Tcp"
@@ -761,7 +761,7 @@ variable "security_rules" {
     },
     {
       name                        = "AllowAzureFrontDoor-dp"
-      priority                    = 201
+      priority                    = 301
       direction                   = "Outbound"
       access                      = "Allow"
       protocol                    = "Tcp"
