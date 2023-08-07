@@ -104,9 +104,9 @@ resource "azurerm_network_watcher_flow_log" "network_logs" {
 
   traffic_analytics {
     enabled               = true
-    workspace_id          = data.azurerm_log_analytics_workspace.law.log_analytics_workspace_id
+    workspace_id          = data.azurerm_log_analytics_workspace.law.workspace_id
     workspace_region      = var.location
-    workspace_resource_id = data.azurerm_log_analytics_workspace.law.log_analytics_workspace_resource_id
+    workspace_resource_id = data.azurerm_log_analytics_workspace.law.id
     interval_in_minutes   = 10
   }
 }
