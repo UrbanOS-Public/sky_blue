@@ -67,3 +67,27 @@ resource "azurerm_monitor_diagnostic_setting" "settings" {
     }
   }
 }
+
+
+resource "azurerm_network_watcher_flow_log" "network_logs" {
+  name = "${var.name}-nwfl"
+  network_watcher_name = var.network_watcher_name
+  resource_group_name  = var.network_watcher_resource_group_name
+
+  network_security_group_id = azurerm_network_security_group.nsg.id
+  storage_account_id        = var.diagnostics_storage_account_id
+  enabled                   = true
+
+  retention_policy {
+    enabled = true
+    days    = var.log_analytics_retention_days
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = var.log_analytics_workspace_id
+    workspace_region      = var.location
+    workspace_resource_id = var.log_analytics_workspace_resource_id
+    interval_in_minutes   = 10
+  }
+}

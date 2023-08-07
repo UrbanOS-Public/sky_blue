@@ -30,3 +30,9 @@ az purview account add-root-collection-admin --name "pbi-aim-purview-dev-eus" --
 
 az datafactory managed-private-endpoint list --resource-group "rg-aim-adl-dev-eus" --factory-name "adf-aim-adl-dev-eus" --managed-virtual-network-name "default"
 az datafactory managed-private-endpoint delete --resource-group "rg-aim-adl-dev-eus" --factory-name "adf-aim-adl-dev-eus" --managed-virtual-network-name "default" -n "sql-dlsaimadldeveus-pe"
+
+
+
+
+az network bastion ssh --name "snap-aim-spk-dev-eus" --resource-group "rg-aim-spk-dev-eus" --target-resource-id "/subscriptions/c26f81cf-321b-4132-8526-3f97a01e19d2/resourceGroups/rg-aim-spk-dev-eus/providers/Microsoft.Compute/virtualMachines/vm-aim-runner-dev-eus"  --auth-type AAD
+                                                                                           --target-resource-id "/subscriptions/c26f81cf-321b-4132-8526-3f97a01e19d2/resourceGroups/rg-urbanos-spk-dev-eus/providers/Microsoft.Compute/virtualMachines/vm-urbanos-runner-dev-eus"
