@@ -1,3 +1,108 @@
+locals {
+  security_rules = [
+    {
+     name                       : "Deny_All_OutBound"
+     priority                   : 4096
+     direction                  : "Outbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_OutBound"
+     priority                   : 100
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    }, 
+    {
+     name                       : "Allow_Internet_OutBound"
+     priority                   : 110
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "Tcp"
+     source_port_range          : "*"
+     destination_port_range     : "443"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
+     name                       : "Allow_Web_OutBound"
+     priority                   : 120
+     direction                  : "Outbound"
+     access                     : "Allow"
+     protocol                   : "Tcp"
+     source_port_range          : "*"
+     destination_port_range     : "80"
+     source_address_prefix      : "*"
+     destination_address_prefix : "Internet"
+    },
+    {
+     name                       : "Deny_All_InBound"
+     priority                   : 4096
+     direction                  : "Inbound"
+     access                     : "Deny"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "*"
+     destination_address_prefix : "*"
+    },
+    {
+     name                       : "Allow_Vnet_InBound"
+     priority                   : 100
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "VirtualNetwork"
+     destination_address_prefix : "VirtualNetwork"
+    },
+    {
+     name                       : "Allow_Vnet_AzureLoadBalancerInBound"
+     priority                   : 110
+     direction                  : "Inbound"
+     access                     : "Allow"
+     protocol                   : "*"
+     source_port_range          : "*"
+     destination_port_range     : "*"
+     source_address_prefix      : "AzureLoadBalancer"
+     destination_address_prefix : "*"
+    },
+    {
+      name                        = "AllowAAD-dp"
+      priority                    = 200
+      direction                   = "Outbound"
+      access                      = "Allow"
+      protocol                    = "Tcp"
+      source_port_range           = "*"
+      destination_port_range      = "443"
+      source_address_prefix       = "VirtualNetwork"
+      destination_address_prefix  = "AzureActiveDirectory"
+    },
+    {
+      name                        = "AllowAzureFrontDoor-dp"
+      priority                    = 201
+      direction                   = "Outbound"
+      access                      = "Allow"
+      protocol                    = "Tcp"
+      source_port_range           = "*"
+      destination_port_range      = "443"
+      source_address_prefix       = "VirtualNetwork"
+      destination_address_prefix  = "AzureFrontDoor.Frontend"
+    }   
+  ]
+}
+
+
 resource "azurerm_subnet" "dp_public" {
   name                 = "DatabricksSubnet-Public"
   resource_group_name  = module.namespoke.resource_group.name
@@ -48,33 +153,55 @@ resource "azurerm_network_security_group" "dp_sg" {
   tags                = var.tags
 }
 
-resource "azurerm_network_security_rule" "dp_aad" {
-  name                        = "AllowAAD-dp"
-  priority                    = 200
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "AzureActiveDirectory"
+resource "azurerm_network_security_rule" "rules" {
+  for_each = { for sg in locals.security_rules : sg.name => sg } 
+  
+  name                        = each.key
+  priority                    = each.value.priority
+  direction                   = each.value.direction
+  access                      = each.value.access
+  protocol                    = each.value.protocol
+  source_port_range           = each.value.source_port_range
+  destination_port_range      = each.value.destination_port_range
+  source_address_prefix       = each.value.source_address_prefix
+  destination_address_prefix  = each.value.destination_address_prefix
   resource_group_name         = module.nameadb.resource_group.name
   network_security_group_name = azurerm_network_security_group.dp_sg.name
+  
+  depends_on = [ 
+    azurerm_network_security_group.dp_sg 
+  ]
 }
 
-resource "azurerm_network_security_rule" "dp_azfrontdoor" {
-  name                        = "AllowAzureFrontDoor-dp"
-  priority                    = 201
-  direction                   = "Outbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "443"
-  source_address_prefix       = "VirtualNetwork"
-  destination_address_prefix  = "AzureFrontDoor.Frontend"
-  resource_group_name         = module.nameadb.resource_group.name
-  network_security_group_name = azurerm_network_security_group.dp_sg.name
-}
+
+
+# resource "azurerm_network_security_rule" "dp_aad" {
+#   name                        = "AllowAAD-dp"
+#   priority                    = 200
+#   direction                   = "Outbound"
+#   access                      = "Allow"
+#   protocol                    = "Tcp"
+#   source_port_range           = "*"
+#   destination_port_range      = "443"
+#   source_address_prefix       = "VirtualNetwork"
+#   destination_address_prefix  = "AzureActiveDirectory"
+#   resource_group_name         = module.nameadb.resource_group.name
+#   network_security_group_name = azurerm_network_security_group.dp_sg.name
+# }
+
+# resource "azurerm_network_security_rule" "dp_azfrontdoor" {
+#   name                        = "AllowAzureFrontDoor-dp"
+#   priority                    = 201
+#   direction                   = "Outbound"
+#   access                      = "Allow"
+#   protocol                    = "Tcp"
+#   source_port_range           = "*"
+#   destination_port_range      = "443"
+#   source_address_prefix       = "VirtualNetwork"
+#   destination_address_prefix  = "AzureFrontDoor.Frontend"
+#   resource_group_name         = module.nameadb.resource_group.name
+#   network_security_group_name = azurerm_network_security_group.dp_sg.name
+# }
 
 resource "azurerm_subnet_network_security_group_association" "dp_public" {
   subnet_id                 = azurerm_subnet.dp_public.id
