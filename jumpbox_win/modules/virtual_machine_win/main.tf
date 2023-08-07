@@ -104,10 +104,10 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
   }
 
   source_image_reference {
-    publisher = "MicrosoftWindowsDesktop"
-    offer     = "windows-10"
-    sku       = "19h2-pro-g2"
-    version   = "latest"
+    publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
+    offer     = "cis-windows-11-l1" #"windows-11"
+    sku       = "cis-windows-11-l1" #"19h2-pro-g2"
+    version   = "2.0.2" #"latest"
   }
 }
 
@@ -309,18 +309,44 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
 
 
 
-resource "azurerm_virtual_machine_extension" "aad" {
-  name                       = "AADLoginForWindows"
-  virtual_machine_id         = azurerm_windows_virtual_machine.jumpvm.id
-  publisher                  = "Microsoft.Azure.ActiveDirectory"
-  type                       = "AADLoginForWindows"
-  type_handler_version       = "2.0"
-  auto_upgrade_minor_version = true
-}
+# resource "azurerm_virtual_machine_extension" "aad" {
+#   name                       = "AADLoginForWindows"
+#   virtual_machine_id         = azurerm_windows_virtual_machine.jumpvm.id
+#   publisher                  = "Microsoft.Azure.ActiveDirectory"
+#   type                       = "AADLoginForWindows"
+#   type_handler_version       = "2.0"
+#   auto_upgrade_minor_version = true
+# }
 
-resource "azurerm_role_assignment" "assign-vm-role" {
-  count = length(var.admin_group_object_ids)
-    scope                = azurerm_windows_virtual_machine.jumpvm.id
-    role_definition_name = "Virtual Machine Administrator Login"
-    principal_id         = var.admin_group_object_ids[count.index]
+# resource "azurerm_role_assignment" "assign-vm-role" {
+#   count = length(var.admin_group_object_ids)
+#     scope                = azurerm_windows_virtual_machine.jumpvm.id
+#     role_definition_name = "Virtual Machine Administrator Login"
+#     principal_id         = var.admin_group_object_ids[count.index]
+# }
+
+
+
+
+resource "azurerm_network_watcher_flow_log" "network_logs" {
+  name = "${var.name}-nwfl"
+  network_watcher_name = var.network_watcher_name
+  resource_group_name  = var.network_watcher_resource_group_name
+
+  network_security_group_id = azurerm_network_security_group.nsg.id
+  storage_account_id        = var.diagnostics_storage_account_id
+  enabled                   = true
+
+  retention_policy {
+    enabled = true
+    days    = var.log_analytics_retention_days
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = var.log_analytics_workspace_id
+    workspace_region      = var.location
+    workspace_resource_id = var.log_analytics_workspace_resource_id
+    interval_in_minutes   = 10
+  }
 }
