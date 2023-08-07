@@ -110,12 +110,12 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
    }
 
 
-  # source_image_reference {
-  #   publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
-  #   offer     = "cis-windows-11-l1" #"windows-11"
-  #   sku       = "cis-windows-11-l1" #"19h2-pro-g2"
-  #   version   = "2.0.2" #"latest"
-  # }
+   source_image_reference {
+     publisher = "center-for-internet-security-inc" #"MicrosoftWindowsDesktop"
+     offer     = "cis-windows-11-l1" #"windows-11"
+     sku       = "cis-windows-11-l1" #"19h2-pro-g2"
+     version   = "2.0.2" #"latest"
+   }
 }
 
 
