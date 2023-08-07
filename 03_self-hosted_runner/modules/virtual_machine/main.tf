@@ -229,7 +229,7 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
 
 
 
-resource "azurerm_virtual_machine_extension" "aad" {
+resource "azurerm_virtual_machine_extension" "aadssh" {
   name                       = "AADSSHLogin" #"AADLoginForLinux"
   virtual_machine_id         = azurerm_linux_virtual_machine.virtual_machine.id
   publisher                  = "Microsoft.Azure.ActiveDirectory" #"Microsoft.Azure.ActiveDirectory.LinuxSSH"
