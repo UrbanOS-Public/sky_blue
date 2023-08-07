@@ -86,7 +86,7 @@ resource "azurerm_windows_virtual_machine" "jumpvm" {
   encryption_at_host_enabled = true
   provision_vm_agent = true
   secure_boot_enabled = true
-  vtpm_enabled = true
+  #vtpm_enabled = true
   tags = var.tags
   network_interface_ids = [
     azurerm_network_interface.nic.id,
