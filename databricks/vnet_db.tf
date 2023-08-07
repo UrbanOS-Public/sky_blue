@@ -85,3 +85,28 @@ resource "azurerm_subnet_network_security_group_association" "dp_private" {
   subnet_id                 = azurerm_subnet.dp_private.id
   network_security_group_id = azurerm_network_security_group.dp_sg.id
 }
+
+
+
+resource "azurerm_network_watcher_flow_log" "network_logs" {
+  name = "${module.nameadb.databricks_workspace.name}-nwfl"
+  network_watcher_name = var.network_watcher_name
+  resource_group_name  = var.network_watcher_resource_group_name
+
+  network_security_group_id = azurerm_network_security_group.dp_sg.id
+  storage_account_id        = data.azurerm_storage_account.st.id
+  enabled                   = true
+
+  retention_policy {
+    enabled = true
+    days    = var.log_analytics_retention_days
+  }
+
+  traffic_analytics {
+    enabled               = true
+    workspace_id          = data.azurerm_log_analytics_workspace.law.log_analytics_workspace_id
+    workspace_region      = var.location
+    workspace_resource_id = data.azurerm_log_analytics_workspace.law.log_analytics_workspace_resource_id
+    interval_in_minutes   = 10
+  }
+}

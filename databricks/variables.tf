@@ -643,3 +643,16 @@ variable "adb_private_subnet_address_prefix" {
   #default     = ["10.1.1.0/24"]
   type        = list(string)
 }
+
+
+variable network_watcher_name {
+  description = "(Required) The name of the Network Watcher. Changing this forces a new resource to be created."
+  type = string
+  default = "NetworkWatcher_eastus"
+}
+
+variable network_watcher_resource_group_name {
+  description = "(Required) The name of the resource group in which the Network Watcher was deployed. Changing this forces a new resource to be created"
+  type = string
+  default = "NetworkWatcherRG"
+}

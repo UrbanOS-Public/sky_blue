@@ -52,3 +52,8 @@ data "azurerm_virtual_network" "spoke" {
   name                = module.namespoke.virtual_network.name
   resource_group_name = module.namespoke.resource_group.name
 }
+
+data "azurerm_storage_account" "st" {
+  name                = module.namespoke.storage_account.name
+  resource_group_name = module.namespoke.resource_group.name
+}
