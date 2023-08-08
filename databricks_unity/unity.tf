@@ -17,7 +17,7 @@ resource "databricks_metastore_data_access" "first" {
 }
 
 resource "databricks_metastore_assignment" "this" {
-  workspace_id         = data.azurerm_databricks_workspace.this.id
+  workspace_id         = data.azurerm_databricks_workspace.this.workspace_id
   metastore_id         = databricks_metastore.this.id
   default_catalog_name = "hive_metastore"
 }
