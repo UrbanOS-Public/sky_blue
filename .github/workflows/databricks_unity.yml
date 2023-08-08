@@ -1,4 +1,4 @@
-name: "AIM 07 Databricks Unity Cataloque"
+name: "AIM 07 Databricks Unity Catalog"
 on:
   workflow_dispatch:
     inputs:
