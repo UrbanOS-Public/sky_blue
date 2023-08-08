@@ -57,3 +57,8 @@ data "azurerm_storage_account" "st" {
   name                = module.namespoke.storage_account.name
   resource_group_name = module.namespoke.resource_group.name
 }
+
+data "azurerm_databricks_workspace" "this" {
+  name                = module.nameadb.databricks_workspace.name
+  resource_group_name = module.nameadb.resource_group.name
+}
