@@ -41,6 +41,16 @@ resource "azurerm_subnet" "dp_private" {
   service_endpoints = [] #var.private_subnet_endpoints
 }
 
+resource "azurerm_subnet" "dp_transit" {
+  name                 = "DatabricksSubnet-Transit"
+  resource_group_name  = module.namespoke.resource_group.name
+  virtual_network_name = module.namespoke.virtual_network.name
+  address_prefixes     = var.adb_link_subnet_address_prefix
+  enforce_private_link_endpoint_network_policies = true
+}
+
+
+
 resource "azurerm_network_security_group" "dp_sg" {
   name                = "${module.nameadb.databricks_workspace.name}-nsg"
   location            = var.location

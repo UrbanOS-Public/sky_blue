@@ -644,6 +644,11 @@ variable "adb_private_subnet_address_prefix" {
   type        = list(string)
 }
 
+variable "adb_link_subnet_address_prefix" {
+  description = "Specifies the address prefix of the ADB transit subnet"
+  #default     = ["10.1.1.0/24"]
+  type        = list(string)
+}
 
 variable network_watcher_name {
   description = "(Required) The name of the Network Watcher. Changing this forces a new resource to be created."
