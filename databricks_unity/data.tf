@@ -62,3 +62,8 @@ data "azurerm_databricks_workspace" "this" {
   name                = module.nameadb.databricks_workspace.name
   resource_group_name = module.nameadb.resource_group.name
 }
+
+data "azurerm_databricks_access_connector" "this" {
+  name                = "${module.nameadb.databricks_workspace.name}-conn"
+  resource_group_name = module.nameadb.resource_group.name
+}
