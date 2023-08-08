@@ -10,6 +10,9 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 2.15.0"
     }
+    databricks = {
+      source = "databricks/databricks"
+    }
   }
 }
 
@@ -21,6 +24,13 @@ provider "azurerm" {
 provider "azuread" {
 }
 
+provider "databricks" {
+  host                        = data.azurerm_databricks_workspace.this.workspace_url
+  azure_workspace_resource_id = azurerm_databricks_workspace.this.id
+
+  # ARM_USE_MSI environment variable is recommended
+  azure_use_msi = true
+}
 
 data "azurerm_client_config" "current" {}
 
