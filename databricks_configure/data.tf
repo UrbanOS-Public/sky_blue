@@ -59,7 +59,7 @@ data "azurerm_storage_account" "st" {
 }
 
 data "azurerm_databricks_workspace" "this" {
-  name                =  module.nameadb.databricks_workspace.name
+  name                =  "db-test" #module.nameadb.databricks_workspace.name
   resource_group_name =  module.nameadb.resource_group.name
 }
 
@@ -73,8 +73,14 @@ data "azurerm_resources" "azurerm_databricks_access_connector" {
   resource_group_name = module.nameadb.resource_group.name
 }
 
-data "databricks_current_user" "me" {}
-data "databricks_spark_version" "latest" {}
+data "databricks_current_user" "me" {
+
+}
+
+data "databricks_spark_version" "latest" {
+  long_term_support = true
+}
+
 data "databricks_node_type" "smallest" {
   local_disk = true
 }

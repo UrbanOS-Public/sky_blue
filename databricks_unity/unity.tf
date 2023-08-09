@@ -1,7 +1,9 @@
-resource "databricks_user" "dummy" {
-   user_name    = "dummy+${data.databricks_current_user.me.alphanumeric}@example.com"
-   display_name = "Dummy ${data.databricks_current_user.me.alphanumeric}"
- }
+# permision issues -> do it via ui
+
+# resource "databricks_user" "dummy" {
+#    user_name    = "dummy+${data.databricks_current_user.me.alphanumeric}@example.com"
+#    display_name = "Dummy ${data.databricks_current_user.me.alphanumeric}"
+#  }
 
 # resource "databricks_metastore" "this" {
 #   name = "primary"
