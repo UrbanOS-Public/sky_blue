@@ -59,7 +59,7 @@ data "azurerm_storage_account" "st" {
 }
 
 data "azurerm_databricks_workspace" "this" {
-  name                =  "db-test" #module.nameadb.databricks_workspace.name
+  name                =  module.nameadb.databricks_workspace.name
   resource_group_name =  module.nameadb.resource_group.name
 }
 

@@ -1,10 +1,12 @@
-# resource "databricks_cluster" "shared_autoscaling" {
-#   cluster_name            = "Shared Autoscaling"
-#   spark_version           = data.databricks_spark_version.latest_lts.id
-#   node_type_id            = data.databricks_node_type.smallest.id
-#   autotermination_minutes = 20
-#   autoscale {
-#     min_workers = 1
-#     max_workers = 50
-#   }
-# }
+resource "databricks_cluster" "this" {
+for_each = var.db_clusters
+  cluster_name            = each.value.name
+  node_type_id            = data.databricks_node_type.smallest.id
+  spark_version           = data.databricks_spark_version.latest_lts.id
+  autotermination_minutes = each.value.cluster_autotermination_minutes
+  num_workers             = each.value.cluster_num_workers
+  data_security_mode      = each.value.cluster_data_security_mode
+  single_user_name        = each.value.single_user_name
+  availability            = each.value.availability
+ 
+}

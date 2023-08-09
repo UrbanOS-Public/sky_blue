@@ -57,3 +57,13 @@ sql_fw_rules = {
     end_ip = "171.76.85.167"
   }
 }
+db_clusters = {
+  cluster01 = {
+    name = "Test cluster",
+    cluster_autotermination_minutes = 60,
+    cluster_num_workers = 1,
+    data_security_mode = "SINGLE_USER"
+    single_user_name = "test01@ACP202325.onmicrosoft.com"
+    availability = "ON_DEMAND"
+  },
+}

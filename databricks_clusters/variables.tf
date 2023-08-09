@@ -771,3 +771,8 @@ variable "security_rules" {
       destination_address_prefix  = "AzureFrontDoor.Frontend"
     }   ]
 }
+
+variable "db_clusters" {
+  type        = map(any)
+  description = "Specifies info to create databrics clusters"
+}
