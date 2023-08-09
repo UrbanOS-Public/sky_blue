@@ -22,6 +22,7 @@ provider "azurerm" {
 }
 
 provider "azuread" {
+   tenant_id = data.azurerm_client_config.current.tenant_id
 }
 
 provider "databricks" {
@@ -33,7 +34,10 @@ provider "databricks" {
 }
 
 data "azurerm_client_config" "current" {}
-
+# Retrieve domain information
+data "azuread_domains" "example" {
+  only_initial = true
+}
 
 
 
