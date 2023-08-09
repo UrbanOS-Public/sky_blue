@@ -77,7 +77,7 @@ resource "azurerm_key_vault_access_policy" "adb_identity" {
 resource "azurerm_databricks_workspace" "dp_workspace" {
   name                                  = module.nameadb.databricks_workspace.name
   resource_group_name                   = module.nameadb.resource_group.name
-  location                              = "westus" #var.location
+  location                              = var.location
   sku                                   = "premium"
   tags                                  = var.tags
   public_network_access_enabled         = false #var.public_network_access_enabled
