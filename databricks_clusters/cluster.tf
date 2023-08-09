@@ -5,7 +5,7 @@ for_each = var.db_clusters
   spark_version           = data.databricks_spark_version.latest_lts.id
   autotermination_minutes = each.value.cluster_autotermination_minutes
   num_workers             = each.value.cluster_num_workers
-  data_security_mode      = each.value.cluster_data_security_mode
+  data_security_mode      = each.value.data_security_mode
   single_user_name        = each.value.single_user_name
   #availability            = each.value.availability
  
