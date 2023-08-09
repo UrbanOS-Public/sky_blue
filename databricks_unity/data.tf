@@ -59,8 +59,8 @@ data "azurerm_storage_account" "st" {
 }
 
 data "azurerm_databricks_workspace" "this" {
-  name                = "aim-databricks-west" #module.nameadb.databricks_workspace.name
-  resource_group_name = "db-west-test" #module.nameadb.resource_group.name
+  name                =  module.nameadb.databricks_workspace.name
+  resource_group_name =  module.nameadb.resource_group.name
 }
 
 # data "azurerm_databricks_access_connector" "this" {
