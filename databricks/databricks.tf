@@ -106,6 +106,17 @@ resource "azurerm_databricks_workspace" "dp_workspace" {
   ]
 }
 
+resource "azurerm_databricks_workspace" "test" {
+  name                        = "db-test"
+  resource_group_name         = module.nameadb.resource_group.name
+  location                    = "WestUS"
+  sku                         = "premium"
+  managed_resource_group_name = "rg-dbtest-workspace"
+  tags                        = var.tags
+}
+
+
+
 resource "azurerm_databricks_access_connector" "adf" {
   name                = "${module.nameadb.databricks_workspace.name}-conn"
   resource_group_name = module.nameadb.resource_group.name
