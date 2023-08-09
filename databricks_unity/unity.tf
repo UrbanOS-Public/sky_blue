@@ -1,10 +1,15 @@
-resource "databricks_metastore" "this" {
-  name = "primary"
-  storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
-    "metastore",
-  module.nameadb.data_lake_store.name)
-  force_destroy = true
+resource "databricks_user" "dummy" {
+  user_name    = "dummy+${data.databricks_current_user.me.alphanumeric}@example.com"
+  display_name = "Dummy ${data.databricks_current_user.me.alphanumeric}"
 }
+
+# resource "databricks_metastore" "this" {
+#   name = "primary"
+#   storage_root = format("abfss://%s@%s.dfs.core.windows.net/",
+#     "metastore",
+#   module.nameadb.data_lake_store.name)
+#   force_destroy = true
+# }
 
 # resource "databricks_metastore_data_access" "first" {
 #   metastore_id = databricks_metastore.this.id

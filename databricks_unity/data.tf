@@ -72,3 +72,9 @@ data "azurerm_resources" "azurerm_databricks_access_connector" {
   name                = "${module.nameadb.databricks_workspace.name}-conn"
   resource_group_name = module.nameadb.resource_group.name
 }
+
+data "databricks_current_user" "me" {}
+data "databricks_spark_version" "latest" {}
+data "databricks_node_type" "smallest" {
+  local_disk = true
+}
