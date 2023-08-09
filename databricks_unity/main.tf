@@ -32,7 +32,10 @@ provider "databricks" {
   # ARM_USE_MSI environment variable is recommended
   azure_use_msi = true
 }
-
+resource "databricks_service_principal" "sp" {
+  provider       = databricks.azure_account
+  application_id = "fa2db9fa-ce2d-422a-9b06-ba715fb7036e"
+}
 data "azurerm_client_config" "current" {}
 # Retrieve domain information
 data "azuread_domains" "example" {
