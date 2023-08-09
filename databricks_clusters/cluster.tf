@@ -7,6 +7,6 @@ for_each = var.db_clusters
   num_workers             = each.value.cluster_num_workers
   data_security_mode      = each.value.cluster_data_security_mode
   single_user_name        = each.value.single_user_name
-  availability            = each.value.availability
+  #availability            = each.value.availability
  
 }
