@@ -77,7 +77,7 @@ data "databricks_current_user" "me" {
 
 }
 
-data "databricks_spark_version" "latest" {
+data "databricks_spark_version" "latest_lts" {
   long_term_support = true
 }
 
