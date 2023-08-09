@@ -66,7 +66,7 @@ resource "azurerm_key_vault_access_policy" "adb_identity" {
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = "b61b070e-25a8-4d6a-aea4-d3fd427a28b4" #!!!!to add appid automaticly    data.azuread_application.databricks.object_id #azurerm_databricks_workspace.dp_workspace.storage_account_identity.0.principal_id
   key_permissions = [
-    "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey", "Wrap"
+    "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
   depends_on = [ 
     #azurerm_databricks_workspace.dp_workspace,
@@ -79,10 +79,10 @@ resource "azurerm_key_vault_access_policy" "databricks_disk_policy" {
   object_id    = azurerm_databricks_workspace.dp_workspace.managed_disk_identity[0].principal_id
 
   key_permissions = [
-    "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey", "Wrap"
+    "Get", "List", "Encrypt", "Decrypt", "WrapKey" ,"UnwrapKey"
   ]
   depends_on = [ 
-    #azurerm_databricks_workspace.dp_workspace,
+    azurerm_databricks_workspace.dp_workspace,
     azurerm_key_vault_key.cmk
   ]
 }
