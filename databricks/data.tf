@@ -57,3 +57,7 @@ data "azurerm_storage_account" "st" {
   name                = module.namespoke.storage_account.name
   resource_group_name = module.namespoke.resource_group.name
 }
+
+data "azuread_service_principal" "databricks_spn" {
+  display_name = "AzureDatabricks"
+}
