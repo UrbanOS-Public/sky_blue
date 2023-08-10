@@ -8,7 +8,7 @@ resource "databricks_storage_credential" "external_mi" {
 }
 
 resource "databricks_external_location" "raw" {
-  name = "external-ADL-raw"
+  name = "external-adl-raw"
   url = format("abfss://%s@%s.dfs.core.windows.net",
     "raw",
     module.namedatalake.data_lake_store.name)
@@ -28,7 +28,7 @@ resource "databricks_grants" "raw" {
 }
 
 resource "databricks_external_location" "standardized" {
-  name = "external-ADL-standardized"
+  name = "external-adl-standardized"
   url = format("abfss://%s@%s.dfs.core.windows.net",
     "standardized",
     module.namedatalake.data_lake_store.name)
@@ -48,7 +48,7 @@ resource "databricks_grants" "standardized" {
 }
 
 resource "databricks_external_location" "enriched" {
-  name = "external-ADL-enriched"
+  name = "external-adl-enriched"
   url = format("abfss://%s@%s.dfs.core.windows.net",
     "enriched",
     module.namedatalake.data_lake_store.name)
