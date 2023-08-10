@@ -61,9 +61,12 @@ db_clusters = {
   cluster01 = {
     name = "Test cluster",
     cluster_autotermination_minutes = 60,
-    cluster_num_workers = 1,
-    data_security_mode = "SINGLE_USER"
-    single_user_name = "test01@ACP202325.onmicrosoft.com"
-    availability = "ON_DEMAND"
+    cluster_num_workers = 0,
+    data_security_mode = "SINGLE_USER",
+    single_user_name = "test01@ACP202325.onmicrosoft.com",
+    availability = "ON_DEMAND_AZURE",
+    node_type_id = "Standard_DS3_v2",
+    spark_version = "13.2.x-cpu-ml-scala2.12",
+    runtime_engine = "STANDARD"
   },
 }
