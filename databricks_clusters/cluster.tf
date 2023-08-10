@@ -9,7 +9,7 @@ for_each = var.db_clusters
   single_user_name        = each.value.single_user_name
   runtime_engine          = each.value.runtime_engine
   enable_local_disk_encryption = true
-  policy_id               = "001E49A0A798AD86"
+  #policy_id               = "001E49A0A798AD86"
   spark_conf = {
     "spark.master": "local[*, 4]",
     "spark.databricks.cluster.profile": "singleNode",
