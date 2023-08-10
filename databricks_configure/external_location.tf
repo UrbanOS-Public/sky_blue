@@ -26,3 +26,43 @@ resource "databricks_grants" "raw" {
     privileges = ["ALL_PRIVILEGES"]
   }
 }
+
+resource "databricks_external_location" "standardized" {
+  name = "external-ADL-standardized"
+  url = format("abfss://%s@%s.dfs.core.windows.net",
+    "standardized",
+    module.namedatalake.data_lake_store.name)
+  credential_name = databricks_storage_credential.external_mi.id
+  comment         = "External location ADL managed by TF"
+  depends_on = [ 
+    databricks_storage_credential.external_mi
+  ]
+}
+
+resource "databricks_grants" "standardized" {
+  external_location = databricks_external_location.standardized.id
+  grant {
+    principal  = "account users"
+    privileges = ["ALL_PRIVILEGES"]
+  }
+}
+
+resource "databricks_external_location" "enriched" {
+  name = "external-ADL-enriched"
+  url = format("abfss://%s@%s.dfs.core.windows.net",
+    "enriched",
+    module.namedatalake.data_lake_store.name)
+  credential_name = databricks_storage_credential.external_mi.id
+  comment         = "External location ADL managed by TF"
+  depends_on = [ 
+    databricks_storage_credential.external_mi
+  ]
+}
+
+resource "databricks_grants" "enriched" {
+  external_location = databricks_external_location.enriched.id
+  grant {
+    principal  = "account users"
+    privileges = ["ALL_PRIVILEGES"]
+  }
+}
