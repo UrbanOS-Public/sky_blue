@@ -238,10 +238,10 @@ resource "databricks_external_location" "some" {
   ]
 }
 
-resource "databricks_grants" "some" {
-  external_location = databricks_external_location.some.id
-  grant {
-    principal  = "Data Engineers"
-    privileges = ["CREATE_TABLE", "READ_FILES"]
-  }
-}
+# resource "databricks_grants" "some" {
+#   external_location = databricks_external_location.some.id
+#   grant {
+#     principal  = "Data Engineers"
+#     privileges = ["CREATE_TABLE", "READ_FILES"]
+#   }
+# }
