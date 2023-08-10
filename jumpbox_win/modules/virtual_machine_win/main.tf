@@ -315,21 +315,21 @@ resource "azurerm_monitor_diagnostic_setting" "nsg_settings" {
 
 
 
-# resource "azurerm_virtual_machine_extension" "aad" {
-#   name                       = "AADLoginForWindows"
-#   virtual_machine_id         = azurerm_windows_virtual_machine.jumpvm.id
-#   publisher                  = "Microsoft.Azure.ActiveDirectory"
-#   type                       = "AADLoginForWindows"
-#   type_handler_version       = "2.0"
-#   auto_upgrade_minor_version = true
-# }
+resource "azurerm_virtual_machine_extension" "aad" {
+  name                       = "AADLoginForWindows"
+  virtual_machine_id         = azurerm_windows_virtual_machine.jumpvm.id
+  publisher                  = "Microsoft.Azure.ActiveDirectory"
+  type                       = "AADLoginForWindows"
+  type_handler_version       = "2.0"
+  auto_upgrade_minor_version = true
+}
 
-# resource "azurerm_role_assignment" "assign-vm-role" {
-#   count = length(var.admin_group_object_ids)
-#     scope                = azurerm_windows_virtual_machine.jumpvm.id
-#     role_definition_name = "Virtual Machine Administrator Login"
-#     principal_id         = var.admin_group_object_ids[count.index]
-# }
+resource "azurerm_role_assignment" "assign-vm-role" {
+  count = length(var.admin_group_object_ids)
+    scope                = azurerm_windows_virtual_machine.jumpvm.id
+    role_definition_name = "Virtual Machine Administrator Login"
+    principal_id         = var.admin_group_object_ids[count.index]
+}
 
 
 
