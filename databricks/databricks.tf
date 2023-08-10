@@ -214,34 +214,3 @@ resource "azurerm_databricks_workspace_customer_managed_key" "databricks_workspa
     azurerm_key_vault_access_policy.databricks_policy
   ]
 }
-
-resource "databricks_storage_credential" "external_mi" {
-  name = "mi_credential"
-  azure_managed_identity {
-    access_connector_id = azurerm_databricks_access_connector.adf.id
-  }
-  comment = "Managed identity credential managed by TF"
-  depends_on = [ 
-    azurerm_databricks_access_connector.adf
-  ]
-}
-
-resource "databricks_external_location" "some" {
-  name = "external-ADL-raw"
-  url = format("abfss://%s@%s.dfs.core.windows.net",
-    "raw",
-    module.namedatalake.data_lake_store.name)
-  credential_name = databricks_storage_credential.external_mi.id
-  comment         = "External location ADL managed by TF"
-  depends_on = [
-    databricks_metastore_assignment.this
-  ]
-}
-
-# resource "databricks_grants" "some" {
-#   external_location = databricks_external_location.some.id
-#   grant {
-#     principal  = "Data Engineers"
-#     privileges = ["CREATE_TABLE", "READ_FILES"]
-#   }
-# }
