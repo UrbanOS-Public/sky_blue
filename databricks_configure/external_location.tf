@@ -2,7 +2,8 @@
 resource "databricks_storage_credential" "external_mi" {
   name = "mi_credential"
   azure_managed_identity {
-    access_connector_id = data.azurerm_resources.azurerm_databricks_access_connector.id
+    access_connector_id = "/subscriptions/c26f81cf-321b-4132-8526-3f97a01e19d2/resourceGroups/rg-aim-adb-dev-eus/providers/Microsoft.Databricks/accessConnectors/dbw-aim-adb-dev-eus-conn"
+    #! TO DO FIND ID data.azurerm_resources.azurerm_databricks_access_connector.id
   }
   comment = "Managed identity credential managed by TF"
 }

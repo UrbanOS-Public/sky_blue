@@ -27,8 +27,9 @@ provider "azuread" {
 
 provider "databricks" {
   host                        = data.azurerm_databricks_workspace.this.workspace_url
+ # account_id = data.azurerm_databricks_workspace.this.workspace_id
   #azure_workspace_resource_id = data.azurerm_databricks_workspace.this.id
-
+#
   # ARM_USE_MSI environment variable is recommended
   azure_use_msi = true
 }
