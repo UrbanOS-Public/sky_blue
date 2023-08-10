@@ -1,4 +1,3 @@
-
 resource "databricks_storage_credential" "external_mi" {
   name = "mi_credential"
   azure_managed_identity {
@@ -15,12 +14,15 @@ resource "databricks_external_location" "raw" {
     module.namedatalake.data_lake_store.name)
   credential_name = databricks_storage_credential.external_mi.id
   comment         = "External location ADL managed by TF"
+  depends_on = [ 
+    databricks_storage_credential.external_mi
+  ]
 }
 
-# resource "databricks_grants" "some" {
-#   external_location = databricks_external_location.some.id
-#   grant {
-#     principal  = "Data Engineers"
-#     privileges = ["CREATE_TABLE", "READ_FILES"]
-#   }
-# }
+resource "databricks_grants" "raw" {
+  external_location = databricks_external_location.raw.id
+  grant {
+    principal  = "account users"
+    privileges = ["ALL_PRIVILEGES"]
+  }
+}
