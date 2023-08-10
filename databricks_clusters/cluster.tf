@@ -15,4 +15,9 @@ for_each = var.db_clusters
     "spark.databricks.cluster.profile": "singleNode",
     "spark.databricks.delta.preview.enabled": "true"
   }
+  azure_attributes {
+    availability       = each.value.availability
+    first_on_demand    = each.value.first_on_demand
+    spot_bid_max_price = each.value.spot_bid_max_price
+  }
 }
