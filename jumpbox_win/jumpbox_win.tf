@@ -232,3 +232,20 @@ module "virtual_machine" {
       azurerm_key_vault_secret.privatekey
     ]
 }
+
+
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "rg" {
+  virtual_machine_id = azurerm_windows_virtual_machine.rg.id
+  location           = azurerm_resource_group.rg.location
+  enabled            = true
+  tags               = var.tags
+
+  daily_recurrence_time = each.value.daily_recurrence_time
+  timezone              = each.value.timezone
+
+
+  notification_settings {
+    enabled         = true
+    email           = each.value.notification_email
+  }
+ }

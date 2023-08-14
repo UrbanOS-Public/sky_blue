@@ -76,7 +76,10 @@ db_clusters = {
 jumpbox_win = {
     "jmp01" = {
       username = "marko.ristic",
-      ObjectID = "1f2daa50-0dfc-44fd-82fe-978ecef07d6e"
+      ObjectID = "1f2daa50-0dfc-44fd-82fe-978ecef07d6e",
+      daily_recurrence_time = "2100"
+      timezone = "Eastern Standard Time"
+      notification_email = "marko.ristic@accenture.com"
     }
     # "jmp02" = {
     #   username = "fred.estabrook"
