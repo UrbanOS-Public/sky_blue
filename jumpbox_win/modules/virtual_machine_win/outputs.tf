@@ -7,3 +7,8 @@ output "username" {
   description = "Specifies the username of the virtual machine"
   value       = var.vm_user
 }
+
+output "id" {
+  description = "Specifies the username of the virtual machine"
+  value       = azurerm_windows_virtual_machine.jumpvm.id
+}
