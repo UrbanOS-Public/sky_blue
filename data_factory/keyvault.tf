@@ -89,7 +89,7 @@ resource "azurerm_key_vault_access_policy" "kv_adf" {
 
   depends_on = [ 
     module.key_vault,
-    azurerm_data_factory.adf.identity.0.principal_id
+    azurerm_data_factory.adf
   ]
 }
 
