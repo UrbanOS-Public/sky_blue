@@ -178,3 +178,9 @@ variable "key_vault_default_action" {
     error_message = "The value of the default action property of the key vault is invalid."
   }
 }
+
+variable "public_network_access_enabled" { 
+  description = "(Optional) Whether public network access is allowed for this Key Vault. Defaults to true."
+  type        = bool
+  default     = false 
+}
