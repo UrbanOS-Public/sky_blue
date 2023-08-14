@@ -20,7 +20,7 @@ resource "azurerm_data_factory_linked_service_azure_databricks" "msi_linked" {
   adb_domain                 = "https://${data.azurerm_databricks_workspace.this.workspace_url}"
   msi_work_space_resource_id = data.azurerm_databricks_workspace.this.id
   integration_runtime_name   = "vnetRuntime"
-  existing_cluster_id        = databricks_cluster.this[0].id
+  existing_cluster_id        = databricks_cluster.this["cluster01"].id
   depends_on = [ 
     databricks_cluster.this
   ]
