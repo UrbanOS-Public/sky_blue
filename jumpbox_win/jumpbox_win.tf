@@ -78,6 +78,21 @@ resource "azurerm_key_vault_access_policy" "localadmin" {
   ]
 }
 
+module "key_vault_private_endpoint" {
+  for_each = var.jumpbox_win
+  source                         = "./modules/private_endpoint"
+  name                           = "${(replace(module.namejump.linux_virtual_machine.name, "jump", each.key))}-pe" #"${title(module.key_vault.name)}-pe"
+  location                       = var.location
+  resource_group_name            = replace(module.namejump.resource_group.name,"jump",each.key)
+  subnet_id                      = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name] 
+  tags                           = var.tags
+  private_connection_resource_id = module.key_vault[each.key].id #data.azurerm_resources.key_vault.resources[0].id #
+  is_manual_connection           = false
+  subresource_name               = "vault"
+  private_dns_zone_group_name    = "KeyVaultPrivateDnsZoneGroup"
+  private_dns_zone_group_ids     = [data.azurerm_private_dns_zone.vault.id] #[module.key_vault_private_dns_zone.id]
+}
+
 resource "random_password" "set_password" {
   for_each = var.jumpbox_win
   length      = 20
@@ -97,7 +112,8 @@ resource "azurerm_key_vault_secret" "privatekey" {
   depends_on = [ 
     module.key_vault,
     azurerm_key_vault_access_policy.agent,
-    random_password.set_password
+    random_password.set_password,
+    module.key_vault_private_endpoint
   ]
 }
 
@@ -212,5 +228,7 @@ module "virtual_machine" {
       azurerm_key_vault_access_policy.agent,
       azurerm_key_vault_access_policy.localadmin,
       random_password.set_password,
+      module.key_vault_private_endpoint,
+      azurerm_key_vault_secret.privatekey
     ]
 }
