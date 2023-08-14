@@ -81,13 +81,25 @@ jumpbox_win = {
       timezone = "Eastern Standard Time"
       notification_email = "marko.ristic@accenture.com"
     }
-    # "jmp02" = {
-    #   username = "fred.estabrook"
-    # }
-    # "jmp03" = {
-    #   username = "pallavi.s.srivastava"
-    # }
-    # "jmp04" = {
-    #   username = "sheik.jahangeer"
-    # }
+    "jmp02" = {
+      username = "fred.estabrook"
+      ObjectID = "9254543b-ce6c-4ffb-9d54-8c4ee2fbaf2a",
+      daily_recurrence_time = "2100"
+      timezone = "Central Standard Time"
+      notification_email = "fred.estabrook@accenture.com"
+     }
+     "jmp03" = {
+      username = "pallavi.s.srivastava"
+      ObjectID = "5684b500-41e0-4335-b33c-78ac43815830",
+      daily_recurrence_time = "2100"
+      timezone = "India Standard Time"
+      notification_email = "pallavi.s.srivastava@accenture.com"
+     }
+     "jmp04" = {
+       username = "sheik.jahangeer"
+       ObjectID = "bdad8725-f72a-4670-bb3d-aee88fa72ce1",
+       daily_recurrence_time = "2100"
+       timezone = "India Standard Time"
+       notification_email = "sheik.jahangeer@accenture.com"
+     }
   }
