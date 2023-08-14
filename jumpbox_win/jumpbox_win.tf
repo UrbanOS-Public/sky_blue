@@ -27,6 +27,9 @@ module "key_vault" {
   log_analytics_workspace_id      = data.azurerm_log_analytics_workspace.law.id
   log_analytics_retention_days    = var.log_analytics_retention_days
   public_network_access_enabled   = var.public_network_access_enabled
+  depends_on = [ 
+    azurerm_resource_group.jumpboxvm 
+  ]
 }
 
 
@@ -91,6 +94,10 @@ module "key_vault_private_endpoint" {
   subresource_name               = "vault"
   private_dns_zone_group_name    = "KeyVaultPrivateDnsZoneGroup"
   private_dns_zone_group_ids     = [data.azurerm_private_dns_zone.vault.id] #[module.key_vault_private_dns_zone.id]
+  depends_on = [ 
+    azurerm_resource_group.jumpboxvm,
+    module.key_vault 
+  ]
 }
 
 resource "random_password" "set_password" {
@@ -249,4 +256,7 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "rg" {
     enabled         = true
     email           = each.value.notification_email
   }
+  depends_on = [ 
+    module.virtual_machine
+  ]
  }
