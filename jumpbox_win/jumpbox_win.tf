@@ -256,7 +256,19 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "rg" {
     enabled         = true
     email           = each.value.notification_email
   }
+  
   depends_on = [ 
     module.virtual_machine
   ]
+ }
+
+  resource "azurerm_role_assignment" "assign-vm-role" {
+   for_each = var.jumpbox_win
+   scope                = module.virtual_machine[each.key].id
+   role_definition_name = "Virtual Machine Contributor"
+   principal_id         = each.value.ObjectID
+   
+   depends_on = [ 
+    module.virtual_machine
+   ]
  }
