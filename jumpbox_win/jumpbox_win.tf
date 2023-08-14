@@ -113,7 +113,7 @@ module "virtual_machine" {
   admin_ssh_public_key                = random_password.set_password[each.key].result #tls_private_key.this.public_key_openssh
   os_disk_image                       = var.vm_os_disk_image
   domain_name_label                   = "jumpbox win" #var.domain_name_label
-  resource_group_name                 = replace(module.namejump.key_vault.name,"jump",each.key)
+  resource_group_name                 = replace(module.namejump.resource_group.name,"jump",each.key)
   subnet_id                           = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name]
   os_disk_storage_account_type        = var.vm_os_disk_storage_account_type
   boot_diagnostics_storage_account    = data.azurerm_storage_account.st.primary_blob_endpoint #module.storage_account.primary_blob_endpoint
