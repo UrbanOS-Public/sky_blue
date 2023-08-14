@@ -235,8 +235,9 @@ module "virtual_machine" {
 
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "rg" {
-  virtual_machine_id = azurerm_windows_virtual_machine.rg.id
-  location           = azurerm_resource_group.rg.location
+  for_each = var.jumpbox_win
+  virtual_machine_id = module.virtual_machine[each.key].id
+  location           = var.location
   enabled            = true
   tags               = var.tags
 
