@@ -32,7 +32,7 @@ module "key_vault" {
 
 resource "azurerm_key_vault_access_policy" "agent" {
   for_each = var.jumpbox_win
-  key_vault_id = module.key_vault.id[each.count]
+  key_vault_id = module.key_vault.id[each.key]
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_client_config.current.object_id # "9863e455-912b-49b6-a143-4fb3c35918f1"
 
