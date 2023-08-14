@@ -635,5 +635,5 @@ variable "retention_policy_days" {
 variable "public_network_access_enabled" { 
   description = "(Optional) Whether public network access is allowed for this Key Vault. Defaults to true."
   type        = bool
-  default     = true 
+  default     = false 
 }

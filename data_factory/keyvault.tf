@@ -107,3 +107,20 @@ module "key_vault_private_endpoint" {
   private_dns_zone_group_name    = "KeyVaultPrivateDnsZoneGroup"
   private_dns_zone_group_ids     = [data.azurerm_private_dns_zone.vault.id] #[module.key_vault_private_dns_zone.id]
 }
+
+
+resource "azurerm_data_factory_linked_service_key_vault" "example" {
+  name            = replace(module.namedatalake.key_vault.name,"adl","adf")
+  data_factory_id = azurerm_data_factory.adf.id
+  key_vault_id    = module.key_vault.id
+  integration_runtime_name = "vnetRuntime"
+  description = "Keyvault linked to Azure Data Factory"
+
+
+  depends_on = [ 
+    module.key_vault,
+    module.key_vault_private_endpoint,
+    azurerm_data_factory_integration_runtime_azure.aim,
+    azurerm_data_factory.adf
+  ]
+}
