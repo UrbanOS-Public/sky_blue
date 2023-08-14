@@ -72,3 +72,19 @@ db_clusters = {
     runtime_engine = "STANDARD"
   },
 }
+
+jumpbox_win = {
+    "jmp01" = {
+      username = "marko.ristic",
+      ObjectID = "1f2daa50-0dfc-44fd-82fe-978ecef07d6e"
+    }
+    # "jmp02" = {
+    #   username = "fred.estabrook"
+    # }
+    # "jmp03" = {
+    #   username = "pallavi.s.srivastava"
+    # }
+    # "jmp04" = {
+    #   username = "sheik.jahangeer"
+    # }
+  }

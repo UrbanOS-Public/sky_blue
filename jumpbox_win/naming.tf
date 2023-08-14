@@ -15,3 +15,9 @@ module "namelaw" {
   version = "0.3.0"
   suffix  = [var.prefix, "logs", var.suffix, var.loc]
 }
+
+module "namejump" {
+  source  = "Azure/naming/azurerm"
+  version = "0.3.0"
+  suffix  = [var.prefix, "jump", var.suffix, var.loc]
+}

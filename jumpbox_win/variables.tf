@@ -103,3 +103,8 @@ variable "number_of_jumpbox_win_vm" {
   type        = number
   default     = 1
 }
+
+variable "jumpbox_win" {
+  type        = map(any)
+  description = "Specifies info to create win vm jumboxes"
+}

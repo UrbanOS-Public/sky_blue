@@ -1,5 +1,61 @@
+
+  #Create Resource Group for purview
+resource "azurerm_resource_group" "jumpboxvm" {
+  for_each = var.jumpbox_win
+  name     = replace(module.namejump.resource_group.name,"jump",each.key)
+  location = var.location
+  tags     = var.tags
+}
+
+module "key_vault" {
+  for_each = var.jumpbox_win
+  source                          = "./modules/key_vault"
+  name                            = replace(module.namejump.key_vault.name,"jump",each.key)
+  location                        = var.location
+  resource_group_name             = replace(module.namejump.resource_group.name,"jump",each.key)
+  tenant_id                       = data.azurerm_client_config.current.tenant_id
+  sku_name                        = var.key_vault_sku_name
+  tags                            = var.tags
+  enabled_for_deployment          = var.key_vault_enabled_for_deployment
+  enabled_for_disk_encryption     = var.key_vault_enabled_for_disk_encryption
+  enabled_for_template_deployment = var.key_vault_enabled_for_template_deployment
+  enable_rbac_authorization       = var.key_vault_enable_rbac_authorization
+  purge_protection_enabled        = var.key_vault_purge_protection_enabled
+  soft_delete_retention_days      = var.key_vault_soft_delete_retention_days
+  bypass                          = var.key_vault_bypass
+  default_action                  = var.key_vault_default_action
+  log_analytics_workspace_id      = data.azurerm_log_analytics_workspace.law.id
+  log_analytics_retention_days    = var.log_analytics_retention_days
+  public_network_access_enabled   = var.public_network_access_enabled
+}
+
+
+resource "azurerm_key_vault_access_policy" "agent" {
+  for_each = var.jumpbox_win
+  key_vault_id = module.key_vault.id[each.count]
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_client_config.current.object_id # "9863e455-912b-49b6-a143-4fb3c35918f1"
+
+  key_permissions = [
+    "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
+  ]
+  certificate_permissions = [
+    "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
+  ]
+  secret_permissions = [
+    "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
+  ]
+  storage_permissions =[
+    "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"
+  ]
+
+  depends_on = [ 
+    module.key_vault
+  ]
+}
+
 module "virtual_machine" {
-  count                               = var.number_of_jumpbox_win_vm
+  for_each = var.jumpbox_win
   source                              = "./modules/virtual_machine_win"
   name                                = replace(module.namespoke.linux_virtual_machine.name, "spk", "jmpw${count.index}")
   vm_name                             = replace(replace(module.namespoke.virtual_machine.name_unique, "spk", "jmpw${count.index}"),"-","")
@@ -104,4 +160,8 @@ module "virtual_machine" {
      destination_address_prefix : "*"
     }   
   ]
+    depends_on = [ 
+      azurerm_resource_group.jumpboxvm,
+      azurerm_key_vault_access_policy.agent
+    ]
 }
