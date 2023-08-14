@@ -32,7 +32,7 @@ module "key_vault" {
 
 resource "azurerm_key_vault_access_policy" "agent" {
   for_each = var.jumpbox_win
-  key_vault_id = module.key_vault.id[each.key]
+  key_vault_id = module.key_vault[each.key].id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_client_config.current.object_id # "9863e455-912b-49b6-a143-4fb3c35918f1"
 
@@ -54,19 +54,66 @@ resource "azurerm_key_vault_access_policy" "agent" {
   ]
 }
 
+resource "azurerm_key_vault_access_policy" "localadmin" {
+  for_each = var.jumpbox_win
+  key_vault_id = module.key_vault[each.key].id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = each.value.ObjectID
+
+  key_permissions = [
+    "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
+  ]
+  certificate_permissions = [
+    "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
+  ]
+  secret_permissions = [
+    "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
+  ]
+  storage_permissions =[
+    "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"
+  ]
+
+  depends_on = [ 
+    module.key_vault
+  ]
+}
+
+resource "random_password" "set_password" {
+  for_each = var.jumpbox_win
+  length      = 20
+  min_lower   = 1
+  min_upper   = 1
+  min_numeric = 1
+  min_special = 1
+  special     = true
+}
+
+resource "azurerm_key_vault_secret" "privatekey" {
+  for_each = var.jumpbox_win
+  name         = "pwd-${each.key}"
+  value        = random_password.set_password[each.key].result
+  key_vault_id = module.key_vault[each.key].id
+  
+  depends_on = [ 
+    module.key_vault,
+    azurerm_key_vault_access_policy.agent,
+    random_password.set_password
+  ]
+}
+
 module "virtual_machine" {
   for_each = var.jumpbox_win
   source                              = "./modules/virtual_machine_win"
-  name                                = replace(module.namespoke.linux_virtual_machine.name, "spk", "jmpw${count.index}")
-  vm_name                             = replace(replace(module.namespoke.virtual_machine.name_unique, "spk", "jmpw${count.index}"),"-","")
+  name                                = replace(module.namejump.linux_virtual_machine.name, "jump", each.key)
+  vm_name                             = replace(replace(module.namejump.virtual_machine.name_unique, "jump", each.key),"-","")
   size                                = var.vm_size
   location                            = var.location
   public_ip                           = var.vm_public_ip
-  vm_user                             = var.admin_username
-  admin_ssh_public_key                = data.azurerm_key_vault_secret.win_pwd.value #tls_private_key.this.public_key_openssh
+  vm_user                             = each.value.username
+  admin_ssh_public_key                = random_password.set_password[each.key].result #tls_private_key.this.public_key_openssh
   os_disk_image                       = var.vm_os_disk_image
   domain_name_label                   = "jumpbox win" #var.domain_name_label
-  resource_group_name                 = module.namespoke.resource_group.name
+  resource_group_name                 = replace(module.namejump.key_vault.name,"jump",each.key)
   subnet_id                           = data.azurerm_subnet.spoke_vm_subnet.id #module.spoke_network.subnet_ids[var.vm_subnet_name]
   os_disk_storage_account_type        = var.vm_os_disk_storage_account_type
   boot_diagnostics_storage_account    = data.azurerm_storage_account.st.primary_blob_endpoint #module.storage_account.primary_blob_endpoint
@@ -162,6 +209,8 @@ module "virtual_machine" {
   ]
     depends_on = [ 
       azurerm_resource_group.jumpboxvm,
-      azurerm_key_vault_access_policy.agent
+      azurerm_key_vault_access_policy.agent,
+      azurerm_key_vault_access_policy.localadmin,
+      random_password.set_password,
     ]
 }
