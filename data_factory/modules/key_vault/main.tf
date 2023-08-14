@@ -1,13 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-    }
-  }
-
-  required_version = ">= 0.14.9"
-}
-
 resource "azurerm_key_vault" "key_vault" {
   name                            = var.name
   location                        = var.location
@@ -21,7 +11,7 @@ resource "azurerm_key_vault" "key_vault" {
   enable_rbac_authorization       = var.enable_rbac_authorization
   purge_protection_enabled        = var.purge_protection_enabled
   soft_delete_retention_days      = var.soft_delete_retention_days
-  
+  public_network_access_enabled   = var.public_network_access_enabled
   timeouts {
     delete = "60m"
   }
