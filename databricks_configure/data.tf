@@ -84,3 +84,8 @@ data "databricks_spark_version" "latest_lts" {
 data "databricks_node_type" "smallest" {
   local_disk = true
 }
+
+data "azurerm_data_factory" "adf" {
+  name                = module.namedatalake.data_factory.name
+  resource_group_name = module.namedatalake.resource_group.name
+}
