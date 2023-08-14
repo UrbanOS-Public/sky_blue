@@ -34,3 +34,8 @@ data "azurerm_storage_account" "st" {
   name                = module.namespoke.storage_account.name
   resource_group_name = module.namespoke.resource_group.name
 }
+
+data "azurerm_private_dns_zone" "vault" {
+  name                = "privatelink.vaultcore.azure.net"
+  resource_group_name = module.namespoke.resource_group.name
+}
