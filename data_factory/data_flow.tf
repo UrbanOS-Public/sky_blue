@@ -2,7 +2,7 @@ resource "azurerm_data_factory_data_flow" "data_flow_files" {
   for_each = local.data_flow
   name            = each.key
   data_factory_id = azurerm_data_factory.adf.id
-
+  description     = each.value.desc
    source {
      name = "source1"
 
