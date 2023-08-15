@@ -67,7 +67,7 @@ resource "azurerm_data_factory_trigger_schedule" "pipeline_files" {
   #time_zone  = "EST"
   
   schedule {
-    days_of_week = "Sunday"
+    days_of_week = ["Sunday"]
     hours   = [3]
     minutes = [0]
   }
