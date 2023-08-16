@@ -177,7 +177,7 @@ resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "link" {
   data_factory_id       = azurerm_data_factory.adf.id
   use_managed_identity  = true
   url                   = "https://${(data.azurerm_storage_account.lake.name)}.dfs.core.windows.net"
-  description           = "Link with Data Lake storage via private link"
+  description           = "[terraform] Link with Data Lake storage via private link"
   integration_runtime_name = "vnetRuntime"
   depends_on = [ 
     azurerm_role_assignment.blob_contributor,
@@ -191,6 +191,7 @@ resource "azurerm_data_factory_linked_custom_service" "adf" {
   name                = each.value.linked_service_name
   data_factory_id     = azurerm_data_factory.adf.id
   type                = each.value.linked_type
+  description         = each.value.desc
    type_properties_json = <<JSON
     {
       "url": "${each.value.baseUrl}",
@@ -253,11 +254,12 @@ resource "azurerm_data_factory_custom_dataset" "data_rest" {
 
 resource "azurerm_data_factory_linked_service_azure_sql_database" "aim" {
   for_each = local.linked_sql
-  name              = each.key
-  data_factory_id   = azurerm_data_factory.adf.id
-  connection_string = each.value.connection_string
+  name                     = each.key
+  data_factory_id          = azurerm_data_factory.adf.id
+  connection_string        = each.value.connection_string
   integration_runtime_name = each.value.integration_runtime_name
-  use_managed_identity = true
+  description              = each.value.desc
+  use_managed_identity     = true
   depends_on = [  
     azurerm_data_factory_linked_custom_service.adf,
     azurerm_data_factory_integration_runtime_azure.aim,

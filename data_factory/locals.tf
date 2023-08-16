@@ -6,31 +6,37 @@ locals {
       linked_type         = "HttpServer"
       linked_service_name = "fdot"
       baseUrl             = "https://gis.fdot.gov/"
+      desc                = "[terraform]"
     }
     "arcgis" = {
       linked_type         = "HttpServer"
       linked_service_name = "arcgis"
       baseUrl             = "https://services1.arcgis.com/"
+      desc                = "[terraform]"
     }
     "flarisRestService" = {
       linked_type         = "RestService"
       linked_service_name = "flarisRestService"
       baseUrl             = "https://gis.fdot.gov/"
+      desc                = "[terraform]"
     }
     "openmeteoRestService" = {
       linked_type         = "RestService"
       linked_service_name = "openmeteoRestService"
       baseUrl             = "https://archive-api.open-meteo.com/"
+      desc                = "[terraform]"
     }
     "openmeteo" = {
       linked_type         = "HttpServer"
       linked_service_name = "openmeteo"
       baseUrl             = "https://archive-api.open-meteo.com/"
+      desc                = "[terraform]"
     }
     "arcgis7RestService" = {
       linked_type         = "RestService"
       linked_service_name = "arcgis7"
       baseUrl             = "https://services7.arcgis.com/"
+      desc                = "[terraform]"
     }
   }
 
@@ -39,7 +45,7 @@ locals {
     "vnetRuntime" = {
       core_count              = 8
       compute_type            = "General"
-      description             = "Runtime with vnet enabled"
+      description             = "[terraform] Runtime with vnet enabled"
       time_to_live_min        = 60
       virtual_network_enabled = true
     }
@@ -50,14 +56,13 @@ locals {
     "SQLDB_AIM" = {
       connection_string        = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
       integration_runtime_name = "vnetRuntime"
+      desc                     = "[terraform]"
     }
   }
 
-  # All linked Azure Data Lake
+  # All other linked Azure Data Lake
   linked_adl = {
-    "ADL_AIM" = {
-      integration_runtime_name = "vnetRuntime"
-    }
+
   }
 
   # Linked SQL table data
@@ -65,13 +70,13 @@ locals {
     "sql_table_crash" = {
       linked_service_name = "SQLDB_AIM"
       table_name          = "crash"
-      description         = "Crash data sql table"
+      description         = "[terraform] Crash data sql table"
       folder              = "sql"
     }
     "sql_table_intersections" = {
       linked_service_name = "SQLDB_AIM"
       table_name          = "intersections"
-      description         = "Intersections data sql table"
+      description         = "[terraform] Intersections data sql table"
       folder              = "sql"
     }
   }
@@ -83,98 +88,98 @@ locals {
       relativeUrl    = "O1JpcwDW8sjYuddV/arcgis/rest/services/USBikeRoutesFlorida/FeatureServer/0/query?where=%20(FDOTCOID%20%3D%2086%20OR%20FDOTCOID%20%3D%2067)%20&outFields=*&outSR=4326&f=json"
       data_type      = "Json"
       folder         = "source"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "boundaries_data_json" = {
       linked_service = "arcgis"
       relativeUrl    = "O1JpcwDW8sjYuddV/arcgis/rest/services/Florida_County_Boundaries_with_FDOT_Districts/FeatureServer/0/query?where=FDOTCountyCode%20%3D%20%2786%27&outFields=*&outSR=4326&f=json"
       data_type      = "Json"
       folder         = "source"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "active_projects_data_json" = {
       linked_service = "fdot"
       relativeUrl    = "arcgis/rest/services/Active_Construction_Projects/FeatureServer/0/query?where=County%3D%27Broward%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Meter&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset=&resultRecordCount=&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "Json"
       folder         = "source"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "aadt_data_json" = {
       linked_service = "arcgis"
       relativeUrl    = "O1JpcwDW8sjYuddV/arcgis/rest/services/Annual_Average_Daily_Traffic_TDA/FeatureServer/0/query?where=COUNTYDOT%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=100000&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token="
       data_type      = "Json"
       folder         = "source"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "intersection_data_json" = {
       linked_service = "arcgis"
       relativeUrl    = "O1JpcwDW8sjYuddV/arcgis/rest/services/Intersection_TDA/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
       data_type      = "Json"
       folder         = "source"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "traffic_signal_locations_json" = {
       linked_service = "arcgis"
       relativeUrl    = "O1JpcwDW8sjYuddV/arcgis/rest/services/Traffic_Signal_Locations_TDA/FeatureServer/0/query?where=COUNTYDOT%20%3D%20'86'&outFields=*&outSR=4326&f=json"
       data_type      = "Json"
       folder         = "source"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2017" = {
       linked_service = "openmeteo"
       relativeUrl    = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2017-01-01&end_date=2017-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2018" = {
       linked_service = "openmeteo"
       relativeUrl    = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2018-01-01&end_date=2018-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2019" = {
       linked_service = "openmeteo"
       relativeUrl    = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2019-01-01&end_date=2019-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2020" = {
       linked_service = "openmeteo"
       relativeUrl    = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2020-01-01&end_date=2020-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2021" = {
       linked_service = "openmeteo"
       relativeUrl    = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2021-01-01&end_date=2021-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2022" = {
       linked_service = "openmeteo"
       relativeUrl    = "v1/archive?latitude=26.100412&longitude=-80.130704&start_date=2022-01-01&end_date=2022-12-31&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_2023" = {
       linked_service = "openmeteo"
       relativeUrl    = "@concat('v1/archive?latitude=26.100412&longitude=-80.130704&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&start_date=2023-01-01&end_date=',formatDateTime(utcnow(), 'yyyy-MM-dd'))"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
     "weather_data_json_all" = {
       linked_service = "openmeteo"
       relativeUrl    = "@concat('v1/archive?latitude=26.100412&longitude=-80.130704&hourly=temperature_2m,relativehumidity_2m,precipitation,rain,weathercode,windspeed_10m,winddirection_10m,windgusts_10m&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York&start_date=2017-01-01&end_date=',formatDateTime(utcnow(), 'yyyy-MM-dd'))"
       data_type      = "Json"
       folder         = "source/weather"
-      desc           = "tf"
+      desc           = "[terraform]"
     }
   }
 
@@ -185,70 +190,70 @@ locals {
       relativeUrl    = "arcgis/rest/services/sso/ssogis_flaris/FeatureServer/3/query?where=DOT_CNTY_CD%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source"
-      desc           = "tf data source FLARIS Intersections"
+      desc           = "[terraform] Data Source FLARIS Intersections"
     }
     "crash_data_json_2017" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2017&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data 2017"
+      desc           = "[terraform] Data Source FLARIS Crash data 2017"
     }
     "crash_data_json_2018" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2018&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data 2018"
+      desc           = "[terraform] Data Source: FLARIS Crash data 2018"
     }
     "crash_data_json_2019" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2019&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data 2019"
+      desc           = "[terraform] Data Source: FLARIS Crash data 2019"
     }
     "crash_data_json_2020" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2020&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data 2020"
+      desc           = "[terraform] Data Source: FLARIS Crash data 2020"
     }
     "crash_data_json_2021" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2021&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data 2021"
+      desc           = "[terraform] Data Source: FLARIS Crash data 2021"
     }
     "crash_data_json_2022" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86+AND+CALENDAR_YEAR%3D2022&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data 2022"
+      desc           = "[terraform] Data Source: FLARIS Crash data 2022"
     }
     "crash_data_json_all" = {
       linked_service = "flarisRestService"
       relativeUrl    = "arcgis/rest/services/sso/ssogis/FeatureServer/11/query?where=DOT_CNTY_CD%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=5&geometryPrecision=&outSR=&havingClause=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=xyFootprint&resultOffset={offset}&resultRecordCount=5000&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&returnCentroid=false&timeReferenceUnknownClient=false&sqlFormat=none&resultType=&featureEncoding=esriDefault&datumTransformation=&f=pjson"
       data_type      = "RestResource"
       folder         = "source/crash"
-      desc           = "tf data source FLARIS Crash data all"
+      desc           = "[terraform] Data Source: FLARIS Crash data all"
     }
     "intersection_bounding_box" = {
       linked_service = "arcgis7"
       relativeUrl    = "6J5Xqvh0WFZQD1lX/ArcGIS/rest/services/Broward_Intersection/FeatureServer/0/query?where=DOT_CNTY_CD%3D86&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset={offset}&resultRecordCount=2000&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token="
       data_type      = "RestResource"
       folder         = "source/arcgis"
-      desc           = "tf data source ArcGis data Intersection bounding box"
+      desc           = "[terraform] Data Source: ArcGis data Intersection bounding box"
     }
     "crash_intersection_mapping" = {
       linked_service = "arcgis7"
       relativeUrl    = "6J5Xqvh0WFZQD1lX/ArcGIS/rest/services/crash_filter_broward/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset={offset}&resultRecordCount=2000&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token="
       data_type      = "RestResource"
       folder         = "source/arcgis"
-      desc           = "tf data source ArcGis data crash intersection mapping"
+      desc           = "[terraform] Data Source: ArcGis data crash intersection mapping"
     }
   }
 
@@ -257,142 +262,142 @@ locals {
     "adl_bikes_data_json" = {
       folder    = "adl/raw/bikes"
       data_type = "Json"
-      desc      = "tf ADL json Bike Data"
+      desc      = "[terraform] ADL json Bike Data"
     }
     "adl_boundaries_data_json" = {
       folder    = "adl/raw/boundaries"
       data_type = "Json"
-      desc      = "tf ADL json Boundaries Data"
+      desc      = "[terraform] ADL json Boundaries Data"
     }
     "adl_active_projects_data_json" = {
       folder    = "adl/raw"
       data_type = "Json"
-      desc      = "tf ADL json Active projects Data"
+      desc      = "[terraform] ADL json Active projects Data"
     }
     "adl_aadt_data_json" = {
       folder    = "adl/raw/aadt"
       data_type = "Json"
-      desc      = "tf ADL json AADT Data"
+      desc      = "[terraform] ADL json AADT Data"
     }
     "adl_intersection_data_json" = {
       folder    = "adl/raw/intersection"
       data_type = "Json"
-      desc      = "tf ADL json intersection data"
+      desc      = "[terraform] ADL json intersection data"
     }
     "adl_intersection_floris_data_json" = {
       folder    = "adl/raw/intersection"
       data_type = "Json"
-      desc      = "tf ADL json floris data intersection"
+      desc      = "[terraform] ADL json floris data intersection"
     }
     "adl_traffic_signal_locations_json" = {
       folder    = "adl/raw/traffic_signal"
       data_type = "Json"
-      desc      = "tf ADL json Traffic signal location"
+      desc      = "[terraform] ADL json Traffic signal location"
     }
     "adl_crash_data_json_2022" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data 2022"
+      desc      = "[terraform] ADL json Crash Data 2022"
     }
     "adl_crash_data_json_2021" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data 2021"
+      desc      = "[terraform] ADL json Crash Data 2021"
     }
     "adl_crash_data_json_2020" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data 2020"
+      desc      = "[terraform] ADL json Crash Data 2020"
     }
     "adl_crash_data_json_2019" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data 2019"
+      desc      = "[terraform] ADL json Crash Data 2019"
     }
     "adl_crash_data_json_2018" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data 2018"
+      desc      = "[terraform] ADL json Crash Data 2018"
     }
     "adl_crash_data_json_2017" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data 2017"
+      desc      = "[terraform] ADL json Crash Data 2017"
     }
     "adl_crash_data_json_all" = {
       folder    = "adl/raw/crash"
       data_type = "Json"
-      desc      = "tf ADL json Crash Data all"
+      desc      = "[terraform] ADL json Crash Data all"
     }
     "adl_FLARIS_Intersections_json" = {
       folder    = "adl/raw/intersections"
       data_type = "Json"
-      desc      = "tf ADL json FLARIS Intersections"
+      desc      = "[terraform] ADL json FLARIS Intersections"
     }
     "adl_FLARIS_Intersections_csv" = {
       folder    = "adl/standardized"
       data_type = "DelimitedText"
-      desc      = "tf ADL csv FLARIS Intersections"
+      desc      = "[terraform] ADL csv FLARIS Intersections"
     }
     "adl_FLARIS_geometry_csv" = {
       folder    = "adl/standardized"
       data_type = "DelimitedText"
-      desc      = "tf ADL csv Crash Data all geometry data"
+      desc      = "[terraform] ADL csv Crash Data all geometry data"
     }
     "adl_crash_data_csv_all" = {
       folder    = "adl/standardized"
       data_type = "DelimitedText"
-      desc      = "tf ADL csv Crash Data all"
+      desc      = "[terraform] ADL csv Crash Data all"
     }
     "adl_weather_data_json_2017" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2017"
+      desc      = "[terraform] ADL json Weather Data 2017"
     }
     "adl_weather_data_json_2018" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2018"
+      desc      = "[terraform] ADL json Weather Data 2018"
     }
     "adl_weather_data_json_2019" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2019"
+      desc      = "[terraform] ADL json Weather Data 2019"
     }
     "adl_weather_data_json_2020" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2020"
+      desc      = "[terraform] ADL json Weather Data 2020"
     }
     "adl_weather_data_json_2021" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2021"
+      desc      = "[terraform] ADL json Weather Data 2021"
     }
     "adl_weather_data_json_2022" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2022"
+      desc      = "[terraform] ADL json Weather Data 2022"
     }
     "adl_weather_data_json_2023" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data 2023"
+      desc      = "[terraform] ADL json Weather Data 2023"
     }
     "adl_weather_data_json_all" = {
       folder    = "adl/raw/weather"
       data_type = "Json"
-      desc      = "tf ADL json Weather Data all"
+      desc      = "[terraform] ADL json Weather Data all"
     }
     "adl_arcgis_boundingbox_json_all" = {
       folder    = "adl/raw/arcgis"
       data_type = "Json"
-      desc      = "tf ADL json Intersection - Bounding Box Data from arcgis"
+      desc      = "[terraform] ADL json Intersection - Bounding Box Data from arcgis"
     }
     "adl_arcgis_crash_inter_json_all" = {
       folder    = "adl/raw/arcgis"
       data_type = "Json"
-      desc      = "tf ADL json Crash - Intersection mapping Data from arcgis"
+      desc      = "[terraform] ADL json Crash - Intersection mapping Data from arcgis"
     }
   }
 
@@ -400,112 +405,112 @@ locals {
   adf_pipelines = {
     "transfer_aadt" = {
       folder = "aadt"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_arcgis_boundingbox" = {
       folder = "arcgis"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_arcgis_crash_intersection" = {
       folder = "arcgis"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_bikes" = {
       folder = "bikes"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_boundaries" = {
       folder = "boundaries"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_2017" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_2018" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_2019" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_2020" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_2021" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_2022" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_crash_all" = {
       folder = "crash"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_intersections" = {
       folder = "intersections"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_trafficsignal" = {
       folder = "trafficsignal"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2017" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2018" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2019" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2020" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2021" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2022" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_2023" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
     "transfer_weather_all" = {
       folder = "weather"
-      desc   = "tf ADL pipeline"
+      desc   = "[terraform] ADL pipeline"
       concurrency = 1
     }
   }
@@ -518,7 +523,7 @@ locals {
       source_link    = "adl_FLARIS_Intersections_json"
       sink_link      = "adl_FLARIS_Intersections_csv"
       transformation = ["flatten1"]
-      desc           = "created by tf - FLARIS Intersections"
+      desc           = "[terraform] FLARIS Intersections"
       script_lines = ["source(output(",
         "          exceededTransferLimit as boolean,",
         "          features as (attributes as (AADT_MAJOR as integer, AADT_MAJOR_ROADWAY_ID as string, AADT_MINOR as integer, AADT_MINOR_ROADWAY_ID as string, COMPLEX_INTERSECTION_IND as boolean, CRASH_INTERSECT_CATEGORY_SN as string, DOT_CNTY_CD as short, DOT_GEOG_DIST_CD as short, EV_DAILY_TRAFFIC as integer, EXTRACT_DATE as long, EXT_NUM_SEG as short, GEOMETRY_TYPE as boolean, GEOMETRY_TYPE_ID as short, INTERCHANGE_IND as string, INTERSECTING_ROADWAYID_MPS as string, INTERSECTING_ROAD_NAMES as string, INTERSECTION_KEY as integer, INTERSECTION_MIN_NODE_ID as integer, INTERSECTION_TYPE_ID as string, INT_NUM_SEG as short, MAP_SOURCE as string, MAX_LANES_NO as short, NUM_LEG_ID as short, OBJECTID as integer, ON_OFF_SYSTEM_IND as string, OTHER_SIGN_IND as string, PXID as integer, SIGNALIZED_IND as boolean, STOP_CONTROL_IND as boolean, TOT_NUM_LEG as short, TOT_NUM_NODES as short, TOT_NUM_SEG as short, URBAN_IND as boolean, USPS_CITY_PRIMARY_ID as short, X_UTM as double, YIELD_CONTROL_IND as boolean, Y_UTM as double), geometry as (paths as double[][][]))[],",
@@ -593,7 +598,7 @@ locals {
       source_link    = "adl_FLARIS_Intersections_json"
       sink_link      = "adl_FLARIS_geometry_csv"
       transformation = ["flatten1", "flatten2", "flatten3"]
-      desc           = "created by tf - FLARIS Intersections Geometry"
+      desc           = "[terraform] FLARIS Intersections Geometry"
       script_lines = ["source(output(",
         "          exceededTransferLimit as boolean,",
         "          features as (attributes as (AADT_MAJOR as integer, AADT_MAJOR_ROADWAY_ID as string, AADT_MINOR as integer, AADT_MINOR_ROADWAY_ID as string, COMPLEX_INTERSECTION_IND as boolean, CRASH_INTERSECT_CATEGORY_SN as string, DOT_CNTY_CD as short, DOT_GEOG_DIST_CD as short, EV_DAILY_TRAFFIC as integer, EXTRACT_DATE as long, EXT_NUM_SEG as short, GEOMETRY_TYPE as boolean, GEOMETRY_TYPE_ID as short, INTERCHANGE_IND as string, INTERSECTING_ROADWAYID_MPS as string, INTERSECTING_ROAD_NAMES as string, INTERSECTION_KEY as integer, INTERSECTION_MIN_NODE_ID as integer, INTERSECTION_TYPE_ID as string, INT_NUM_SEG as short, MAP_SOURCE as string, MAX_LANES_NO as short, NUM_LEG_ID as short, OBJECTID as integer, ON_OFF_SYSTEM_IND as string, OTHER_SIGN_IND as string, PXID as integer, SIGNALIZED_IND as boolean, STOP_CONTROL_IND as boolean, TOT_NUM_LEG as short, TOT_NUM_NODES as short, TOT_NUM_SEG as short, URBAN_IND as boolean, USPS_CITY_PRIMARY_ID as short, X_UTM as double, YIELD_CONTROL_IND as boolean, Y_UTM as double), geometry as (paths as double[][][]))[],",
@@ -647,7 +652,7 @@ locals {
       source_link    = "adl_crash_data_json_all"
       sink_link      = "adl_crash_data_csv_all"
       transformation = ["flatten1"]
-      desc           = "created by tf - All Creash data"
+      desc           = "[terraform] All Crash data"
       script_lines = ["source(output(",
         "          features as (attributes as (AADT_SOURCE as string, ACCLANE as string, ACCSIDRD as string, AGENCY_TYPE_TXT as string, AGE_65_69_IND as boolean, AGE_65_PLUS_IND as boolean, AGE_70_74_IND as boolean, AGE_75_79_IND as boolean, AGE_80_PLUS_IND as boolean, AGE_TEEN_IND as boolean, AGGRESSIVE_DRIVING_IND as boolean, ALCINVCD as short, ARBM_ROADSIDE as string, ARBM_ROAD_STATUS as string, AVERAGE_DAILY_TRAFFIC as integer, BICYCLIST_RELATED_IND as boolean, CALENDAR_YEAR as short, CARSTACD as short, CASE_NUMBER as string, CNTOFLANES as short, COMMERCIAL_VEHICLE_IND as boolean, COUNTY_TXT as string, CRASH_CLASS_IND_MC as string, CRASH_DATE as long, CRASH_NUMBER as integer, CRASH_TIME as short, CRRATECD as short, CRSH_REF_NODE_ID as boolean, CRSH_XTMREF_NOD_ID as boolean, CRSH_XTRREFNODB_ID as boolean, D1_FRST_DR_ACTN_CD as short, D1_FRST_DR_ACTN_CD_TXT as string, D2_FRST_DR_ACTN_CD as short, D2_FRST_DR_ACTN_CD_TXT as string, DAYOWEEK as short, DHSCNTYCTY as short, DHSMV_CTY_CD as short, DHSRDSYS as short, DISTRACTED_DRIVER_IND as boolean, DOT_CNTY_CD as short, DOT_GEOG_DIST_CD as short, DRIVER_ACTION_MC as string, DRIVER_PEDEST_CONDIT_IND_MC as string, DSTNC_TOXTRNOD_NUM as double, DST_TOXTRMNODB_NUM as double, ENVIRNMT1 as short, ENVIRNMT1_TXT as string, ENVIRNMT2 as short, ENVIRNMT2_TXT as string, ENVIRNMT3 as short, ENVIRNMT3_TXT as string, ENVIRONMENT_CONDITION_MC as string, EVNT_WTHR_COND_CD as short, EXTRACT_DATE as long, FRST_HARM_LOC_CD as short, FUNCLASS as short, GEO_URBAN_RURAL_IND as string, IMPAIRED_BICYCLIST_IND as boolean, IMPAIRED_DRIVER_IND as boolean, IMPAIRED_PEDESTRIAN_IND as boolean, IMPCT_TYP_CD as short, INJSEVER as short, INTCT_TYP_CD as short, INTERSECTION_IND as boolean, INT_ROADWAY_NAME as string, INVSTGT_AGCY_CD as short, IN_TOWN_FLAG as boolean, JCT_CD as short, LANE_DEPARTURE_IND as boolean, LATITUDE as double, LAW_ENFRC_PRSNT_CD as short, LGHT_COND_CD as short, LINK_ID as boolean, LOCMP as double, LOC_WTHN_ZONE_CD as short, LONGITUDE as double, MAP_SOURCE as string, MOST_HARM_EVNT_CD as short, MOTORCYCLE_INVOLVED_IND as boolean, NEAREST_NODE_FROM_CRASH as short, NO_BELT_AGE_13_17_IND as boolean, NO_BELT_AGE_1_4_IND as boolean, NO_BELT_AGE_5_12_IND as boolean, NO_BELT_IND as boolean, NUMBER_OF_BICYCLISTS as short, NUMBER_OF_INJURED as short, NUMBER_OF_KILLED as short, NUMBER_OF_PEDESTRIANS as short, NUMBER_OF_SERIOUS_INJURIES as short, NUMBER_OF_VEHICLES as short, OBJECTID as integer, OFFICER_LATITUDE as double, OFFICER_LONGITUDE as double, ON_ROADWAY_NAME as string, PEDESTRIAN_BICYCLIST_IND as boolean, PEDESTRIAN_RELATED_IND as boolean, RCI_AVG_PERC_TRUCK_TRAFF as double, RCI_HORIZ_CURVE_CD as string, RCI_MEDIAN_WIDTH_FT as double, RCI_SHOULDER_TYPE_1 as short, RCI_SHOULDER_TYPE_1_TXT as string, RCI_SHOULDER_TYPE_2 as short, RCI_SHOULDER_TYPE_2_TXT as string, RCI_SHOULDER_TYPE_3 as short, RCI_SHOULDER_TYPE_3_TXT as string, RCI_SHOULDER_WIDTH_1_FT as double, RCI_SHOULDER_WIDTH_2_FT as double, RCI_SHOULDER_WIDTH_3_FT as double, RCI_SURFACE_WIDTH_FT as double, RDWY_ALIGN_CD as short, RDWY_GRDE_CD as short, RD_SRFC_COND_CD as short, REFDIRECT as string, REFDISTANCE_MI as double, ROADCOND1 as short, ROADCOND1_TXT as string, ROADCOND2 as short, ROADCOND2_TXT as string, ROADCOND3 as short, ROADCOND3_TXT as string, ROADWAYID as integer, ROAD_CONDITION_MC as string, SAFETYLAT as double, SAFETYLON as double, SCHL_BUS_REL_CD as short, SITELOCA as short, SKID_NUMBER as short, SKID_TEST_DATE as long, SPEEDING_AGGRESSIVE_IND as boolean, SPEEDING_IND as boolean, SPEED_LIMIT as short, STATE_ROAD_NUMBER as string, TOTAL_DRIVERS as short, TOTAL_PERSONS as short, TRAFFIC_CONTROL_MC as string, TRAF_WAY_CD as short, TRAVDIR as string, TYPESHLD as short, US_ROAD_NUMBER as string, V1TRAFCTL as short, V1TRAFCTL_TXT as string, V1_TRAF_WAY_CD as short, V1_TRAF_WAY_CD_TXT as string, V2TRAFCTL as short, V2TRAFCTL_TXT as string, V2_TRAF_WAY_CD as short, V2_TRAF_WAY_CD_TXT as string, VHCL_MOVE_CD as short, WEEKDAY_TXT as string, WORKZONE_IND as boolean, WRK_PRSNT_CD as short, WRK_ZONE_TYP_CD as short, WRONGWAY_IND as boolean, XID as long, X_COORDINATE as double, Y_COORDINATE as double), geometry as (x as integer, y as integer))[],",
         "          fields as (alias as string, length as short, name as string, type as string)[],",
