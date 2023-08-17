@@ -77,13 +77,13 @@ locals {
   # Linked SQL table data
   linked_sql_table = {
     "sql_table_crash" = {
-      linked_service_name = "SQLDB_AIM"
+      linked_service_name = "sql-aim-adl-dev-eus"
       table_name          = "crash"
       description         = "[terraform] Crash data sql table"
       folder              = "sql"
     }
     "sql_table_intersections" = {
-      linked_service_name = "SQLDB_AIM"
+      linked_service_name = "sql-aim-adl-dev-eus"
       table_name          = "intersections"
       description         = "[terraform] Intersections data sql table"
       folder              = "sql"
