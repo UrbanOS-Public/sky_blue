@@ -64,7 +64,16 @@ locals {
   linked_adl = {
 
   }
-
+  # All other linked Azure SQL custom service
+  linked_sql_service = {
+    "sql-aim-adl-dev-eus" = {
+      linked_service_name      = "sql-aim-adl-dev-eus"
+      linked_type              = "AzureSqlDatabase"
+      connection_string        = "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sql-aim-adl-dev-eus.database.windows.net;Initial Catalog=aim"
+      integration_runtime_name = "vnetRuntime"
+      desc                     = "[terraform]"
+    }
+  }
   # Linked SQL table data
   linked_sql_table = {
     "sql_table_crash" = {

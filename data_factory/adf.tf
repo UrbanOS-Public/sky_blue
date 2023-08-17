@@ -201,6 +201,23 @@ resource "azurerm_data_factory_linked_custom_service" "adf" {
     JSON
 }
 
+resource "azurerm_data_factory_linked_custom_service" "sql" {
+  for_each = local.linked_sql_service
+  name                = each.value.linked_service_name
+  data_factory_id     = azurerm_data_factory.adf.id
+  type                = each.value.linked_type
+  description         = each.value.desc
+  integration_runtime {
+    name = each.value.integration_runtime_name
+  }
+  type_properties_json = <<JSON
+  {
+    "connectionString": "${each.value.connection_string}"
+  }
+  JSON
+}
+
+
 resource "azurerm_data_factory_custom_dataset" "data" {
   for_each = local.custom_data
   name                = each.key
