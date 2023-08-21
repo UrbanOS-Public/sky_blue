@@ -91,14 +91,14 @@ jumpbox_win = {
      "jmp03" = {
       username = "pallavi.s.srivastava"
       ObjectID = "5684b500-41e0-4335-b33c-78ac43815830",
-      daily_recurrence_time = "2100"
+      daily_recurrence_time = "2300"
       timezone = "India Standard Time"
       notification_email = "pallavi.s.srivastava@accenture.com"
      }
      "jmp04" = {
        username = "sheik.jahangeer"
        ObjectID = "bdad8725-f72a-4670-bb3d-aee88fa72ce1",
-       daily_recurrence_time = "2100"
+       daily_recurrence_time = "2300"
        timezone = "India Standard Time"
        notification_email = "sheik.jahangeer@accenture.com"
      }
